@@ -1,0 +1,1669 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SEXY DUST | Admin Studio</title>
+
+<style>
+:root {
+  --pink: #b84f78;
+  --rose: #d99aae;
+  --pale: #f8edf1;
+  --bg: #fcfaf9;
+  --wine: #563746;
+  --line: #eadce1;
+  --muted: #897982;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--wine);
+  font: 14px Arial, sans-serif;
+}
+
+.top {
+  background: linear-gradient(110deg, #f4e4e9, #fff8fa);
+  padding: 24px;
+  border-bottom: 1px solid var(--line);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 15px;
+  flex-wrap: wrap;
+}
+
+.top h1 {
+  margin: 0;
+  font: 34px Georgia, serif;
+  color: var(--pink);
+}
+
+.top p {
+  margin: 7px 0 0;
+  color: var(--muted);
+}
+
+.btn {
+  border: 1px solid var(--line);
+  background: white;
+  color: var(--wine);
+  border-radius: 9px;
+  padding: 10px 14px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.btn.primary {
+  background: var(--pink);
+  border-color: var(--pink);
+  color: white;
+}
+
+.btn.danger {
+  color: #a32c50;
+  border-color: #edc4d1;
+}
+
+.layout {
+  max-width: 1220px;
+  margin: 24px auto;
+  padding: 0 18px;
+  display: grid;
+  grid-template-columns: 220px minmax(0, 1fr);
+  gap: 20px;
+}
+
+.side {
+  align-self: start;
+  position: sticky;
+  top: 15px;
+  background: white;
+  border: 1px solid var(--line);
+  border-radius: 15px;
+  padding: 10px;
+  display: grid;
+  gap: 4px;
+}
+
+.side button {
+  text-align: left;
+  border: 0;
+  background: white;
+  padding: 13px;
+  border-radius: 9px;
+  color: var(--wine);
+  cursor: pointer;
+}
+
+.side button.active,
+.side button:hover {
+  background: var(--pale);
+  color: var(--pink);
+  font-weight: bold;
+}
+
+.main { min-width: 0; }
+
+.tab { display: none; }
+.tab.active { display: block; }
+
+.heading { margin-bottom: 18px; }
+
+.heading h2 {
+  font: 29px Georgia, serif;
+  margin: 0 0 7px;
+}
+
+.heading p,
+.hint {
+  color: var(--muted);
+  line-height: 1.6;
+}
+
+.panel {
+  background: white;
+  border: 1px solid var(--line);
+  border-radius: 15px;
+  padding: 20px;
+  margin-bottom: 16px;
+}
+
+.panel h3 {
+  font: 21px Georgia, serif;
+  margin: 0 0 15px;
+}
+
+.grid2 {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 14px;
+}
+
+.field {
+  margin-bottom: 13px;
+  min-width: 0;
+}
+
+.field label {
+  display: block;
+  font-size: 12px;
+  font-weight: bold;
+  margin-bottom: 7px;
+}
+
+.field input:not([type="checkbox"]):not([type="file"]),
+.field textarea,
+.field select {
+  width: 100%;
+  padding: 11px 12px;
+  border: 1px solid var(--line);
+  border-radius: 9px;
+  background: #fffdfd;
+  color: var(--wine);
+  font: inherit;
+}
+
+.field textarea {
+  min-height: 86px;
+  resize: vertical;
+}
+
+.field input[type="file"] {
+  width: 100%;
+  font-size: 12px;
+}
+
+.row {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  flex-wrap: wrap;
+}
+
+.preview {
+  min-height: 120px;
+  border: 1px dashed var(--line);
+  background: #fcf6f8;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10px;
+  margin: 10px 0;
+  overflow: hidden;
+}
+
+.preview img {
+  max-width: 100%;
+  max-height: 240px;
+  object-fit: contain;
+}
+
+.items {
+  display: grid;
+  gap: 10px;
+}
+
+.item {
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  padding: 12px;
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  min-width: 0;
+}
+
+.thumb {
+  width: 65px;
+  height: 65px;
+  object-fit: cover;
+  border-radius: 8px;
+  background: var(--pale);
+  flex-shrink: 0;
+}
+
+.meta {
+  flex: 1;
+  min-width: 0;
+}
+
+.meta b {
+  display: block;
+  margin-bottom: 5px;
+  overflow-wrap: anywhere;
+}
+
+.meta small {
+  color: var(--muted);
+  line-height: 1.4;
+}
+
+.item .actions {
+  display: flex;
+  gap: 5px;
+  flex-wrap: wrap;
+}
+
+.item .actions button {
+  padding: 7px 9px;
+  font-size: 11px;
+}
+
+.notice {
+  padding: 13px 15px;
+  background: var(--pale);
+  border: 1px solid var(--line);
+  border-radius: 11px;
+  line-height: 1.6;
+  margin-bottom: 16px;
+  font-size: 12px;
+}
+
+.priceTable {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 12px;
+}
+
+.priceTable th,
+.priceTable td {
+  border-bottom: 1px solid var(--line);
+  padding: 9px;
+  text-align: left;
+}
+
+.priceTable input {
+  width: 100%;
+  min-width: 70px;
+  padding: 8px;
+  border: 1px solid var(--line);
+  border-radius: 7px;
+}
+
+.variant-card { border:1px solid var(--line); background:#fff9fb; border-radius:12px; padding:14px; }\n.variant-card h4 { margin:0 0 12px; }\n.stat {
+  background: #fcf6f8;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  padding: 13px;
+}
+
+.stat b {
+  display: block;
+  font-size: 19px;
+  color: var(--pink);
+  margin-bottom: 5px;
+}
+
+.stat span {
+  font-size: 11px;
+  color: var(--muted);
+}
+
+.empty {
+  padding: 20px;
+  text-align: center;
+  color: var(--muted);
+  background: #fcf6f8;
+  border-radius: 10px;
+}
+
+.status {
+  font-size: 12px;
+  color: var(--pink);
+  min-height: 18px;
+  margin-top: 10px;
+}
+
+@media(max-width:800px) {
+  .layout { grid-template-columns: 1fr; }
+  .side {
+    position: static;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  .grid2 { grid-template-columns: 1fr; }
+}
+
+@media(max-width:460px) {
+  .side { grid-template-columns: 1fr 1fr; }
+  .item { align-items: flex-start; flex-wrap: wrap; }
+  .item .actions { width: 100%; }
+}
+</style>
+</head>
+
+<body>
+
+<header class="top">
+  <div>
+    <h1>Sexy Dust Admin Studio</h1>
+    <p>Manage products, photos, categories, payment and pricing.</p>
+  </div>
+  <a class="btn" href="index.html">← View Website</a>
+</header>
+
+<div class="layout">
+
+<aside class="side" id="nav">
+  <button class="active" data-tab="products">Product Photos & Categories</button>
+  <button data-tab="payment">Payment QR</button>
+  <button data-tab="proofs">Buyer's Proof</button>
+  <button data-tab="protocols">Protocols</button>
+  <button data-tab="contact">WhatsApp & Contact</button>
+  <button data-tab="pricing">Secret Code Pricing</button>
+  <button data-tab="costing">Costing & Profit</button>
+  <button data-tab="orders">Admin Orders</button>
+</aside>
+
+<main class="main">
+
+<!-- PRODUCTS -->
+<section class="tab active" id="tab-products">
+
+  <div class="heading">
+    <h2>Products & Categories</h2>
+    <p>Add product names, MG amounts, categories, prices and photos.</p>
+  </div>
+
+  <div class="notice">
+    Product uploads and settings in this version are stored in this browser only.
+    Shared online storage is required for all customers to see updates.
+  </div>
+
+  <div class="panel">
+    <h3 id="productFormTitle">Add Product</h3>
+
+    <input type="hidden" id="productId">
+
+    <div class="grid2">
+      <div class="field">
+        <label>Product Name *</label>
+        <input id="productName" placeholder="e.g. GHK-CU" required>
+      </div>
+      <div class="field">
+        <label>Category</label>
+        <input id="productCategoryText" placeholder="e.g. Peptides">
+      </div>
+    </div>
+    <input type="hidden" id="productCategory">
+    <div class="field">
+      <label>Product Description</label>
+      <textarea id="productDescription" placeholder="Description shown in the shop"></textarea>
+    </div>
+
+    <div class="panel" style="padding:14px;background:#fcf6f8">
+      <h3>Add Your Own Category</h3>
+      <div class="row">
+        <input id="newCategoryName" placeholder="e.g. Weight Management">
+        <button class="btn" type="button" id="addCategory">Add Category</button>
+      </div>
+      <p class="hint">Create any category you want. It will appear in the product form and Shop filter.</p>
+      <div id="categoryList" class="row"></div>
+    </div>
+
+    <div class="field">
+      <div class="row" style="justify-content:space-between">
+        <h3 style="margin:0">MG / Strength Variants</h3>
+        <button class="btn" type="button" id="addVariant">+ Add MG Variant</button>
+      </div>
+      <p class="hint">Add as many MG variants as needed. Set a separate price and stock for each variant.</p>
+      <div id="variantList" class="items"></div>
+    </div>
+
+    <div class="field">
+      <label>Upload Product Photo</label>
+      <input id="productPhoto" type="file" accept="image/*">
+      <div class="preview" id="productPreview">Photo preview</div>
+    </div>
+
+    <div class="field">
+      <label><input id="productActive" type="checkbox" checked> Show on website</label>
+    </div>
+
+    <div class="row">
+      <button class="btn primary" id="saveProduct">Save Product</button>
+      <button class="btn" id="clearProduct">Clear Form</button>
+    </div>
+
+    <div class="status" id="productStatus"></div>
+  </div>
+
+  <div class="panel">
+    <h3>Current Products</h3>
+    <div class="items" id="productList"></div>
+  </div>
+</section>
+
+<!-- PAYMENT -->
+<section class="tab" id="tab-payment">
+  <div class="heading">
+    <h2>Payment QR & Instructions</h2>
+    <p>Upload the payment QR and enter payment instructions.</p>
+  </div>
+
+  <div class="panel">
+    <div class="field">
+      <label>Payment QR Image</label>
+      <input type="file" id="qrUpload" accept="image/*">
+      <div class="preview" id="qrPreview">QR preview</div>
+    </div>
+
+    <div class="field">
+      <label>Payment Instructions</label>
+      <textarea id="paymentInstructions" placeholder="Enter payment instructions"></textarea>
+    </div>
+
+    <div class="field">
+      <label>Payment Label</label>
+      <input id="paymentLabel" placeholder="e.g. Scan to Pay">
+    </div>
+
+    <button class="btn primary" id="savePayment">Save Payment Settings</button>
+    <div class="status" id="paymentStatus"></div>
+  </div>
+</section>
+
+<!-- BUYER PROOFS -->
+<section class="tab" id="tab-proofs">
+  <div class="heading">
+    <h2>Buyer's Proof</h2>
+    <p>Upload proof images and choose which ones to publish.</p>
+  </div>
+
+  <div class="notice">
+    Hide customer names, addresses, phone numbers and transaction details
+    before publishing. Only publish images you have permission to share.
+  </div>
+
+  <div class="panel">
+    <div class="field">
+      <label>Upload Proof Image</label>
+      <input type="file" id="proofUpload" accept="image/*">
+    </div>
+
+    <div class="field">
+      <label>Caption</label>
+      <input id="proofCaption" placeholder="e.g. Order received">
+    </div>
+
+    <button class="btn primary" id="addProof">Add Buyer's Proof</button>
+    <div class="status" id="proofStatus"></div>
+  </div>
+
+  <div class="panel">
+    <h3>Proof Gallery</h3>
+    <div class="items" id="proofList"></div>
+  </div>
+</section>
+
+<!-- PROTOCOLS -->
+<section class="tab" id="tab-protocols">
+  <div class="heading">
+    <h2>Protocols & Information</h2>
+    <p>Add, edit and remove information entries.</p>
+  </div>
+
+  <div class="panel">
+    <h3 id="protocolFormTitle">Add Protocol</h3>
+    <input type="hidden" id="protocolId">
+
+    <div class="field">
+      <label>Title</label>
+      <input id="protocolTitle" placeholder="Protocol title">
+    </div>
+
+    <div class="field">
+      <label>Content</label>
+      <textarea id="protocolContent" placeholder="Information content"></textarea>
+    </div>
+
+    <div class="field">
+      <label>Document Link (optional)</label>
+      <input id="protocolLink" placeholder="https://...">
+    </div>
+
+    <div class="row">
+      <button class="btn primary" id="saveProtocol">Save Protocol</button>
+      <button class="btn" id="clearProtocol">Clear</button>
+    </div>
+
+    <div class="status" id="protocolStatus"></div>
+  </div>
+
+  <div class="panel">
+    <h3>Current Protocols</h3>
+    <div class="items" id="protocolList"></div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section class="tab" id="tab-contact">
+  <div class="heading">
+    <h2>WhatsApp & Contact</h2>
+    <p>Add your official contact links.</p>
+  </div>
+
+  <div class="panel">
+    <div class="field">
+      <label>WhatsApp Number</label>
+      <input id="waNumber" placeholder="639XXXXXXXXX">
+      <p class="hint">Use country code and numbers only.</p>
+    </div>
+
+    <div class="field">
+      <label>WhatsApp Link (optional)</label>
+      <input id="waLink" placeholder="https://wa.me/639XXXXXXXXX">
+    </div>
+
+    <div class="field">
+      <label>Contact Button Text</label>
+      <input id="waLabel" placeholder="Chat with us on WhatsApp">
+    </div>
+
+    <div class="field">
+      <label>Other Contact / Community Link</label>
+      <input id="otherLink" placeholder="Messenger or Facebook link">
+    </div>
+
+    <button class="btn primary" id="saveContact">Save Contact Links</button>
+    <div class="status" id="contactStatus"></div>
+  </div>
+</section>
+
+<!-- SECRET CODE PRICING -->
+<section class="tab" id="tab-pricing">
+  <div class="heading">
+    <h2>Secret Code Pricing</h2>
+    <p>Set custom prices per product and per option.</p>
+  </div>
+
+  <div class="notice">
+    This is a browser-only configuration preview. Production secret-code pricing
+    must be validated on the server to prevent price manipulation.
+  </div>
+
+  <div class="panel">
+    <h3>Create Secret Code</h3>
+
+    <div class="grid2">
+      <div class="field">
+        <label>Secret Code</label>
+        <input id="secretCode" placeholder="e.g. SD-CUSTOMER-01">
+      </div>
+
+      <div class="field">
+        <label>Private Note</label>
+        <input id="secretNote" placeholder="Private admin note">
+      </div>
+    </div>
+
+    <label><input type="checkbox" id="secretEnabled" checked> Enabled</label>
+    <p><button class="btn primary" id="addCode">Create Code</button></p>
+    <div class="status" id="codeStatus"></div>
+  </div>
+
+  <div class="panel">
+    <h3>Custom Prices</h3>
+    <div id="codeList"></div>
+  </div>
+</section>
+
+<!-- COSTING -->
+<section class="tab" id="tab-costing">
+  <div class="heading">
+    <h2>Costing & Profit</h2>
+    <p>Set product manufacturing costs and complete-set inclusion costs.</p>
+  </div>
+
+  <div class="notice">
+    These are cost estimates only. Shipping, payment fees, refunds and overhead
+    are not included unless you add them separately.
+  </div>
+
+  <div class="panel">
+    <h3>Manufacturing Cost per Vial</h3>
+    <div id="costProductList"></div>
+  </div>
+
+  <div class="panel">
+    <h3>Complete Set Inclusions</h3>
+    <div class="grid2">
+      <div class="field">
+        <label>Item Name</label>
+        <input id="incName" placeholder="e.g. Insulin syringe">
+      </div>
+
+      <div class="field">
+        <label>Cost per Unit (₱)</label>
+        <input id="incCost" type="number" min="0" step="0.01">
+      </div>
+
+      <div class="field">
+        <label>Quantity per Set</label>
+        <input id="incQty" type="number" min="0" step="1" value="1">
+      </div>
+    </div>
+
+    <button class="btn primary" id="addInclusion">Add Inclusion</button>
+    <div id="inclusionList" style="margin-top:14px"></div>
+
+    <div class="stat" style="margin-top:14px">
+      <b id="inclusionTotal">₱0.00</b>
+      <span>Total inclusion cost per Complete Set</span>
+    </div>
+  </div>
+</section>
+
+</main>
+</div>
+
+<script>
+const $ = id => document.getElementById(id);
+
+function read(key, fallback) {
+  try {
+    const value = JSON.parse(localStorage.getItem(key));
+    return value == null ? fallback : value;
+  } catch {
+    return fallback;
+  }
+}
+
+function save(key, value) {
+  localStorage.setItem(key, JSON.stringify(value));
+}
+
+function status(id, message) {
+  $(id).textContent = message;
+}
+
+const defaultProducts = [
+  {id:"p1",name:"Glutathione",strength:"1500 mg",category:"glutathione",description:"",price:"",variants:[{id:"v1",mg:"1500 mg",vialPrice:0,setPrice:0,stock:0}],image:"",active:true},
+  {id:"p2",name:"Holy Grail Blend",strength:"",category:"blend",description:"",price:"",variants:[],image:"",active:true},
+  {id:"p3",name:"Beauty Blend",strength:"",category:"beauty",description:"",price:"",variants:[],image:"",active:true},
+  {id:"p4",name:"Korean Glutaone",strength:"",category:"glutathione",description:"",price:"",variants:[],image:"",active:true}
+];
+
+let products = read("sd_products", defaultProducts);
+let categories = read("sd_categories", [
+  {id:"beauty",name:"Beauty"},
+  {id:"blend",name:"Blends"},
+  {id:"glutathione",name:"Glutathione"}
+]);
+
+let settings = read("sd_settings", {
+  payment:{qr:"",instructions:"",label:"Scan to Pay"},
+  proofs:[],
+  protocols:[],
+  contact:{waNumber:"",waLink:"",waLabel:"Chat with us on WhatsApp",otherLink:""},
+  codes:[],
+  costs:{},
+  inclusions:[]
+});
+
+let photoData = "";
+let qrData = "";
+let proofData = "";
+
+function readImage(file, callback) {
+  if (!file) return;
+
+  if (!file.type.startsWith("image/")) {
+    alert("Please choose an image file.");
+    return;
+  }
+
+  const reader = new FileReader();
+
+  reader.onload = () => {
+    const image = new Image();
+
+    image.onload = () => {
+      const maxSize = 1200;
+      const scale = Math.min(
+        1,
+        maxSize / Math.max(image.width, image.height)
+      );
+
+      const canvas = document.createElement("canvas");
+      canvas.width = Math.round(image.width * scale);
+      canvas.height = Math.round(image.height * scale);
+
+      canvas.getContext("2d").drawImage(
+        image, 0, 0, canvas.width, canvas.height
+      );
+
+      callback(canvas.toDataURL("image/jpeg", 0.82));
+    };
+
+    image.onerror = () => callback(reader.result);
+    image.src = reader.result;
+  };
+
+  reader.readAsDataURL(file);
+}
+
+function saveSettings() {
+  save("sd_settings", settings);
+}
+
+/* TAB NAVIGATION */
+$("nav").querySelectorAll("button").forEach(button => {
+  button.onclick = () => {
+    document.querySelectorAll(".side button").forEach(item =>
+      item.classList.toggle("active", item === button)
+    );
+
+    document.querySelectorAll(".tab").forEach(tab =>
+      tab.classList.toggle("active", tab.id === "tab-" + button.dataset.tab)
+    );
+
+    if (button.dataset.tab === "pricing") renderCodes();
+    if (button.dataset.tab === "costing") renderCosts();
+    if (button.dataset.tab === "orders") renderOrders();
+  };
+});
+
+/* CATEGORIES */
+function slugify(value) {
+  return value.toLowerCase().trim()
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/^-|-$/g, "") || ("category-" + Date.now());
+}
+
+function renderCategories(selected) {
+  const select = $("productCategory");
+  select.innerHTML = "";
+
+  categories.forEach(category => {
+    const option = document.createElement("option");
+    option.value = category.id;
+    option.textContent = category.name;
+    select.appendChild(option);
+  });
+
+  if (selected && categories.some(c => c.id === selected)) {
+    select.value = selected;
+  }
+
+  $("categoryList").innerHTML = "";
+
+  categories.forEach(category => {
+    const chip = document.createElement("span");
+    chip.style.cssText =
+      "display:inline-flex;align-items:center;gap:6px;border:1px solid var(--line);border-radius:20px;padding:5px 8px;margin:3px";
+
+    const name = document.createElement("span");
+    name.textContent = category.name;
+
+    const remove = document.createElement("button");
+    remove.type = "button";
+    remove.className = "btn danger";
+    remove.style.padding = "3px 7px";
+    remove.textContent = "×";
+
+    remove.onclick = () => {
+      if (products.some(p => p.category === category.id)) {
+        alert("May products pa sa category na ito. Ilipat muna ang products bago burahin.");
+        return;
+      }
+
+      if (confirm("Delete category " + category.name + "?")) {
+        categories = categories.filter(c => c.id !== category.id);
+        save("sd_categories", categories);
+        renderCategories();
+      }
+    };
+
+    chip.append(name, remove);
+    $("categoryList").appendChild(chip);
+  });
+}
+
+$("addCategory").onclick = () => {
+  const name = $("newCategoryName").value.trim();
+
+  if (!name) {
+    alert("Ilagay ang category name.");
+    return;
+  }
+
+  if (categories.some(c => c.name.toLowerCase() === name.toLowerCase())) {
+    alert("Existing na ang category na ito.");
+    return;
+  }
+
+  let id = slugify(name);
+
+  if (categories.some(c => c.id === id)) {
+    id += "-" + Date.now();
+  }
+
+  categories.push({id, name});
+  save("sd_categories", categories);
+
+  $("newCategoryName").value = "";
+  renderCategories(id);
+};
+
+/* MULTIPLE MG VARIANTS */
+let formVariants = [];
+
+function renderVariantForm() {
+  const list = $("variantList");
+  list.innerHTML = "";
+  if (!formVariants.length) {
+    list.innerHTML = '<div class="empty">No MG variants yet. Click “Add MG Variant”.</div>';
+    return;
+  }
+  formVariants.forEach((variant, index) => {
+    const card = document.createElement("div");
+    card.className = "variant-card";
+    card.innerHTML = `
+      <div class="row" style="justify-content:space-between;margin-bottom:10px">
+        <h4>Variant ${index + 1}</h4>
+        <button type="button" class="btn danger" data-remove="${index}">Remove</button>
+      </div>
+      <div class="grid2">
+        <div class="field"><label>MG / Strength *</label><input data-key="mg" placeholder="e.g. 50 mg" value=""></div>
+        <div class="field"><label>Vial + Bacteriostatic Water Price (₱)</label><input data-key="vialPrice" type="number" min="0" step="0.01" placeholder="450"></div>
+        <div class="field"><label>Complete Set Price (₱)</label><input data-key="setPrice" type="number" min="0" step="0.01" placeholder="650"></div>
+        <div class="field"><label>Stock for this MG</label><input data-key="stock" type="number" min="0" step="1" placeholder="e.g. 10"></div>
+      </div>`;
+    card.querySelectorAll("[data-key]").forEach(input => {
+      const key = input.dataset.key;
+      input.value = variant[key] ?? "";
+      input.addEventListener("input", () => {
+        variant[key] = key === "mg" ? input.value : (input.value === "" ? "" : Number(input.value));
+      });
+    });
+    card.querySelector("[data-remove]").onclick = () => {
+      formVariants.splice(index, 1);
+      renderVariantForm();
+    };
+    list.appendChild(card);
+  });
+}
+$("addVariant").onclick = () => {
+  formVariants.push({id:"v" + Date.now(), mg:"", vialPrice:"", setPrice:"", stock:0});
+  renderVariantForm();
+};
+
+/* PRODUCTS */
+function clearProduct() {
+  $("productId").value = "";
+  $("productName").value = "";
+  $("productCategory").selectedIndex = 0;
+  $("productDescription").value = "";
+  formVariants = [];
+  renderVariantForm();
+  $("productPhoto").value = "";
+  $("productActive").checked = true;
+  $("productPreview").textContent = "Photo preview";
+  $("productFormTitle").textContent = "Add Product";
+  photoData = "";
+}
+
+$("productPhoto").onchange = event => {
+  readImage(event.target.files[0], imageData => {
+    photoData = imageData;
+    $("productPreview").innerHTML = "";
+    const img = document.createElement("img");
+    img.src = imageData;
+    img.alt = "Product preview";
+    $("productPreview").appendChild(img);
+  });
+};
+
+$("saveProduct").onclick = () => {
+  const name = $("productName").value.trim();
+
+  if (!name) {
+    alert("Enter a product name.");
+    return;
+  }
+
+  if (!categories.length) {
+    alert("Add a category first.");
+    return;
+  }
+
+  const id = $("productId").value;
+  const old = products.find(p => p.id === id);
+
+  const validVariants = formVariants
+    .map(v => ({...v, mg:String(v.mg || "").trim(), vialPrice:Number(v.vialPrice || 0), setPrice:Number(v.setPrice || 0), stock:Number(v.stock || 0)}))
+    .filter(v => v.mg);
+  if (!validVariants.length) {
+    alert("Add at least one MG / Strength Variant.");
+    return;
+  }
+  const product = {
+    id: id || "p" + Date.now(),
+    name,
+    strength: validVariants.map(v => v.mg).join(", "),
+    category: $("productCategory").value,
+    description: $("productDescription").value.trim(),
+    price: "",
+    variants: validVariants,
+    image: photoData || (old && old.image) || "",
+    active: $("productActive").checked
+  };
+
+  products = id
+    ? products.map(p => p.id === id ? product : p)
+    : [...products, product];
+
+  try {
+    save("sd_products", products);
+    clearProduct();
+    renderProducts();
+    renderCodes();
+    renderCosts();
+    status("productStatus", "Product saved.");
+  } catch {
+    alert("Storage is full. Try a smaller photo.");
+  }
+};
+
+$("clearProduct").onclick = clearProduct;
+
+function renderProducts() {
+  $("productList").innerHTML = "";
+
+  if (!products.length) {
+    $("productList").innerHTML = '<div class="empty">No products yet.</div>';
+    return;
+  }
+
+  products.forEach(product => {
+    const item = document.createElement("div");
+    item.className = "item";
+
+    const image = document.createElement("img");
+    image.className = "thumb";
+    image.alt = product.name;
+    image.src = product.image || "";
+
+    const meta = document.createElement("div");
+    meta.className = "meta";
+
+    const title = document.createElement("b");
+    title.textContent = product.name;
+
+    const details = document.createElement("small");
+    const category = categories.find(c => c.id === product.category);
+    details.textContent =
+      (product.active ? "Visible" : "Hidden") + " · " +
+      ((product.variants || []).map(v => v.mg + " (₱" + Number(v.vialPrice || 0).toLocaleString() + " / ₱" + Number(v.setPrice || 0).toLocaleString() + ", stock " + Number(v.stock || 0) + ")").join(" · ") || product.strength || "No variants") + " · " +
+      (category ? category.name : product.category);
+
+    meta.append(title, details);
+
+    const actions = document.createElement("div");
+    actions.className = "actions";
+
+    const edit = document.createElement("button");
+    edit.className = "btn";
+    edit.textContent = "Edit";
+
+    edit.onclick = () => {
+      $("productId").value = product.id;
+      $("productName").value = product.name;
+      renderCategories(product.category);
+      $("productDescription").value = product.description || "";
+      formVariants = (product.variants && product.variants.length)
+        ? product.variants.map(v => ({...v}))
+        : (product.strength ? [{id:"v" + Date.now(), mg:product.strength, vialPrice:Number(product.price || 0), setPrice:Number(product.price || 0), stock:0}] : []);
+      renderVariantForm();
+      $("productActive").checked = product.active !== false;
+
+      photoData = "";
+      $("productPhoto").value = "";
+
+      $("productPreview").innerHTML = "";
+
+      if (product.image) {
+        const img = document.createElement("img");
+        img.src = product.image;
+        img.alt = "Product preview";
+        $("productPreview").appendChild(img);
+      } else {
+        $("productPreview").textContent = "Photo preview";
+      }
+
+      $("productFormTitle").textContent = "Edit Product";
+      window.scrollTo({top:0, behavior:"smooth"});
+    };
+
+    const toggle = document.createElement("button");
+    toggle.className = "btn";
+    toggle.textContent = product.active ? "Hide" : "Show";
+
+    toggle.onclick = () => {
+      products = products.map(p =>
+        p.id === product.id ? {...p, active:!p.active} : p
+      );
+      save("sd_products", products);
+      renderProducts();
+    };
+
+    const remove = document.createElement("button");
+    remove.className = "btn danger";
+    remove.textContent = "Delete";
+
+    remove.onclick = () => {
+      if (!confirm("Delete " + product.name + "?")) return;
+      products = products.filter(p => p.id !== product.id);
+      save("sd_products", products);
+      renderProducts();
+      renderCodes();
+      renderCosts();
+    };
+
+    actions.append(edit, toggle, remove);
+    item.append(image, meta, actions);
+    $("productList").appendChild(item);
+  });
+}
+
+/* PAYMENT QR */
+function initPayment() {
+  const payment = settings.payment;
+
+  $("paymentInstructions").value = payment.instructions || "";
+  $("paymentLabel").value = payment.label || "";
+
+  if (payment.qr) {
+    const img = document.createElement("img");
+    img.src = payment.qr;
+    img.alt = "Payment QR";
+    $("qrPreview").innerHTML = "";
+    $("qrPreview").appendChild(img);
+  }
+}
+
+$("qrUpload").onchange = event => {
+  readImage(event.target.files[0], imageData => {
+    qrData = imageData;
+    $("qrPreview").innerHTML = "";
+    const img = document.createElement("img");
+    img.src = imageData;
+    img.alt = "Payment QR preview";
+    $("qrPreview").appendChild(img);
+  });
+};
+
+$("savePayment").onclick = () => {
+  settings.payment = {
+    qr: qrData || settings.payment.qr || "",
+    instructions: $("paymentInstructions").value.trim(),
+    label: $("paymentLabel").value.trim() || "Scan to Pay"
+  };
+
+  saveSettings();
+  status("paymentStatus", "Payment settings saved in this browser.");
+};
+
+/* BUYER'S PROOF */
+$("proofUpload").onchange = event => {
+  readImage(event.target.files[0], imageData => {
+    proofData = imageData;
+  });
+};
+
+$("addProof").onclick = () => {
+  if (!proofData) {
+    alert("Choose a proof image first.");
+    return;
+  }
+
+  settings.proofs.push({
+    id: "proof-" + Date.now(),
+    image: proofData,
+    caption: $("proofCaption").value.trim(),
+    active: true
+  });
+
+  saveSettings();
+  proofData = "";
+  $("proofUpload").value = "";
+  $("proofCaption").value = "";
+  renderProofs();
+
+  status("proofStatus", "Proof added to this browser's gallery.");
+};
+
+function renderProofs() {
+  $("proofList").innerHTML = "";
+
+  if (!settings.proofs.length) {
+    $("proofList").innerHTML = '<div class="empty">No proof images uploaded.</div>';
+    return;
+  }
+
+  settings.proofs.forEach(proof => {
+    const item = document.createElement("div");
+    item.className = "item";
+
+    const img = document.createElement("img");
+    img.className = "thumb";
+    img.src = proof.image;
+    img.alt = proof.caption || "Buyer's Proof";
+
+    const meta = document.createElement("div");
+    meta.className = "meta";
+
+    const title = document.createElement("b");
+    title.textContent = proof.caption || "Buyer's Proof";
+
+    const detail = document.createElement("small");
+    detail.textContent = proof.active ? "Published in preview" : "Hidden";
+
+    meta.append(title, detail);
+
+    const actions = document.createElement("div");
+    actions.className = "actions";
+
+    const toggle = document.createElement("button");
+    toggle.className = "btn";
+    toggle.textContent = proof.active ? "Hide" : "Publish";
+
+    toggle.onclick = () => {
+      proof.active = !proof.active;
+      saveSettings();
+      renderProofs();
+    };
+
+    const remove = document.createElement("button");
+    remove.className = "btn danger";
+    remove.textContent = "Delete";
+
+    remove.onclick = () => {
+      settings.proofs = settings.proofs.filter(p => p.id !== proof.id);
+      saveSettings();
+      renderProofs();
+    };
+
+    actions.append(toggle, remove);
+    item.append(img, meta, actions);
+    $("proofList").appendChild(item);
+  });
+}
+
+/* PROTOCOLS */
+function clearProtocol() {
+  $("protocolId").value = "";
+  $("protocolTitle").value = "";
+  $("protocolContent").value = "";
+  $("protocolLink").value = "";
+  $("protocolFormTitle").textContent = "Add Protocol";
+}
+
+$("clearProtocol").onclick = clearProtocol;
+
+$("saveProtocol").onclick = () => {
+  const title = $("protocolTitle").value.trim();
+
+  if (!title) {
+    alert("Enter a protocol title.");
+    return;
+  }
+
+  const id = $("protocolId").value;
+
+  const protocol = {
+    id: id || "protocol-" + Date.now(),
+    title,
+    content: $("protocolContent").value.trim(),
+    link: $("protocolLink").value.trim(),
+    active: true
+  };
+
+  settings.protocols = id
+    ? settings.protocols.map(p => p.id === id ? protocol : p)
+    : [...settings.protocols, protocol];
+
+  saveSettings();
+  clearProtocol();
+  renderProtocols();
+  status("protocolStatus", "Protocol saved.");
+};
+
+function renderProtocols() {
+  $("protocolList").innerHTML = "";
+
+  if (!settings.protocols.length) {
+    $("protocolList").innerHTML = '<div class="empty">No protocols added.</div>';
+    return;
+  }
+
+  settings.protocols.forEach(protocol => {
+    const item = document.createElement("div");
+    item.className = "item";
+
+    const meta = document.createElement("div");
+    meta.className = "meta";
+
+    const title = document.createElement("b");
+    title.textContent = protocol.title;
+
+    const details = document.createElement("small");
+    details.textContent = protocol.content || protocol.link || "No description";
+
+    meta.append(title, details);
+
+    const actions = document.createElement("div");
+    actions.className = "actions";
+
+    const edit = document.createElement("button");
+    edit.className = "btn";
+    edit.textContent = "Edit";
+
+    edit.onclick = () => {
+      $("protocolId").value = protocol.id;
+      $("protocolTitle").value = protocol.title;
+      $("protocolContent").value = protocol.content || "";
+      $("protocolLink").value = protocol.link || "";
+      $("protocolFormTitle").textContent = "Edit Protocol";
+      window.scrollTo({top:0, behavior:"smooth"});
+    };
+
+    const remove = document.createElement("button");
+    remove.className = "btn danger";
+    remove.textContent = "Delete";
+
+    remove.onclick = () => {
+      settings.protocols = settings.protocols.filter(p => p.id !== protocol.id);
+      saveSettings();
+      renderProtocols();
+    };
+
+    actions.append(edit, remove);
+    item.append(meta, actions);
+    $("protocolList").appendChild(item);
+  });
+}
+
+/* WHATSAPP & CONTACT */
+function initContact() {
+  const contact = settings.contact;
+
+  $("waNumber").value = contact.waNumber || "";
+  $("waLink").value = contact.waLink || "";
+  $("waLabel").value = contact.waLabel || "Chat with us on WhatsApp";
+  $("otherLink").value = contact.otherLink || "";
+}
+
+$("saveContact").onclick = () => {
+  settings.contact = {
+    waNumber: $("waNumber").value.trim().replace(/\D/g, ""),
+    waLink: $("waLink").value.trim(),
+    waLabel: $("waLabel").value.trim() || "Chat with us on WhatsApp",
+    otherLink: $("otherLink").value.trim()
+  };
+
+  saveSettings();
+  status("contactStatus", "Contact links saved in this browser.");
+};
+
+/* SECRET CODE PRICING */
+$("addCode").onclick = () => {
+  const code = $("secretCode").value.trim();
+
+  if (!code) {
+    alert("Enter a secret code.");
+    return;
+  }
+
+  if (settings.codes.some(c => c.code.toLowerCase() === code.toLowerCase())) {
+    alert("This code already exists.");
+    return;
+  }
+
+  settings.codes.push({
+    id: "code-" + Date.now(),
+    code,
+    note: $("secretNote").value.trim(),
+    enabled: $("secretEnabled").checked,
+    prices: {}
+  });
+
+  saveSettings();
+  $("secretCode").value = "";
+  $("secretNote").value = "";
+  renderCodes();
+
+  status("codeStatus", "Secret code created.");
+};
+
+function renderCodes() {
+  $("codeList").innerHTML = "";
+
+  if (!settings.codes.length) {
+    $("codeList").innerHTML = '<div class="empty">No secret codes created yet.</div>';
+    return;
+  }
+
+  settings.codes.forEach(code => {
+    const panel = document.createElement("div");
+    panel.className = "panel";
+
+    const header = document.createElement("div");
+    header.className = "row";
+
+    const details = document.createElement("div");
+    const title = document.createElement("b");
+    title.textContent = code.code;
+
+    const note = document.createElement("div");
+    note.className = "hint";
+    note.textContent = code.note || "No private note";
+
+    details.append(title, note);
+
+    const enabledLabel = document.createElement("label");
+    const enabled = document.createElement("input");
+    enabled.type = "checkbox";
+    enabled.checked = code.enabled;
+
+    enabled.onchange = () => {
+      code.enabled = enabled.checked;
+      saveSettings();
+    };
+
+    enabledLabel.append(enabled, document.createTextNode(" Enabled"));
+
+    const remove = document.createElement("button");
+    remove.className = "btn danger";
+    remove.textContent = "Delete Code";
+
+    remove.onclick = () => {
+      if (!confirm("Delete secret code " + code.code + "?")) return;
+
+      settings.codes = settings.codes.filter(c => c.id !== code.id);
+      saveSettings();
+      renderCodes();
+    };
+
+    header.append(details, enabledLabel, remove);
+    panel.appendChild(header);
+
+    const table = document.createElement("table");
+    table.className = "priceTable";
+
+    table.innerHTML = `
+      <thead>
+        <tr>
+          <th>Product</th>
+          <th>Vial + Bac Water Only (₱)</th>
+          <th>Complete Set (₱)</th>
+        </tr>
+      </thead>
+    `;
+
+    const body = document.createElement("tbody");
+
+    products.forEach(product => {
+      const variants = product.variants && product.variants.length ? product.variants : [{id:"default",mg:product.strength || "Default"}];
+      variants.forEach(variant => {
+        const row = document.createElement("tr");
+        const name = document.createElement("td");
+        name.textContent = product.name + " — " + variant.mg;
+        row.appendChild(name);
+        ["vial", "set"].forEach(option => {
+          const cell = document.createElement("td");
+          const input = document.createElement("input");
+          input.type = "number";
+          input.min = "0";
+          input.step = "0.01";
+          input.placeholder = "Use default";
+          const variantKey = product.id + "::" + variant.id;
+          input.value = code.prices[variantKey]?.[option] ?? "";
+          input.onchange = () => {
+            code.prices[variantKey] = code.prices[variantKey] || {};
+            code.prices[variantKey][option] = input.value === "" ? null : Number(input.value);
+            saveSettings();
+          };
+          cell.appendChild(input);
+          row.appendChild(cell);
+        });
+        body.appendChild(row);
+      });
+    });
+
+    table.appendChild(body);
+    panel.appendChild(table);
+    $("codeList").appendChild(panel);
+  });
+}
+
+/* COSTING & PROFIT ESTIMATES */
+function renderCosts() {
+  $("costProductList").innerHTML = "";
+
+  products.forEach(product => {
+    const row = document.createElement("div");
+    row.className = "grid2";
+    row.style.marginBottom = "12px";
+
+    const nameField = document.createElement("div");
+    nameField.className = "field";
+
+    const label = document.createElement("label");
+    label.textContent = product.name;
+    nameField.appendChild(label);
+
+    const costField = document.createElement("div");
+    costField.className = "field";
+    const costLabel = document.createElement("label");
+    costLabel.textContent = "Manufacturing Cost per Vial (₱)";
+    const input = document.createElement("input");
+    input.type = "number";
+    input.min = "0";
+    input.step = "0.01";
+    input.value = settings.costs[product.id]?.manufacturing ?? "";
+    input.onchange = () => {
+      settings.costs[product.id] = settings.costs[product.id] || {};
+      settings.costs[product.id].manufacturing = Number(input.value || 0);
+      saveSettings();
+    };
+    costField.append(costLabel, input);
+    row.append(nameField, costField);
+    $("costProductList").appendChild(row);
+    (product.variants || []).forEach(variant => {
+      const variantRow = document.createElement("div");
+      variantRow.className = "grid2";
+      variantRow.style.margin = "0 0 10px 16px";
+      const title = document.createElement("div");
+      title.className = "field";
+      const titleLabel = document.createElement("label");
+      titleLabel.textContent = product.name + " — " + variant.mg;
+      title.appendChild(titleLabel);
+      const costWrap = document.createElement("div");
+      costWrap.className = "field";
+      const costLbl = document.createElement("label");
+      costLbl.textContent = "Manufacturing Cost for this MG (₱)";
+      const costInput = document.createElement("input");
+      costInput.type = "number";
+      costInput.min = "0";
+      costInput.step = "0.01";
+      settings.costs[product.id].variants = settings.costs[product.id].variants || {};
+      costInput.value = settings.costs[product.id].variants[variant.id] ?? "";
+      costInput.onchange = () => {
+        settings.costs[product.id].variants[variant.id] = Number(costInput.value || 0);
+        saveSettings();
+      };
+      costWrap.append(costLbl, costInput);
+      variantRow.append(title, costWrap);
+      $("costProductList").appendChild(variantRow);
+    });
+  });
+
+  renderInclusions();
+}
+
+$("addInclusion").onclick = () => {
+  const name = $("incName").value.trim();
+  const cost = Number($("incCost").value);
+  const qty = Number($("incQty").value);
+
+  if (!name || $("incCost").value === "" || cost < 0 || qty < 0) {
+    alert("Enter the inclusion name, unit cost, and quantity.");
+    return;
+  }
+
+  settings.inclusions.push({
+    id: "inclusion-" + Date.now(),
+    name,
+    cost,
+    qty
+  });
+
+  saveSettings();
+
+  $("incName").value = "";
+  $("incCost").value = "";
+  $("incQty").value = "1";
+
+  renderInclusions();
+};
+
+function renderInclusions() {
+  $("inclusionList").innerHTML = "";
+  let total = 0;
+
+  if (!settings.inclusions.length) {
+    $("inclusionList").innerHTML =
+      '<div class="empty">No set inclusions added yet.</div>';
+  }
+
+  settings.inclusions.forEach(inclusion => {
+    const lineCost = inclusion.cost * inclusion.qty;
+    total += lineCost;
+
+    const item = document.createElement("div");
+    item.className = "item";
+
+    const meta = document.createElement("div");
+    meta.className = "meta";
+
+    const title = document.createElement("b");
+    title.textContent = inclusion.name;
+
+    const details = document.createElement("small");
+    details.textContent =
+      "₱" + inclusion.cost.toFixed(2) +
+      " × " + inclusion.qty +
+      " = ₱" + lineCost.toFixed(2);
+
+    meta.append(title, details);
+
+    const remove = document.createElement("button");
+    remove.className = "btn danger";
+    remove.textContent = "Remove";
+
+    remove.onclick = () => {
+      settings.inclusions =
+        settings.inclusions.filter(i => i.id !== inclusion.id);
+
+      saveSettings();
+      renderInclusions();
+    };
+
+    item.append(meta, remove);
+    $("inclusionList").appendChild(item);
+  });
+
+  $("inclusionTotal").textContent = "₱" + total.toFixed(2);
+}
+
+
+/* ADMIN ORDERS */
+function renderOrders() {
+  const orders = read("sd_orders", []);
+  $("ordersCount").textContent = orders.length;
+  $("ordersPending").textContent = orders.filter(o => !o.paymentStatus || o.paymentStatus === "Pending Payment").length;
+  const host = $("ordersList");
+  host.innerHTML = "";
+  if (!orders.length) {
+    host.innerHTML = '<div class="empty">No orders yet. Orders placed through the website will appear here when stored in this browser.</div>';
+    return;
+  }
+  orders.forEach(order => {
+    const card = document.createElement("div");
+    card.className = "item";
+    const title = document.createElement("b");
+    title.textContent = (order.id || "Order") + " · " + (order.customer?.name || "Customer");
+    const date = document.createElement("small");
+    date.textContent = new Date(order.createdAt || Date.now()).toLocaleString() + " · " + (order.customer?.phone || "");
+    const address = document.createElement("p");
+    address.textContent = "Address: " + (order.customer?.address || "Not provided");
+    let proofBlock = null;
+    if (order.paymentProof) {
+      proofBlock = document.createElement("div");
+      proofBlock.style.cssText = "margin:12px 0;padding:12px;border:1px solid #ead7df;border-radius:12px;background:#fff8fb";
+      const proofTitle = document.createElement("b"); proofTitle.textContent = "Customer Payment Proof";
+      const proofImage = document.createElement("img"); proofImage.src = order.paymentProof; proofImage.alt = "Customer payment proof";
+      proofImage.style.cssText = "display:block;max-width:240px;max-height:220px;object-fit:contain;margin-top:8px;border-radius:8px;border:1px solid #ead7df;background:white";
+      proofBlock.append(proofTitle, proofImage);
+    } else {
+      proofBlock = document.createElement("p"); proofBlock.className = "muted"; proofBlock.textContent = "No payment proof uploaded.";
+    }
+    const items = document.createElement("div");
+    items.style.margin = "10px 0";
+    (order.items || []).forEach(it => {
+      const line = document.createElement("div");
+      line.textContent = `${it.name || "Product"} — ${it.mg || ""} MG — ${it.option || (it.kind === "complete" ? "Complete Set" : "Vial + Bacteriostatic Water Only")} × ${it.qty} = ₱${(Number(it.price || 0) * Number(it.qty || 0)).toLocaleString("en-PH",{minimumFractionDigits:2,maximumFractionDigits:2})}`;
+      items.appendChild(line);
+    });
+    const total = document.createElement("h3");
+    total.textContent = "Total: ₱" + Number(order.total || 0).toLocaleString("en-PH",{minimumFractionDigits:2,maximumFractionDigits:2});
+    const controls = document.createElement("div");
+    controls.className = "grid2";
+    controls.style.marginTop = "12px";
+    const payWrap = document.createElement("div"); payWrap.className = "field";
+    const payLabel = document.createElement("label"); payLabel.textContent = "Payment Status";
+    const pay = document.createElement("select");
+    ["Pending Payment","Partially Paid","Payment Received","Refunded"].forEach(v=>{const op=document.createElement("option");op.value=v;op.textContent=v;pay.appendChild(op)});
+    pay.value = order.paymentStatus || "Pending Payment";
+    payWrap.append(payLabel,pay);
+    const statusWrap = document.createElement("div"); statusWrap.className = "field";
+    const statusLabel = document.createElement("label"); statusLabel.textContent = "Order Status";
+    const status = document.createElement("select");
+    ["New Order","Processing","Shipped","Completed","Cancelled"].forEach(v=>{const op=document.createElement("option");op.value=v;op.textContent=v;status.appendChild(op)});
+    status.value = order.orderStatus || "New Order";
+    statusWrap.append(statusLabel,status);
+    const saveBtn = document.createElement("button"); saveBtn.className = "btn"; saveBtn.textContent = "Save Status";
+    const msg = document.createElement("small"); msg.className = "status";
+    saveBtn.onclick = () => {
+      const all = read("sd_orders", []);
+      const found = all.find(o => o.id === order.id);
+      if (!found) return;
+      found.paymentStatus = pay.value; found.orderStatus = status.value;
+      save("sd_orders", all); msg.textContent = "Status saved in this browser."; renderOrders();
+    };
+    controls.append(payWrap,statusWrap);
+    card.append(title,date,address,proofBlock,items,total,controls,saveBtn,msg);
+    host.appendChild(card);
+  });
+}
+
+/* INITIALIZE */
+renderCategories();
+formVariants = [];
+renderVariantForm();
+renderProducts();
+initPayment();
+renderProofs();
+renderProtocols();
+initContact();
+renderCodes();
+renderCosts();
+</script>
+</body>
+</html>
