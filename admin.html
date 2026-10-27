@@ -410,14 +410,14 @@ body {
         <h3 style="margin:0">MG / Strength Variants</h3>
         <button class="btn" type="button" id="addVariant">+ Add MG Variant</button>
       </div>
-      <p class="hint">Add as many MG variants as needed. Set a separate price and stock for each variant.</p>
+      <p class="hint">Add as many variants as needed. Use any label you want, such as 50 mg, 10 mL, 1500 mg, or 2 mL. Each variant has its own prices and stock.</p>
       <div id="variantList" class="items"></div>
     </div>
 
     <div class="field">
       <label>Upload Product Photo</label>
       <input id="productPhoto" type="file" accept="image/*">
-      <div class="preview" id="productPreview">Photo preview</div>
+      <div class="preview" id="productPreview">Auto vial preview will appear here using the product name. Upload a photo only if you want a custom image.</div>
     </div>
 
     <div class="field">
@@ -869,7 +869,7 @@ function renderVariantForm() {
         <button type="button" class="btn danger" data-remove="${index}">Remove</button>
       </div>
       <div class="grid2">
-        <div class="field"><label>MG / Strength *</label><input data-key="mg" placeholder="e.g. 50 mg" value=""></div>
+        <div class="field"><label>Strength / Variant Label *</label><input data-key="mg" placeholder="e.g. 50 mg, 10 mL, 1500 mg, 2 mL" value=""></div>
         <div class="field"><label>Vial + Bacteriostatic Water Price (₱)</label><input data-key="vialPrice" type="number" min="0" step="0.01" placeholder="450"></div>
         <div class="field"><label>Complete Set Price (₱)</label><input data-key="setPrice" type="number" min="0" step="0.01" placeholder="650"></div>
         <div class="field"><label>Stock for this MG</label><input data-key="stock" type="number" min="0" step="1" placeholder="e.g. 10"></div>
@@ -887,11 +887,35 @@ function renderVariantForm() {
     };
     list.appendChild(card);
   });
+  refreshAutoPreview();
 }
 $("addVariant").onclick = () => {
   formVariants.push({id:"v" + Date.now(), mg:"", vialPrice:"", setPrice:"", stock:0});
   renderVariantForm();
 };
+
+/* AUTO-GENERATED VIAL ART: uses product name and variant label; no upload required */
+function generatedVialData(name, strength="") {
+  const clean = value => String(value || "").replace(/[&<>\"']/g, " ").trim().slice(0, 22);
+  const productName = clean(name) || "SEXY DUST";
+  const variantLabel = clean(strength) || "PEPTIDE";
+  const lines = productName.length > 16 ? [productName.slice(0,16), productName.slice(16)] : [productName];
+  const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="520" height="520" viewBox="0 0 520 520"><defs><linearGradient id="bg" x2="0" y2="1"><stop stop-color="#f7dce5"/><stop offset="1" stop-color="#fff9f6"/></linearGradient><linearGradient id="glass" x2="1"><stop stop-color="#fff" stop-opacity=".95"/><stop offset=".5" stop-color="#f5dbe3" stop-opacity=".35"/><stop offset="1" stop-color="#fff" stop-opacity=".9"/></linearGradient><linearGradient id="cap" x2="0" y2="1"><stop stop-color="#f49bb9"/><stop offset="1" stop-color="#b94d76"/></linearGradient></defs><rect width="520" height="520" rx="28" fill="url(#bg)"/><ellipse cx="260" cy="448" rx="145" ry="22" fill="#c77d96" opacity=".18"/><rect x="178" y="78" width="164" height="54" rx="10" fill="url(#cap)"/><rect x="190" y="128" width="140" height="48" rx="8" fill="#c5c2c5"/><rect x="172" y="166" width="176" height="262" rx="30" fill="url(#glass)" stroke="#d6b8c3" stroke-width="5"/><rect x="187" y="214" width="146" height="156" rx="8" fill="#fffdfd" stroke="#e8c7d3" stroke-width="2"/><rect x="187" y="214" width="146" height="18" fill="#f4c3d2"/><text x="260" y="257" text-anchor="middle" font-family="Georgia,serif" font-size="${lines.length>1?15:17}" font-weight="bold" fill="#8d4e68">${lines.map((line,i)=>`<tspan x="260" dy="${i===0?0:19}">${line.replace(/&/g,"&amp;").replace(/</g,"&lt;")}</tspan>`).join("")}</text><text x="260" y="315" text-anchor="middle" font-family="Arial,sans-serif" font-size="13" letter-spacing="1" fill="#9d5b76">${variantLabel.replace(/&/g,"&amp;").replace(/</g,"&lt;")}</text><line x1="210" y1="336" x2="310" y2="336" stroke="#e4a9bd" stroke-width="2"/><text x="260" y="355" text-anchor="middle" font-family="Arial,sans-serif" font-size="9" letter-spacing="2" fill="#9d5b76">SEXY DUST PEPTIDE</text><path d="M190 182 Q205 176 212 188 L212 407 Q200 413 190 398Z" fill="#fff" opacity=".42"/></svg>`;
+  return "data:image/svg+xml;charset=UTF-8," + encodeURIComponent(svg);
+}
+function refreshAutoPreview() {
+  if (photoData) return;
+  const name = $("productName").value.trim() || "Your Product Name";
+  const variant = formVariants.find(v => String(v.mg||"").trim());
+  const image = document.createElement("img");
+  image.alt = "Automatically generated vial preview";
+  image.src = generatedVialData(name, variant?.mg || "PEPTIDE");
+  $("productPreview").innerHTML = "";
+  $("productPreview").appendChild(image);
+  const note = document.createElement("small");
+  note.textContent = "Auto-generated preview · upload a custom photo only if preferred";
+  $("productPreview").appendChild(note);
+}
 
 /* PRODUCTS */
 function clearProduct() {
@@ -903,10 +927,13 @@ function clearProduct() {
   renderVariantForm();
   $("productPhoto").value = "";
   $("productActive").checked = true;
-  $("productPreview").textContent = "Photo preview";
+  $("productPreview").textContent = "";
   $("productFormTitle").textContent = "Add Product";
+  refreshAutoPreview();
   photoData = "";
 }
+
+$("productName").addEventListener("input", refreshAutoPreview);
 
 $("productPhoto").onchange = event => {
   readImage(event.target.files[0], imageData => {
@@ -987,7 +1014,7 @@ function renderProducts() {
     const image = document.createElement("img");
     image.className = "thumb";
     image.alt = product.name;
-    image.src = product.image || "";
+    image.src = product.image || generatedVialData(product.name, product.variants?.[0]?.mg || product.strength || "PEPTIDE");
 
     const meta = document.createElement("div");
     meta.className = "meta";
@@ -1033,7 +1060,7 @@ function renderProducts() {
         img.alt = "Product preview";
         $("productPreview").appendChild(img);
       } else {
-        $("productPreview").textContent = "Photo preview";
+        refreshAutoPreview();
       }
 
       $("productFormTitle").textContent = "Edit Product";
