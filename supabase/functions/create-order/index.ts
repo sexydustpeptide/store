@@ -140,6 +140,18 @@ Deno.serve(async (req) => {
 
     if (productError) throw productError;
 
+    let activeReseller: any = null;
+    let resellerPriceMap: Record<string, any> = {};
+    if (promoCode) {
+      const { data: resellers, error: resellerError } = await supabase.from("sd_resellers").select("id,name,code,active");
+      if (resellerError) throw resellerError;
+      activeReseller = (resellers || []).find((r: any) => String(r.code || "").trim().toUpperCase() === promoCode && r.active);
+      if (!activeReseller) return reply({ error: "That promo code is invalid or inactive." }, 400);
+      const { data: customPrices, error: pricesError } = await supabase.from("sd_reseller_prices").select("variant_id,vial_water_price,complete_set_price").eq("reseller_id", activeReseller.id).in("variant_id", variantIds);
+      if (pricesError) throw pricesError;
+      for (const p of customPrices || []) resellerPriceMap[p.variant_id] = p;
+    }
+
     const normalizedItems = [];
     let total = 0;
 
@@ -174,10 +186,14 @@ Deno.serve(async (req) => {
         );
       }
 
+      const customPrice = resellerPriceMap[variant.id];
+      const selectedCustom = customPrice
+        ? (option === "complete" ? customPrice.complete_set_price : customPrice.vial_water_price)
+        : null;
       const price = Number(
-        option === "complete"
-          ? variant.complete_set_price
-          : variant.vial_water_price,
+        selectedCustom !== null && selectedCustom !== undefined
+          ? selectedCustom
+          : (option === "complete" ? variant.complete_set_price : variant.vial_water_price),
       );
 
       if (!Number.isFinite(price) || price < 0) {
