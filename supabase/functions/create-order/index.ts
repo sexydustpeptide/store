@@ -90,25 +90,41 @@ Deno.serve(async (req) => {
 
     if (body.action === "validate_promo") {
       const code = String(body.code ?? "").trim().toUpperCase().slice(0, 60);
-      const subtotal = Number(body.subtotal);
+      const itemsForCheck = body.items;
       if (!code) return reply({ error: "Enter a promo code." }, 400);
-      if (!Number.isFinite(subtotal) || subtotal < 0) return reply({ error: "Invalid order subtotal." }, 400);
-      const { data: promo, error: promoError } = await supabase
-        .from("sd_promo_codes")
-        .select("code,discount_type,discount_value,active,starts_at,ends_at,usage_limit,usage_count")
-        .eq("code", code)
-        .maybeSingle();
+      if (!Array.isArray(itemsForCheck) || !itemsForCheck.length) return reply({ error: "Add products to your cart first." }, 400);
+      const { data: promo, error: promoError } = await supabase.from("sd_promo_codes").select("id,code,discount_type,discount_value,active,starts_at,ends_at,usage_limit,usage_count").eq("code", code).maybeSingle();
       if (promoError) throw promoError;
       const now = Date.now();
       if (!promo || !promo.active) return reply({ error: "That promo code is invalid or inactive." }, 400);
       if (promo.starts_at && now < Date.parse(promo.starts_at)) return reply({ error: "That promo code is not active yet." }, 400);
       if (promo.ends_at && now > Date.parse(promo.ends_at)) return reply({ error: "That promo code has expired." }, 400);
       if (promo.usage_limit !== null && Number(promo.usage_count) >= Number(promo.usage_limit)) return reply({ error: "That promo code has reached its usage limit." }, 400);
-      const discount = Math.min(subtotal, promo.discount_type === "percent"
-        ? Math.round(subtotal * Number(promo.discount_value)) / 100
-        : Number(promo.discount_value));
-      const roundedDiscount = Math.round(discount * 100) / 100;
-      return reply({ code: promo.code, discount_amount: roundedDiscount, total: Math.max(0, Math.round((subtotal - roundedDiscount) * 100) / 100), discount_type: promo.discount_type, discount_value: Number(promo.discount_value) });
+      const {data: links,error: linksError}=await supabase.from("sd_promo_products").select("product_id").eq("promo_id",promo.id);
+      if(linksError) throw linksError;
+      const allowed=new Set((links||[]).map(x=>x.product_id));
+      let subtotal=0, eligibleSubtotal=0, discount=0;
+      for(const item of itemsForCheck){
+        const {data:v,error:ve}=await supabase.from("sd_variants").select("id,product_id,label,vial_water_price,complete_set_price").eq("id",item.variant_id).maybeSingle();
+        if(ve) throw ve;
+        if(!v) return reply({error:"A cart variant is unavailable."},400);
+        const qty=Math.max(1,Math.min(99,Number(item.quantity)||1));
+        const option=item.order_option;
+        const price=option==="Complete Set"?Number(v.complete_set_price):option==="Vial + Bac Water Only"?Number(v.vial_water_price):option==="complete"?Number(v.complete_set_price):Number(v.vial_water_price);
+        const line=price*qty; subtotal+=line;
+        if(allowed.has(v.product_id)) eligibleSubtotal+=line;
+      }
+      if(!allowed.size) return reply({error:"This promo code has no products assigned yet."},400);
+      if(eligibleSubtotal<=0) return reply({error:"This promo code does not apply to the products in your cart."},400);
+      if(promo.discount_type==="percent") discount=Math.round(eligibleSubtotal*Number(promo.discount_value))/100;
+      else if(promo.discount_type==="fixed") discount=Math.min(eligibleSubtotal,Number(promo.discount_value));
+      else {
+        const {data:prices,error:priceError}=await supabase.from("sd_promo_variant_prices").select("variant_id,order_option,promo_price").eq("promo_id",promo.id);
+        if(priceError) throw priceError;
+        for(const item of itemsForCheck){const {data:v}=await supabase.from("sd_variants").select("id,product_id,vial_water_price,complete_set_price").eq("id",item.variant_id).maybeSingle();if(!v||!allowed.has(v.product_id))continue;const option=(item.order_option==="complete"||item.order_option==="Complete Set")?"complete":"vial";const base=option==="complete"?Number(v.complete_set_price):Number(v.vial_water_price);const pp=prices?.find(x=>x.variant_id===v.id&&x.order_option===option);if(pp)discount+=(base-Number(pp.promo_price))*Math.max(1,Number(item.quantity)||1);}
+      }
+      discount=Math.max(0,Math.min(eligibleSubtotal,Math.round(discount*100)/100));
+      return reply({code:promo.code,discount_amount:discount,total:Math.max(0,Math.round((subtotal-discount)*100)/100),subtotal,eligible_subtotal:eligibleSubtotal,discount_type:promo.discount_type,discount_value:Number(promo.discount_value)});
     }
 
     const variantIds = [
