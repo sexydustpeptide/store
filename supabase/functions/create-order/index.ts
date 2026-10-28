@@ -37,9 +37,10 @@ Deno.serve(async (req) => {
   try {
     const body = await req.json();
 
-    const name = String(body.customer_name ?? "").trim();
-    const phone = String(body.customer_phone ?? "").trim();
-    const address = String(body.shipping_address ?? "").trim();
+    const isPromoCheck = body.action === "validate_promo";
+    const name = isPromoCheck ? "Promo Check" : String(body.customer_name ?? "").trim();
+    const phone = isPromoCheck ? "Promo Check" : String(body.customer_phone ?? "").trim();
+    const address = isPromoCheck ? "Promo Check" : String(body.shipping_address ?? "").trim();
     const notes = String(body.notes ?? "").trim();
     const proofPath = body.payment_proof_path
       ? String(body.payment_proof_path)
