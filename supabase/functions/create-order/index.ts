@@ -117,8 +117,11 @@ Deno.serve(async (req) => {
       if(!allowed.size) return reply({error:"This promo code has no products assigned yet."},400);
       if(eligibleSubtotal<=0) return reply({error:"This promo code does not apply to the products in your cart."},400);
       if(promo.discount_type==="percent") discount=Math.round(eligibleSubtotal*Number(promo.discount_value))/100;
-      else if(promo.discount_type==="fixed") discount=Math.min(eligibleSubtotal,Number(promo.discount_value));
-      else {
+      else if(promo.discount_type==="fixed") {
+        const {data: perItemDiscounts,error: discountError}=await supabase.from("sd_promo_variant_discounts").select("variant_id,order_option,discount_value").eq("promo_id",promo.id);
+        if(discountError) throw discountError;
+        for(const item of itemsForCheck){const {data:v}=await supabase.from("sd_variants").select("id,product_id").eq("id",item.variant_id).maybeSingle();if(!v||!allowed.has(v.product_id))continue;const option=(item.order_option==="complete"||item.order_option==="Complete Set")?"complete":"vial";const d=perItemDiscounts?.find(x=>x.variant_id===v.id&&x.order_option===option);if(d)discount+=Math.min(option==="complete"?Number(v.complete_set_price):Number(v.vial_water_price),Number(d.discount_value))*Math.max(1,Number(item.quantity)||1);}
+      } else {
         const {data:prices,error:priceError}=await supabase.from("sd_promo_variant_prices").select("variant_id,order_option,promo_price").eq("promo_id",promo.id);
         if(priceError) throw priceError;
         for(const item of itemsForCheck){const {data:v}=await supabase.from("sd_variants").select("id,product_id,vial_water_price,complete_set_price").eq("id",item.variant_id).maybeSingle();if(!v||!allowed.has(v.product_id))continue;const option=(item.order_option==="complete"||item.order_option==="Complete Set")?"complete":"vial";const base=option==="complete"?Number(v.complete_set_price):Number(v.vial_water_price);const pp=prices?.find(x=>x.variant_id===v.id&&x.order_option===option);if(pp)discount+=(base-Number(pp.promo_price))*Math.max(1,Number(item.quantity)||1);}
