@@ -44,6 +44,7 @@ Deno.serve(async (req) => {
     const proofPath = body.payment_proof_path
       ? String(body.payment_proof_path)
       : null;
+    const promoCode = String(body.promo_code ?? "").trim().toUpperCase().slice(0, 60) || null;
     const items = body.items;
 
     if (
@@ -85,6 +86,29 @@ Deno.serve(async (req) => {
         autoRefreshToken: false,
       },
     });
+
+    if (body.action === "validate_promo") {
+      const code = String(body.code ?? "").trim().toUpperCase().slice(0, 60);
+      const subtotal = Number(body.subtotal);
+      if (!code) return reply({ error: "Enter a promo code." }, 400);
+      if (!Number.isFinite(subtotal) || subtotal < 0) return reply({ error: "Invalid order subtotal." }, 400);
+      const { data: promo, error: promoError } = await supabase
+        .from("sd_promo_codes")
+        .select("code,discount_type,discount_value,active,starts_at,ends_at,usage_limit,usage_count")
+        .eq("code", code)
+        .maybeSingle();
+      if (promoError) throw promoError;
+      const now = Date.now();
+      if (!promo || !promo.active) return reply({ error: "That promo code is invalid or inactive." }, 400);
+      if (promo.starts_at && now < Date.parse(promo.starts_at)) return reply({ error: "That promo code is not active yet." }, 400);
+      if (promo.ends_at && now > Date.parse(promo.ends_at)) return reply({ error: "That promo code has expired." }, 400);
+      if (promo.usage_limit !== null && Number(promo.usage_count) >= Number(promo.usage_limit)) return reply({ error: "That promo code has reached its usage limit." }, 400);
+      const discount = Math.min(subtotal, promo.discount_type === "percent"
+        ? Math.round(subtotal * Number(promo.discount_value)) / 100
+        : Number(promo.discount_value));
+      const roundedDiscount = Math.round(discount * 100) / 100;
+      return reply({ code: promo.code, discount_amount: roundedDiscount, total: Math.max(0, Math.round((subtotal - roundedDiscount) * 100) / 100), discount_type: promo.discount_type, discount_value: Number(promo.discount_value) });
+    }
 
     const variantIds = [
       ...new Set(items.map((item: any) => String(item.variant_id ?? ""))),
@@ -200,6 +224,7 @@ Deno.serve(async (req) => {
       p_total: total,
       p_payment_proof_path: proofPath,
       p_items: normalizedItems,
+      p_promo_code: promoCode,
     });
 
     if (error) {
@@ -208,7 +233,7 @@ Deno.serve(async (req) => {
       return reply(
         {
           error:
-            "Could not place the order. Please refresh and try again.",
+            (error.message && /promo|total mismatch|stock|variant|product|quantity|option/i.test(error.message) ? error.message : "Could not place the order. Please refresh and try again."),
         },
         409,
       );
@@ -216,6 +241,10 @@ Deno.serve(async (req) => {
 
     return reply({
       order_number: data?.order_number || orderNumber,
+      subtotal: data?.subtotal,
+      discount_amount: data?.discount_amount ?? 0,
+      total: data?.total,
+      promo_code_used: data?.promo_code_used ?? null,
     });
   } catch (error) {
     console.error("Checkout error:", error);
