@@ -81,9 +81,6 @@ $('clearReseller').onclick=()=>{$('resellerForm').reset();$('resellerId').value=
 $('resellerForm').onsubmit=async e=>{e.preventDefault();const id=$('resellerId').value;const payload={name:$('resellerName').value.trim(),code:$('resellerCode').value.trim(),active:$('resellerActive').value==='true'};try{const q=id?await db.from('sd_resellers').update(payload).eq('id',id):await db.from('sd_resellers').insert(payload);if(q.error)throw q.error;$('resellerStatus').textContent='Reseller saved.';$('resellerForm').reset();$('resellerId').value='';await loadAll()}catch(err){$('resellerStatus').textContent=err.message}};
 $('resellerPriceForm').onsubmit=async e=>{e.preventDefault();const payload={reseller_id:$('priceReseller').value,variant_id:$('priceVariant').value,vial_water_price:Number($('resellerVialPrice').value),complete_set_price:Number($('resellerSetPrice').value)};try{const q=await db.from('sd_reseller_prices').upsert(payload,{onConflict:'reseller_id,variant_id'});if(q.error)throw q.error;$('resellerPriceStatus').textContent='Custom prices saved.';await loadAll()}catch(err){$('resellerPriceStatus').textContent=err.message}};
 
-gate();
-})();
-
 function renderPromoCodes(){
  const fmtDate=v=>v?new Date(v).toLocaleString():'—';
  $('promoList').innerHTML=promoCodes.map(p=>'<div class="item"><div class="row"><div><b>'+esc(p.code)+'</b> <span class="pill">'+(p.active?'Active':'Inactive')+'</span><p>'+ (p.discount_type==='percent'?Number(p.discount_value)+'% off':money(p.discount_value)+' off') +' · Used '+Number(p.usage_count||0)+(p.usage_limit===null?'':' / '+p.usage_limit)+'</p><small class="muted">Starts: '+fmtDate(p.starts_at)+' · Ends: '+fmtDate(p.ends_at)+'</small></div><div><button class="btn outline" data-edit-promo="'+esc(p.id)+'">Edit</button> <button class="btn outline" data-toggle-promo="'+esc(p.id)+'">'+(p.active?'Deactivate':'Activate')+'</button></div></div></div>').join('')||'<p>No promo codes yet.</p>';
@@ -92,4 +89,8 @@ function renderPromoCodes(){
 }
 $('clearPromo').onclick=()=>{$('promoForm').reset();$('promoId').value='';$('promoActive').value='true';};
 $('promoForm').onsubmit=async e=>{e.preventDefault();const id=$('promoId').value,type=$('promoType').value,value=Number($('promoValue').value),limit=$('promoLimit').value?Number($('promoLimit').value):null;if(type==='percent'&&value>100){$('promoAdminStatus').textContent='Percentage must be 100 or less.';return}const payload={code:$('promoName').value.trim().toUpperCase(),discount_type:type,discount_value:value,usage_limit:limit,starts_at:$('promoStart').value?new Date($('promoStart').value).toISOString():null,ends_at:$('promoEnd').value?new Date($('promoEnd').value).toISOString():null,active:$('promoActive').value==='true',updated_at:new Date().toISOString()};if(payload.starts_at&&payload.ends_at&&Date.parse(payload.ends_at)<=Date.parse(payload.starts_at)){$('promoAdminStatus').textContent='End date must be after start date.';return}try{const q=id?await db.from('sd_promo_codes').update(payload).eq('id',id):await db.from('sd_promo_codes').insert(payload);if(q.error)throw q.error;$('promoAdminStatus').textContent='Promo code saved.';$('promoForm').reset();$('promoId').value='';$('promoActive').value='true';await loadAll()}catch(err){$('promoAdminStatus').textContent=err.message||'Could not save promo code.'}};
+
+gate();
+})();
+
 </script></body></html>
