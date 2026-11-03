@@ -51,7 +51,7 @@ async function load(){
  ]);
  if(p.error) throw p.error;if(c.error)throw c.error; products=p.data||[];variants=v.data||[];categories=c.data||[];
  (s.data||[]).forEach(x=>settings[x.key]=x.value);
- renderProducts();renderProtocols(pr.data||[]);renderProofs(proof.data||[]);renderContact();
+ renderProtocols(pr.data||[]);renderProducts();renderProofs(proof.data||[]);renderContact();
 }
 function renderProducts(){
  const q=$('search').value.trim().toLowerCase(),host=$('products');
