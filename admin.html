@@ -23,7 +23,7 @@
 <p class="muted">Pumili lang ng reseller code. Lalabas ang lahat ng products at variants sa isang listahan. I-edit ang presyo per product, tapos isang SAVE ALL PRICES lang.</p>
 <div class="field"><label>Choose reseller / code *</label><select id="priceReseller" required><option value="">Choose reseller</option></select></div>
 <div id="resellerPriceEditor"><div class="item muted">Pumili muna ng reseller para lumabas ang product prices.</div></div>
-<button class="btn" type="button" id="saveAllResellerPrices">SAVE ALL PRICES</button>
+<div class="row" style="gap:10px;flex-wrap:wrap"><button class="btn" type="button" id="saveAllResellerPrices">SAVE ALL PRICES</button><button class="btn outline" type="button" id="refreshAllResellerPrices">↻ REFRESH ALL PRODUCTS</button></div>
 <p id="resellerPriceStatus" class="status"></p>
 <h3>Saved Reseller Prices</h3><div id="resellerPriceList"></div>
 <p class="muted">Blank prices are not needed: every variant starts with its regular store price. You can change only the products you want, then save everything together.</p>
@@ -85,6 +85,13 @@ function renderResellerPriceEditor(){
   host.innerHTML=groups.map(g=>`<div class="item"><h3>${esc(g.product.name)}</h3><div class="table-wrap"><table style="min-width:620px"><thead><tr><th>Variant</th><th>Vial + Water Price (₱)</th><th>Complete Set Price (₱)</th></tr></thead><tbody>${g.rows.map(v=>{const saved=resellerPrices.find(x=>x.reseller_id===rid&&x.variant_id===v.id);return `<tr><td><b>${esc(v.label)}</b><br><small class="muted">Stock: ${Number(v.stock)||0}</small></td><td><input data-rp-vial="${esc(v.id)}" type="number" min="0" step=".01" value="${Number(saved?saved.vial_water_price:v.vial_water_price)}" style="min-width:120px"></td><td><input data-rp-complete="${esc(v.id)}" type="number" min="0" step=".01" value="${Number(saved?saved.complete_set_price:v.complete_set_price)}" style="min-width:120px"></td></tr>`}).join('')}</tbody></table></div></div>`).join('')||'<p>No product variants found. Add variants in Products & Stock first.</p>';
 }
 $('priceReseller').onchange=renderResellerPriceEditor;
+$('refreshAllResellerPrices').onclick=async()=>{
+  const rid=$('priceReseller').value;
+  if(!confirm('Refresh all products and reseller prices from the database? Any unsaved price edits on this screen will be lost.'))return;
+  const btn=$('refreshAllResellerPrices');btn.disabled=true;btn.textContent='REFRESHING…';
+  try{await loadAll();if(rid)$('priceReseller').value=rid;renderResellerPriceEditor();$('resellerPriceStatus').textContent='All products and reseller prices refreshed.'}
+  finally{btn.disabled=false;btn.textContent='↻ REFRESH ALL PRODUCTS'}
+};
 $('saveAllResellerPrices').onclick=async()=>{
   const rid=$('priceReseller').value;
   if(!rid){$('resellerPriceStatus').textContent='Choose a reseller first.';return}
