@@ -35,7 +35,7 @@ const $=id=>document.getElementById(id), money=n=>'₱'+Number(n||0).toLocaleStr
 const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 let products=[],variants=[],categories=[],cart=[],selected=null,settings={},appliedReseller=null;
 function isSyringe(p){return !!p&&categories.some(c=>c.id===p.category_id&&String(c.name).toLowerCase()==='syringes')}
-function optionLabel(p,option){return isSyringe(p)?(option==='complete'?'Per Box (100 pcs)':'Per Piece'):(optionLabel({category_id:categories.find(c=>String(c.name).toLowerCase()==='syringes')?.id},option))}
+function optionLabel(p,option){return isSyringe(p)?(option==='complete'?'Per Box (100 pcs)':'Per Piece'):(option==='complete'?'Complete Set':'Vial + Bac Water Only')}
 function open(id){$(id).classList.add('open')}function shut(id){$(id).classList.remove('open')}
 function photoHTML(url,name){return url?`<img src="${esc(url)}" alt="${esc(name)}" loading="lazy">`:`<div class="vial-fallback"><div class="vial-label"><b>SEXY DUST</b>${esc(name)}<br><br>FOR RESEARCH<br>USE ONLY</div></div>`}
 function getVariants(p){return variants.filter(v=>v.product_id===p.id)}
