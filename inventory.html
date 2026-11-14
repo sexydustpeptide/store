@@ -1,0 +1,161 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Sexy Dust · Inventory</title>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.57.4"></script>
+<style>
+:root{--pink:#f5dce5;--rose:#c77d96;--wine:#74384f;--ivory:#fffaf7;--ink:#382a31;--muted:#806e76;--line:#ead7df;--green:#287a58;--red:#a94d62}
+*{box-sizing:border-box}body{margin:0;background:var(--ivory);color:var(--ink);font:14px/1.5 Arial,sans-serif}button,input,select,textarea{font:inherit}button{cursor:pointer}.hidden{display:none!important}.wrap{max-width:1280px;margin:auto;padding:22px}.brand{font:italic 27px Georgia;color:var(--wine);letter-spacing:1px}.brand small{display:block;font:9px Arial;letter-spacing:4px}.muted{color:var(--muted)}.btn{border:0;border-radius:999px;padding:10px 16px;font-weight:700;background:var(--rose);color:white}.btn.outline{background:white;border:1px solid var(--rose);color:var(--wine)}.btn.danger{background:#f8e8ed;color:var(--red)}input,select,textarea{width:100%;border:1px solid var(--line);border-radius:11px;padding:11px;background:white;color:var(--ink)}label{font-size:12px;color:var(--muted);display:block;margin:10px 0 5px}.login{max-width:420px;margin:8vh auto;background:white;border:1px solid var(--line);border-radius:24px;padding:28px;box-shadow:0 15px 45px #74384f10}.login h1{font:30px Georgia;color:var(--wine);margin:8px 0}.top{display:flex;justify-content:space-between;align-items:center;gap:15px;flex-wrap:wrap;padding-bottom:18px;border-bottom:1px solid var(--line)}.layout{display:grid;grid-template-columns:220px minmax(0,1fr);gap:22px;margin-top:22px}.side{display:flex;flex-direction:column;gap:7px}.nav{padding:12px 14px;border:1px solid transparent;border-radius:13px;text-align:left;background:transparent;color:var(--wine);font-weight:700}.nav.active,.nav:hover{background:var(--pink);border-color:var(--line)}.main{min-width:0}.pagehead{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;margin-bottom:17px}.pagehead h1{font:30px Georgia;color:var(--wine);margin:0}.cards{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:13px;margin-bottom:18px}.card,.panel{background:white;border:1px solid var(--line);border-radius:17px;padding:17px}.metric{font:29px Georgia;color:var(--wine);margin-top:5px}.metric-label{font-size:12px;color:var(--muted)}.toolbar{display:flex;gap:9px;flex-wrap:wrap;margin:12px 0}.toolbar input{max-width:300px}.tablewrap{overflow:auto;border:1px solid var(--line);border-radius:14px;background:white}table{width:100%;border-collapse:collapse;min-width:700px}th,td{text-align:left;padding:12px;border-bottom:1px solid var(--line);vertical-align:top}th{font-size:11px;letter-spacing:.5px;color:var(--muted);background:#fff8fa}tr:last-child td{border-bottom:0}.pill{display:inline-block;padding:4px 9px;border-radius:99px;background:#f8eaf0;color:var(--wine);font-size:11px;font-weight:700}.pill.low{background:#fae8e8;color:var(--red)}.grid2{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:15px}.formgrid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:0 12px}.wide{grid-column:1/-1}.modal{position:fixed;inset:0;background:#28151fb0;display:none;align-items:center;justify-content:center;padding:16px;z-index:10}.modal.open{display:flex}.modalbox{width:min(560px,100%);max-height:90vh;overflow:auto;background:var(--ivory);border-radius:20px;padding:22px}.modalhead{display:flex;justify-content:space-between;align-items:center}.modalhead h2{font:24px Georgia;color:var(--wine);margin:0}.actions{display:flex;gap:8px;justify-content:flex-end;margin-top:16px}.notice{padding:10px 13px;background:#f9edf2;border-radius:12px;color:var(--wine);margin:12px 0}.right{text-align:right}.empty{padding:28px;text-align:center;color:var(--muted)}.mobileonly{display:none}
+@media(max-width:850px){.layout{grid-template-columns:1fr}.side{flex-direction:row;overflow:auto;padding-bottom:5px}.nav{white-space:nowrap}.cards{grid-template-columns:repeat(2,minmax(0,1fr))}}@media(max-width:560px){.wrap{padding:14px}.cards{grid-template-columns:repeat(2,minmax(0,1fr))}.grid2,.formgrid{grid-template-columns:1fr}.wide{grid-column:auto}.pagehead h1{font-size:25px}.login{margin:5vh auto}.metric{font-size:24px}}
+</style>
+</head>
+<body>
+<div id="loginView" class="wrap">
+  <div class="login">
+    <div class="brand">SEXY DUST<small>INVENTORY MANAGEMENT</small></div>
+    <h1>Private Access</h1>
+    <p class="muted">Invite-only inventory workspace. Enter your invited email to receive a one-time login code.</p>
+    <div id="loginStepEmail">
+      <label>Email address</label><input id="loginEmail" type="email" placeholder="you@example.com" autocomplete="email">
+      <button id="sendCode" class="btn" style="width:100%;margin-top:14px">Send login code</button>
+    </div>
+    <div id="loginStepOtp" class="hidden">
+      <label>6-digit email code</label><input id="loginOtp" inputmode="numeric" maxlength="6" placeholder="000000" autocomplete="one-time-code">
+      <button id="verifyCode" class="btn" style="width:100%;margin-top:14px">Verify and log in</button>
+      <button id="backEmail" class="btn outline" style="width:100%;margin-top:8px">Use another email</button>
+    </div>
+    <p id="loginMsg" class="muted" role="status"></p>
+  </div>
+</div>
+<div id="appView" class="wrap hidden">
+  <header class="top">
+    <div class="brand">SEXY DUST<small>INVENTORY MANAGEMENT</small></div>
+    <div style="display:flex;align-items:center;gap:12px;flex-wrap:wrap"><span id="who" class="muted"></span><button id="logout" class="btn outline">Log out</button></div>
+  </header>
+  <div class="layout">
+    <nav class="side">
+      <button class="nav active" data-page="overview">Overview</button>
+      <button class="nav" data-page="inventory">Inventory</button>
+      <button class="nav" data-page="movements">Stock Movements</button>
+      <button class="nav admin-only" data-page="activity">Activity Log</button>
+      <button class="nav admin-only" data-page="users">User Access</button>
+    </nav>
+    <main class="main">
+      <section id="page-overview">
+        <div class="pagehead"><h1>Overview</h1><span class="muted" id="today"></span></div>
+        <div class="cards">
+          <div class="card"><div class="metric-label">Active Products</div><div class="metric" id="mProducts">0</div></div>
+          <div class="card"><div class="metric-label">Total Units in Stock</div><div class="metric" id="mUnits">0</div></div>
+          <div class="card"><div class="metric-label">Low Stock Items</div><div class="metric" id="mLow">0</div></div>
+          <div class="card"><div class="metric-label">Inventory Cost Value</div><div class="metric" id="mValue">₱0.00</div></div>
+        </div>
+        <div class="panel"><div class="pagehead"><h2 style="font:23px Georgia;color:var(--wine);margin:0">Low Stock Watch</h2><button class="btn outline" data-goto="inventory">Manage inventory</button></div><div id="lowStockTable"></div></div>
+      </section>
+      <section id="page-inventory" class="hidden">
+        <div class="pagehead"><h1>Inventory</h1><button id="addProduct" class="btn admin-edit">+ Add Product</button></div>
+        <div class="toolbar"><input id="productSearch" placeholder="Search product or SKU"><select id="productFilter" style="max-width:180px"><option value="all">All stock levels</option><option value="low">Low stock</option><option value="out">Out of stock</option></select></div>
+        <div class="tablewrap"><table><thead><tr><th>Product</th><th>SKU</th><th>Category</th><th>Stock</th><th>Unit Cost</th><th>Sell Price</th><th>Status</th><th>Actions</th></tr></thead><tbody id="productRows"></tbody></table></div>
+      </section>
+      <section id="page-movements" class="hidden">
+        <div class="pagehead"><h1>Stock Movements</h1><button id="addMovement" class="btn">+ Record Stock In / Out</button></div>
+        <p class="muted">Every stock movement saves the user, timestamp, reason, and exact before-and-after quantity.</p>
+        <div class="toolbar"><input id="movementSearch" placeholder="Search product or user"></div>
+        <div class="tablewrap"><table><thead><tr><th>Date & Time</th><th>Product</th><th>Action</th><th>Change</th><th>Before</th><th>After</th><th>By</th><th>Reason</th></tr></thead><tbody id="movementRows"></tbody></table></div>
+      </section>
+      <section id="page-activity" class="hidden">
+        <div class="pagehead"><h1>Activity Log</h1></div>
+        <p class="muted">Login/logout, stock changes, product edits, and user access changes. Records are generated by the database.</p>
+        <div class="toolbar"><input id="activitySearch" placeholder="Search email or activity"><select id="activityType" style="max-width:200px"><option value="all">All activities</option><option value="login_success">Login</option><option value="logout">Logout</option><option value="stock_in">Stock In</option><option value="stock_out">Stock Out</option><option value="adjustment">Adjustment</option><option value="product_updated">Product Updated</option><option value="product_created">Product Created</option><option value="user_invited">User Invited</option><option value="user_access_updated">Access Updated</option></select></div>
+        <div class="tablewrap"><table><thead><tr><th>Date & Time</th><th>User</th><th>Activity</th><th>Details</th><th>Before</th><th>After</th></tr></thead><tbody id="activityRows"></tbody></table></div>
+      </section>
+      <section id="page-users" class="hidden">
+        <div class="pagehead"><h1>User Access</h1></div>
+        <div class="grid2">
+          <div class="panel"><h2 style="font:22px Georgia;color:var(--wine);margin-top:0">Invite a user</h2><p class="muted">Only invited email addresses can enter this inventory system.</p><label>Email address</label><input id="inviteEmail" type="email" placeholder="staff@example.com"><label>Access role</label><select id="inviteRole"><option value="staff">Staff — inventory access</option><option value="super_admin">Super Admin — full access</option></select><button id="inviteUser" class="btn" style="margin-top:14px">Send Invitation Access</button><p id="inviteMsg" class="muted"></p></div>
+          <div class="panel"><h2 style="font:22px Georgia;color:var(--wine);margin-top:0">Access control</h2><p class="muted">Deactivate an account to block future inventory access. You can reactivate or change its role here.</p><p class="notice">For security, keep Super Admin access limited to trusted people.</p></div>
+        </div>
+        <h2 style="font:23px Georgia;color:var(--wine);margin:24px 0 12px">Authorized Users</h2>
+        <div class="tablewrap"><table><thead><tr><th>Email</th><th>Role</th><th>Status</th><th>Added</th><th>Actions</th></tr></thead><tbody id="userRows"></tbody></table></div>
+      </section>
+    </main>
+  </div>
+</div>
+
+<div id="productModal" class="modal"><div class="modalbox"><div class="modalhead"><h2 id="productModalTitle">Add Product</h2><button class="btn outline" data-close="productModal">Close</button></div><form id="productForm"><input id="pId" type="hidden"><div class="formgrid"><div><label>Product name *</label><input id="pName" required></div><div><label>SKU</label><input id="pSku"></div><div><label>Category</label><input id="pCategory"></div><div><label>Unit</label><input id="pUnit" value="pcs"></div><div><label>Unit cost (₱)</label><input id="pCost" type="number" min="0" step=".01" value="0"></div><div><label>Selling price (₱)</label><input id="pPrice" type="number" min="0" step=".01" value="0"></div><div><label>Reorder level</label><input id="pReorder" type="number" min="0" step="1" value="0"></div><div><label>Opening stock (new item only)</label><input id="pStock" type="number" min="0" step="1" value="0"></div><div class="wide"><label>Notes</label><textarea id="pNotes" rows="2"></textarea></div></div><p id="productMsg" class="muted"></p><div class="actions"><button type="button" class="btn outline" data-close="productModal">Cancel</button><button class="btn" type="submit">Save Product</button></div></form></div></div>
+<div id="movementModal" class="modal"><div class="modalbox"><div class="modalhead"><h2>Record Stock Movement</h2><button class="btn outline" data-close="movementModal">Close</button></div><form id="movementForm"><label>Product *</label><select id="moveProduct" required></select><label>Movement type</label><select id="moveType"><option value="stock_in">Stock In / Add</option><option value="stock_out">Stock Out / Release</option><option value="adjustment">Adjustment (+/-)</option></select><label>Quantity *</label><input id="moveQty" type="number" step="1" required placeholder="Enter positive quantity; adjustment may be negative"><label>Reason / Reference *</label><textarea id="moveReason" rows="3" required placeholder="e.g. New delivery, customer release, damaged stock"></textarea><p id="movePreview" class="notice"></p><p id="moveMsg" class="muted"></p><div class="actions"><button type="button" class="btn outline" data-close="movementModal">Cancel</button><button class="btn" type="submit">Save Movement</button></div></form></div></div>
+
+<script>
+(() => {
+const SUPABASE_URL = 'https://ijqrfbnkdaskttefwkdh.supabase.co';
+const SUPABASE_KEY = 'sb_publishable_cWaEZyhW_H23iUCX-YN4bg_Ghs14eGF';
+const db = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+const $ = id => document.getElementById(id);
+const money = n => new Intl.NumberFormat('en-PH',{style:'currency',currency:'PHP'}).format(Number(n||0));
+const esc = s => String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const dt = s => new Date(s).toLocaleString('en-PH',{dateStyle:'medium',timeStyle:'short',hour12:true});
+let user=null, member=null, products=[], movements=[], activities=[], members=[];
+let loginEmail='';
+function msg(id,s){$(id).textContent=s||''}
+function showLogin(){ $('appView').classList.add('hidden'); $('loginView').classList.remove('hidden') }
+function showApp(){ $('loginView').classList.add('hidden'); $('appView').classList.remove('hidden'); $('who').textContent=member.email+' · '+member.role.replace('_',' '); document.querySelectorAll('.admin-only').forEach(x=>x.classList.toggle('hidden',member.role!=='super_admin')); document.querySelectorAll('.admin-edit').forEach(x=>x.classList.toggle('hidden',member.role!=='super_admin')); }
+async function checkMember(session){
+  if(!session?.user) {user=null;member=null;showLogin();return false}
+  user=session.user;
+  const {data,error}=await db.from('inv_users').select('*').eq('user_id',user.id).eq('active',true).maybeSingle();
+  if(error||!data){await db.auth.signOut();msg('loginMsg','This email is not invited or access has been disabled. Ask the Super Admin for access.');showLogin();return false}
+  member=data; showApp();
+  await db.rpc('inv_log_access',{p_action:'login_success'});
+  await loadAll();
+  return true;
+}
+$('sendCode').onclick=async()=>{
+  loginEmail=$('loginEmail').value.trim().toLowerCase();
+  if(!loginEmail){msg('loginMsg','Enter your invited email address.');return}
+  msg('loginMsg','Sending code…');
+  const {error}=await db.auth.signInWithOtp({email:loginEmail,options:{shouldCreateUser:true}});
+  msg('loginMsg',error?error.message:'If the email is authorized, a one-time code will be sent. Check your inbox and spam folder.');
+  if(!error){$('loginStepEmail').classList.add('hidden');$('loginStepOtp').classList.remove('hidden')}
+};
+$('verifyCode').onclick=async()=>{
+  const token=$('loginOtp').value.trim();
+  if(!/^\d{6}$/.test(token)){msg('loginMsg','Enter the 6-digit code.');return}
+  msg('loginMsg','Verifying…');
+  const {data,error}=await db.auth.verifyOtp({email:loginEmail,token,type:'email'});
+  if(error){msg('loginMsg',error.message);return}
+  const ok=await checkMember(data.session);
+  if(!ok)msg('loginMsg','Access denied. Only invited emails can use this system.');
+};
+$('backEmail').onclick=()=>{$('loginStepOtp').classList.add('hidden');$('loginStepEmail').classList.remove('hidden');$('loginOtp').value='';msg('loginMsg','')};
+$('logout').onclick=async()=>{try{await db.rpc('inv_log_access',{p_action:'logout'})}catch(e){}await db.auth.signOut();member=null;user=null;showLogin()};
+db.auth.onAuthStateChange(async(event,session)=>{if(event==='SIGNED_IN'&&session?.user&&!member){setTimeout(()=>checkMember(session),0)}if(event==='SIGNED_OUT'){member=null;user=null;showLogin()}});
+function go(page){document.querySelectorAll('.nav').forEach(b=>b.classList.toggle('active',b.dataset.page===page));['overview','inventory','movements','activity','users'].forEach(p=>$('page-'+p).classList.toggle('hidden',p!==page));if(page==='activity'&&member.role==='super_admin')loadActivities();if(page==='users'&&member.role==='super_admin')loadUsers();if(page==='movements')renderMovements()}
+document.querySelectorAll('.nav').forEach(b=>b.onclick=()=>go(b.dataset.page));
+document.querySelectorAll('[data-goto]').forEach(b=>b.onclick=()=>go(b.dataset.goto));
+function open(id){$(id).classList.add('open')}function close(id){$(id).classList.remove('open')}
+document.querySelectorAll('[data-close]').forEach(b=>b.onclick=()=>close(b.dataset.close));
+async function loadAll(){await loadProducts();await loadMovements();$('today').textContent=new Date().toLocaleDateString('en-PH',{dateStyle:'full'});renderOverview();renderProducts();renderMovements()}
+async function loadProducts(){const {data,error}=await db.from('inv_products').select('*').eq('active',true).order('name');if(error){alert('Could not load inventory: '+error.message);return}products=data||[]}
+async function loadMovements(){const {data,error}=await db.from('inv_stock_movements').select('*').order('created_at',{ascending:false}).limit(250);if(error){console.error(error);return}movements=data||[]}
+function renderOverview(){const low=products.filter(p=>p.stock<=p.reorder_level);$('mProducts').textContent=products.length;$('mUnits').textContent=products.reduce((s,p)=>s+Number(p.stock),0).toLocaleString();$('mLow').textContent=low.length;$('mValue').textContent=money(products.reduce((s,p)=>s+Number(p.stock)*Number(p.unit_cost),0));$('lowStockTable').innerHTML=low.length?'<div class="tablewrap"><table><thead><tr><th>Product</th><th>Stock</th><th>Reorder Level</th><th>Status</th></tr></thead><tbody>'+low.map(p=>'<tr><td>'+esc(p.name)+'</td><td>'+p.stock+' '+esc(p.unit)+'</td><td>'+p.reorder_level+'</td><td><span class="pill low">'+(p.stock===0?'Out of stock':'Low stock')+'</span></td></tr>').join('')+'</tbody></table></div>':'<div class="empty">All products are above their reorder levels.</div>'}
+function renderProducts(){const term=$('productSearch').value.toLowerCase(),filter=$('productFilter').value;const rows=products.filter(p=>(p.name+' '+(p.sku||'')).toLowerCase().includes(term)&&(filter==='all'||(filter==='low'&&p.stock<=p.reorder_level)||(filter==='out'&&p.stock===0)));$('productRows').innerHTML=rows.length?rows.map(p=>'<tr><td><b>'+esc(p.name)+'</b><br><small class="muted">'+esc(p.notes)+'</small></td><td>'+esc(p.sku||'—')+'</td><td>'+esc(p.category||'—')+'</td><td><b>'+p.stock+'</b> '+esc(p.unit)+'</td><td>'+money(p.unit_cost)+'</td><td>'+money(p.selling_price)+'</td><td>'+(p.stock===0?'<span class="pill low">Out of stock</span>':p.stock<=p.reorder_level?'<span class="pill low">Low stock</span>':'<span class="pill">In stock</span>')+'</td><td><button class="btn outline" data-edit="'+p.id+'">View / Edit</button></td></tr>').join(''):'<tr><td colspan="8" class="empty">No products found.</td></tr>';$('productRows').querySelectorAll('[data-edit]').forEach(b=>b.onclick=()=>editProduct(b.dataset.edit))}
+$('productSearch').oninput=renderProducts;$('productFilter').onchange=renderProducts;
+$('addProduct').onclick=()=>{if(member.role!=='super_admin')return;$('productForm').reset();$('pId').value='';$('pUnit').value='pcs';$('pCost').value=0;$('pPrice').value=0;$('pReorder').value=0;$('pStock').value=0;$('pStock').disabled=false;$('productModalTitle').textContent='Add Product';msg('productMsg','');open('productModal')};
+function editProduct(id){const p=products.find(x=>x.id===id);$('pId').value=p.id;$('pName').value=p.name;$('pSku').value=p.sku||'';$('pCategory').value=p.category||'';$('pUnit').value=p.unit;$('pCost').value=p.unit_cost;$('pPrice').value=p.selling_price;$('pReorder').value=p.reorder_level;$('pStock').value=p.stock;$('pStock').disabled=true;$('pNotes').value=p.notes||'';$('productModalTitle').textContent='Edit Product';msg('productMsg','Current stock is changed only through Stock Movements, so every quantity change is recorded.');open('productModal')}
+$('productForm').onsubmit=async e=>{e.preventDefault();if(member.role!=='super_admin')return;const id=$('pId').value;const payload={name:$('pName').value.trim(),sku:$('pSku').value.trim()||null,category:$('pCategory').value.trim(),unit:$('pUnit').value.trim()||'pcs',unit_cost:Number($('pCost').value)||0,selling_price:Number($('pPrice').value)||0,reorder_level:Number($('pReorder').value)||0,notes:$('pNotes').value.trim(),updated_at:new Date().toISOString()};let q;if(id)q=await db.from('inv_products').update(payload).eq('id',id);else q=await db.from('inv_products').insert({...payload,stock:Number($('pStock').value)||0,created_by:user.id});if(q.error){msg('productMsg',q.error.message);return}close('productModal');await loadProducts();renderProducts();renderOverview();if(id)await loadActivities()};
+$('addMovement').onclick=()=>{if(!products.length){alert('Add a product first.');return}$('moveProduct').innerHTML=products.map(p=>'<option value="'+p.id+'">'+esc(p.name)+' — '+p.stock+' '+esc(p.unit)+'</option>').join('');$('moveType').value='stock_in';$('moveQty').value='';$('moveReason').value='';msg('moveMsg','');updateMovePreview();open('movementModal')};
+function updateMovePreview(){const p=products.find(x=>x.id===$('moveProduct').value);const n=Number($('moveQty').value)||0,t=$('moveType').value;let delta=t==='stock_out'?-Math.abs(n):t==='stock_in'?Math.abs(n):n;$('movePreview').textContent=p?'Current stock: '+p.stock+' · New stock after this movement: '+(p.stock+delta)+' '+p.unit:''}
+$('moveProduct').onchange=updateMovePreview;$('moveType').onchange=updateMovePreview;$('moveQty').oninput=updateMovePreview;
+$('movementForm').onsubmit=async e=>{e.preventDefault();const p=products.find(x=>x.id===$('moveProduct').value),type=$('moveType').value,n=Number($('moveQty').value),delta=type==='stock_out'?-Math.abs(n):type==='stock_in'?Math.abs(n):n;if(!p||!Number.isInteger(n)||n===0){msg('moveMsg','Enter a non-zero whole-number quantity.');return}if(p.stock+delta<0){msg('moveMsg','Not enough stock for this stock-out.');return}const q=await db.from('inv_stock_movements').insert({product_id:p.id,movement_type:type,quantity:delta,reason:$('moveReason').value.trim(),created_by:user.id});if(q.error){msg('moveMsg',q.error.message);return}close('movementModal');await loadAll();if(member.role==='super_admin')await loadActivities()};
+function renderMovements(){const term=($('movementSearch').value||'').toLowerCase();const rows=movements.filter(m=>{const p=products.find(x=>x.id===m.product_id);return ((p?.name||'')+' '+m.created_by_email).toLowerCase().includes(term)});$('movementRows').innerHTML=rows.length?rows.map(m=>{const p=products.find(x=>x.id===m.product_id);return '<tr><td>'+dt(m.created_at)+'</td><td>'+esc(p?.name||'Deleted product')+'</td><td><span class="pill">'+m.movement_type.replace('_',' ')+'</span></td><td>'+(m.quantity>0?'+':'')+m.quantity+'</td><td>'+m.stock_before+'</td><td><b>'+m.stock_after+'</b></td><td>'+esc(m.created_by_email)+'</td><td>'+esc(m.reason)+'</td></tr>'}).join(''):'<tr><td colspan="8" class="empty">No stock movements yet.</td></tr>'}
+$('movementSearch').oninput=renderMovements;
+async function loadActivities(){if(member.role!=='super_admin')return;const {data,error}=await db.from('inv_activity_log').select('*').order('created_at',{ascending:false}).limit(500);if(error){alert('Could not load activity log: '+error.message);return}activities=data||[];renderActivities()}
+function renderActivities(){const term=($('activitySearch').value||'').toLowerCase(),type=$('activityType').value;const rows=activities.filter(a=>(type==='all'||a.action===type)&&((a.actor_email+' '+a.action+' '+a.summary).toLowerCase().includes(term)));$('activityRows').innerHTML=rows.length?rows.map(a=>'<tr><td>'+dt(a.created_at)+'</td><td>'+esc(a.actor_email||'System')+'</td><td><span class="pill">'+esc(a.action.replaceAll('_',' '))+'</span></td><td>'+esc(a.summary)+'</td><td><small>'+esc(a.before_data?JSON.stringify(a.before_data):'—')+'</small></td><td><small>'+esc(a.after_data?JSON.stringify(a.after_data):'—')+'</small></td></tr>').join(''):'<tr><td colspan="6" class="empty">No matching activity.</td></tr>'}
+$('activitySearch').oninput=renderActivities;$('activityType').onchange=renderActivities;
+async function loadUsers(){if(member.role!=='super_admin')return;const {data,error}=await db.from('inv_users').select('*').order('created_at',{ascending:false});if(error){alert(error.message);return}members=data||[];$('userRows').innerHTML=members.map(m=>'<tr><td>'+esc(m.email)+(m.email===member.email?' <span class="pill">You</span>':'')+'</td><td>'+esc(m.role.replace('_',' '))+'</td><td>'+(m.active?'<span class="pill">Active</span>':'<span class="pill low">Disabled</span>')+'</td><td>'+dt(m.created_at)+'</td><td><button class="btn outline" data-role="'+m.id+'">'+(m.role==='staff'?'Make Super Admin':'Make Staff')+'</button> <button class="btn danger" data-active="'+m.id+'">'+(m.active?'Revoke':'Reactivate')+'</button></td></tr>').join('');$('userRows').querySelectorAll('[data-role]').forEach(b=>b.onclick=async()=>{const m=members.find(x=>x.id===b.dataset.role);if(m.email===member.email&&m.role==='super_admin'){alert('You cannot remove your own Super Admin role.');return}const q=await db.from('inv_users').update({role:m.role==='staff'?'super_admin':'staff',updated_at:new Date().toISOString()}).eq('id',m.id);if(q.error)alert(q.error.message);else{await loadUsers();await loadActivities()}});$('userRows').querySelectorAll('[data-active]').forEach(b=>b.onclick=async()=>{const m=members.find(x=>x.id===b.dataset.active);if(m.email===member.email){alert('You cannot revoke your own access.');return}const q=await db.from('inv_users').update({active:!m.active,updated_at:new Date().toISOString()}).eq('id',m.id);if(q.error)alert(q.error.message);else{await loadUsers();await loadActivities()}})}
+$('inviteUser').onclick=async()=>{const email=$('inviteEmail').value.trim().toLowerCase(),role=$('inviteRole').value;if(!email.includes('@')){msg('inviteMsg','Enter a valid email.');return}const q=await db.from('inv_users').upsert({email,role,active:true,invited_by:user.id,updated_at:new Date().toISOString()},{onConflict:'email'});if(q.error){msg('inviteMsg',q.error.message);return}$('inviteEmail').value='';msg('inviteMsg','Access granted to '+email+'. They can now request an email login code.');await loadUsers();await loadActivities()};
+if(window.location.hash.includes('access_token')){history.replaceState(null,'',location.pathname)}
+showLogin();
+})();
+</script>
+</body></html>
