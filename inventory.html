@@ -128,7 +128,7 @@ $('verifyCode').onclick=async()=>{
 };
 $('backEmail').onclick=()=>{$('loginStepOtp').classList.add('hidden');$('loginStepEmail').classList.remove('hidden');$('loginOtp').value='';msg('loginMsg','')};
 $('logout').onclick=async()=>{try{await db.rpc('inv_log_access',{p_action:'logout'})}catch(e){}await db.auth.signOut();member=null;user=null;showLogin()};
-db.auth.onAuthStateChange(async(event,session)=>{if(event==='SIGNED_IN'&&session?.user&&!member){setTimeout(()=>checkMember(session),0)}if(event==='SIGNED_OUT'){member=null;user=null;showLogin()}});
+db.auth.onAuthStateChange((event)=>{if(event==='SIGNED_OUT'){member=null;user=null;showLogin()}});
 function go(page){document.querySelectorAll('.nav').forEach(b=>b.classList.toggle('active',b.dataset.page===page));['overview','inventory','movements','activity','users'].forEach(p=>$('page-'+p).classList.toggle('hidden',p!==page));if(page==='activity'&&member.role==='super_admin')loadActivities();if(page==='users'&&member.role==='super_admin')loadUsers();if(page==='movements')renderMovements()}
 document.querySelectorAll('.nav').forEach(b=>b.onclick=()=>go(b.dataset.page));
 document.querySelectorAll('[data-goto]').forEach(b=>b.onclick=()=>go(b.dataset.goto));
@@ -156,6 +156,7 @@ async function loadUsers(){if(member.role!=='super_admin')return;const {data,err
 $('inviteUser').onclick=async()=>{const email=$('inviteEmail').value.trim().toLowerCase(),role=$('inviteRole').value;if(!email.includes('@')){msg('inviteMsg','Enter a valid email.');return}const q=await db.from('inv_users').upsert({email,role,active:true,invited_by:user.id,updated_at:new Date().toISOString()},{onConflict:'email'});if(q.error){msg('inviteMsg',q.error.message);return}$('inviteEmail').value='';msg('inviteMsg','Access granted to '+email+'. They can now request an email login code.');await loadUsers();await loadActivities()};
 if(window.location.hash.includes('access_token')){history.replaceState(null,'',location.pathname)}
 showLogin();
+db.auth.getSession().then(({data})=>{if(data.session)checkMember(data.session)});
 })();
 </script>
 </body></html>
