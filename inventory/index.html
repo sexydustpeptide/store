@@ -150,6 +150,38 @@ tr:hover td{background:#fffafd}
  #priceListContent .price-footer{break-inside:avoid!important}
  @page{size:legal portrait;margin:0.45in}
 }
+
+/* Compact pricelist header so more products fit on each printed page */
+@media print{
+ @page{size:legal portrait;margin:0.25in}
+ #priceListContent .price-cover{
+  padding:8px 12px!important;
+  margin:0 0 7px!important;
+  border-radius:0!important;
+ }
+ #priceListContent .price-brandline{gap:5px}
+ #priceListContent .price-brandline span{font-size:15px}
+ #priceListContent .price-brandline i{font-size:8px}
+ #priceListContent .price-rule{margin:5px 0 7px!important}
+ #priceListContent .price-eyebrow{font-size:8px;letter-spacing:1.5px}
+ #priceListContent .price-cover h1{font-size:29px!important;margin:2px 0!important}
+ #priceListContent .price-intro{font-size:9px;margin:0 0 6px!important}
+ #priceListContent .price-snapshot{gap:2px;padding:4px 8px;max-width:100%}
+ #priceListContent .snapshot-label{font-size:7px;letter-spacing:1px}
+ #priceListContent .price-snapshot strong{font-size:12px}
+ #priceListContent .price-snapshot small{font-size:7px}
+ #priceListContent .price-key{gap:12px;margin-top:6px;font-size:8px}
+ #priceListContent .price-group{margin:6px 0 8px!important;padding:6px 8px!important}
+ #priceListContent .price-group-heading{gap:7px;padding-bottom:4px;margin-bottom:4px}
+ #priceListContent .price-group-number{font-size:13px}
+ #priceListContent .price-group-heading h2{font-size:16px}
+ #priceListContent .price-table th,#priceListContent .price-table td{padding:4px 5px!important;font-size:8px!important}
+ #priceListContent .price-table td:first-child b{font-size:10px}
+ #priceListContent .price-sku{font-size:7px;margin-top:1px}
+ #priceListContent .price-stock{font-size:7px!important;padding:2px 4px!important}
+ #priceListContent .price-footer{margin-top:8px;padding-top:5px;font-size:10px}
+ #priceListContent .price-footer small{font-size:7px;margin-top:2px}
+}
 </style>
 </head>
 <body>
