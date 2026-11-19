@@ -16,21 +16,14 @@
   <div class="login">
     <div class="brand">SEXY DUST<small>INVENTORY MANAGEMENT</small></div>
     <h1>Private Access</h1>
-    <p class="muted">Sign in with the username and password given to you by the Sexy Dust Admin.</p>
-    <div id="loginStepUsername">
-      <label>Username</label><input id="loginUsername" type="text" placeholder="Enter your username" autocomplete="username">
-      <label>Password</label><input id="loginPassword" type="password" placeholder="Enter your password" autocomplete="current-password">
-      <button id="usernameLogin" class="btn" style="width:100%;margin-top:14px">LOG IN</button>
-      <button id="showEmailLogin" class="btn outline" type="button" style="width:100%;margin-top:9px">First-time admin setup / Existing email login</button>
-    </div>
-    <div id="loginStepEmail" class="hidden">
-      <label>Existing account email (one-time setup only)</label><input id="loginEmail" type="email" placeholder="admin email" autocomplete="email">
-      <button id="sendCode" class="btn" style="width:100%;margin-top:14px">Send setup code</button>
-      <button id="showUsernameLogin" class="btn outline" type="button" style="width:100%;margin-top:8px">Back to username login</button>
+    <p class="muted">Invite-only inventory workspace. Enter your invited email to receive a one-time login code.</p>
+    <div id="loginStepEmail">
+      <label>Email address</label><input id="loginEmail" type="email" placeholder="you@example.com" autocomplete="email">
+      <button id="sendCode" class="btn" style="width:100%;margin-top:14px">Send login code</button>
     </div>
     <div id="loginStepOtp" class="hidden">
       <label>6-digit email code</label><input id="loginOtp" inputmode="numeric" maxlength="6" placeholder="000000" autocomplete="one-time-code">
-      <button id="verifyCode" class="btn" style="width:100%;margin-top:14px">Verify and continue setup</button>
+      <button id="verifyCode" class="btn" style="width:100%;margin-top:14px">Verify and log in</button>
       <button id="backEmail" class="btn outline" style="width:100%;margin-top:8px">Use another email</button>
     </div>
     <p id="loginMsg" class="muted" role="status"></p>
@@ -85,23 +78,11 @@
       <section id="page-users" class="hidden">
         <div class="pagehead"><h1>User Access</h1></div>
         <div class="grid2">
-          <div class="panel">
-            <h2 style="font:22px Georgia;color:var(--wine);margin-top:0">Create / Edit Reseller Account</h2>
-            <p class="muted">Ikaw ang gagawa ng account. Walang email na kailangan. Username at password lang ang ibibigay mo sa reseller.</p>
-            <input id="accountId" type="hidden">
-            <label>Username *</label><input id="accountUsername" type="text" maxlength="30" placeholder="e.g. reseller01" autocomplete="off">
-            <small class="muted">3–30 characters. Letters, numbers, dot, underscore, or hyphen.</small>
-            <label>Password *</label><input id="accountPassword" type="password" minlength="8" maxlength="72" placeholder="Set or reset password" autocomplete="new-password">
-            <small class="muted">For existing username accounts, leave blank to keep the current password. First-time setup requires a password.</small>
-            <label>Access role</label><select id="accountRole"><option value="staff">Reseller / Staff — inventory access</option><option value="super_admin">Super Admin — full access</option></select>
-            <label>Account status</label><select id="accountActive"><option value="true">Active</option><option value="false">Disabled</option></select>
-            <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:14px"><button id="saveAccount" class="btn" type="button">SAVE ACCOUNT</button><button id="cancelAccountEdit" class="btn outline" type="button">CLEAR</button></div>
-            <p id="accountMsg" class="muted"></p>
-          </div>
-          <div class="panel"><h2 style="font:22px Georgia;color:var(--wine);margin-top:0">Account Access</h2><p class="muted">You can edit the username, reset the password, change access level, or disable/reactivate each reseller account anytime.</p><p class="notice">Only you as Super Admin can create and manage accounts. Never share the Super Admin password.</p></div>
+          <div class="panel"><h2 style="font:22px Georgia;color:var(--wine);margin-top:0">Invite a user</h2><p class="muted">Only invited email addresses can enter this inventory system.</p><label>Email address</label><input id="inviteEmail" type="email" placeholder="staff@example.com"><label>Access role</label><select id="inviteRole"><option value="staff">Staff — inventory access</option><option value="super_admin">Super Admin — full access</option></select><button id="inviteUser" class="btn" style="margin-top:14px">Send Invitation Access</button><p id="inviteMsg" class="muted"></p></div>
+          <div class="panel"><h2 style="font:22px Georgia;color:var(--wine);margin-top:0">Access control</h2><p class="muted">Deactivate an account to block future inventory access. You can reactivate or change its role here.</p><p class="notice">For security, keep Super Admin access limited to trusted people.</p></div>
         </div>
-        <h2 style="font:23px Georgia;color:var(--wine);margin:24px 0 12px">Reseller Accounts</h2>
-        <div class="tablewrap"><table><thead><tr><th>Username</th><th>Role</th><th>Status</th><th>Added</th><th>Actions</th></tr></thead><tbody id="userRows"></tbody></table></div>
+        <h2 style="font:23px Georgia;color:var(--wine);margin:24px 0 12px">Authorized Users</h2>
+        <div class="tablewrap"><table><thead><tr><th>Email</th><th>Role</th><th>Status</th><th>Added</th><th>Actions</th></tr></thead><tbody id="userRows"></tbody></table></div>
       </section>
     </main>
   </div>
@@ -121,10 +102,9 @@ const esc = s => String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>
 const dt = s => new Date(s).toLocaleString('en-PH',{dateStyle:'medium',timeStyle:'short',hour12:true});
 let user=null, member=null, products=[], movements=[], activities=[], members=[];
 let loginEmail='';
-const authEmail = username => String(username||'').trim().toLowerCase()+'@login.sexydust.invalid';
 function msg(id,s){$(id).textContent=s||''}
 function showLogin(){ $('appView').classList.add('hidden'); $('loginView').classList.remove('hidden') }
-function showApp(){ $('loginView').classList.add('hidden'); $('appView').classList.remove('hidden'); $('who').textContent=(member.username||'Admin')+' · '+member.role.replace('_',' '); document.querySelectorAll('.admin-only').forEach(x=>x.classList.toggle('hidden',member.role!=='super_admin')); document.querySelectorAll('.admin-edit').forEach(x=>x.classList.toggle('hidden',member.role!=='super_admin')); }
+function showApp(){ $('loginView').classList.add('hidden'); $('appView').classList.remove('hidden'); $('who').textContent=member.email+' · '+member.role.replace('_',' '); document.querySelectorAll('.admin-only').forEach(x=>x.classList.toggle('hidden',member.role!=='super_admin')); document.querySelectorAll('.admin-edit').forEach(x=>x.classList.toggle('hidden',member.role!=='super_admin')); }
 async function checkMember(session){
   if(!session?.user) {user=null;member=null;showLogin();return false}
   user=session.user;
@@ -135,20 +115,6 @@ async function checkMember(session){
   await loadAll();
   return true;
 }
-$('usernameLogin').onclick=async()=>{
-  const username=$('loginUsername').value.trim();
-  const password=$('loginPassword').value;
-  if(!username||!password){msg('loginMsg','Enter your username and password.');return}
-  msg('loginMsg','Signing in…');
-  const {data,error}=await db.auth.signInWithPassword({email:authEmail(username),password});
-  if(error){msg('loginMsg','Incorrect username or password, or this account is disabled. Ask the Admin for help.');return}
-  const ok=await checkMember(data.session);
-  if(!ok)msg('loginMsg','This account is disabled or has no inventory access. Contact the Admin.');
-};
-$('showEmailLogin').onclick=()=>{$('loginStepUsername').classList.add('hidden');$('loginStepEmail').classList.remove('hidden');msg('loginMsg','')};
-$('showUsernameLogin').onclick=()=>{$('loginStepEmail').classList.add('hidden');$('loginStepOtp').classList.add('hidden');$('loginStepUsername').classList.remove('hidden');msg('loginMsg','')};
-$('loginPassword').addEventListener('keydown',e=>{if(e.key==='Enter')$('usernameLogin').click()});
-$('loginUsername').addEventListener('keydown',e=>{if(e.key==='Enter')$('loginPassword').focus()});
 $('sendCode').onclick=async()=>{
   loginEmail=$('loginEmail').value.trim().toLowerCase();
   if(!loginEmail){msg('loginMsg','Enter your invited email address.');return}
@@ -188,61 +154,13 @@ $('addMovement').onclick=()=>{if(!products.length){alert('Add a product first.')
 function updateMovePreview(){const p=products.find(x=>x.id===$('moveProduct').value);const n=Number($('moveQty').value)||0,t=$('moveType').value;let delta=t==='stock_out'?-Math.abs(n):t==='stock_in'?Math.abs(n):n;$('movePreview').textContent=p?'Current stock: '+p.stock+' · New stock after this movement: '+(p.stock+delta)+' '+p.unit:''}
 $('moveProduct').onchange=updateMovePreview;$('moveType').onchange=updateMovePreview;$('moveQty').oninput=updateMovePreview;
 $('movementForm').onsubmit=async e=>{e.preventDefault();const p=products.find(x=>x.id===$('moveProduct').value),type=$('moveType').value,n=Number($('moveQty').value),delta=type==='stock_out'?-Math.abs(n):type==='stock_in'?Math.abs(n):n;if(!p||!Number.isInteger(n)||n===0){msg('moveMsg','Enter a non-zero whole-number quantity.');return}if(p.stock+delta<0){msg('moveMsg','Not enough stock for this stock-out.');return}const q=await db.from('inv_stock_movements').insert({product_id:p.id,movement_type:type,quantity:delta,reason:$('moveReason').value.trim(),notes:$('moveNotes').value.trim(),created_by:user.id});if(q.error){msg('moveMsg',q.error.message);return}close('movementModal');await loadAll();if(member.role==='super_admin')await loadActivities()};
-function renderMovements(){const term=($('movementSearch').value||'').toLowerCase();const rows=movements.filter(m=>{const p=products.find(x=>x.id===m.product_id);return ((p?.name||'')+' '+m.created_by_email).toLowerCase().includes(term)});$('movementRows').innerHTML=rows.length?rows.map(m=>{const p=products.find(x=>x.id===m.product_id);return '<tr><td>'+dt(m.created_at)+'</td><td>'+esc(p?.name||'Deleted product')+'</td><td><span class="pill">'+m.movement_type.replace('_',' ')+'</span></td><td>'+(m.quantity>0?'+':'')+m.quantity+'</td><td>'+m.stock_before+'</td><td><b>'+m.stock_after+'</b></td><td>'+esc(members.find(u=>u.email===m.created_by_email)?.username||String(m.created_by_email||'').split('@')[0])+'</td><td>'+esc(m.reason)+'</td><td>'+esc(m.notes||'—')+'</td></tr>'}).join(''):'<tr><td colspan="9" class="empty">No stock movements yet.</td></tr>'}
+function renderMovements(){const term=($('movementSearch').value||'').toLowerCase();const rows=movements.filter(m=>{const p=products.find(x=>x.id===m.product_id);return ((p?.name||'')+' '+m.created_by_email).toLowerCase().includes(term)});$('movementRows').innerHTML=rows.length?rows.map(m=>{const p=products.find(x=>x.id===m.product_id);return '<tr><td>'+dt(m.created_at)+'</td><td>'+esc(p?.name||'Deleted product')+'</td><td><span class="pill">'+m.movement_type.replace('_',' ')+'</span></td><td>'+(m.quantity>0?'+':'')+m.quantity+'</td><td>'+m.stock_before+'</td><td><b>'+m.stock_after+'</b></td><td>'+esc(m.created_by_email)+'</td><td>'+esc(m.reason)+'</td><td>'+esc(m.notes||'—')+'</td></tr>'}).join(''):'<tr><td colspan="9" class="empty">No stock movements yet.</td></tr>'}
 $('movementSearch').oninput=renderMovements;
 async function loadActivities(){if(member.role!=='super_admin')return;const {data,error}=await db.from('inv_activity_log').select('*').order('created_at',{ascending:false}).limit(500);if(error){alert('Could not load activity log: '+error.message);return}activities=data||[];renderActivities()}
 function renderActivities(){const term=($('activitySearch').value||'').toLowerCase(),type=$('activityType').value;const rows=activities.filter(a=>(type==='all'||a.action===type)&&((a.actor_email+' '+a.action+' '+a.summary).toLowerCase().includes(term)));$('activityRows').innerHTML=rows.length?rows.map(a=>'<tr><td>'+dt(a.created_at)+'</td><td>'+esc(a.actor_email||'System')+'</td><td><span class="pill">'+esc(a.action.replaceAll('_',' '))+'</span></td><td>'+esc(a.summary)+'</td><td><small>'+esc(a.before_data?JSON.stringify(a.before_data):'—')+'</small></td><td><small>'+esc(a.after_data?JSON.stringify(a.after_data):'—')+'</small></td></tr>').join(''):'<tr><td colspan="6" class="empty">No matching activity.</td></tr>'}
 $('activitySearch').oninput=renderActivities;$('activityType').onchange=renderActivities;
-async function loadUsers(){
- if(member.role!=='super_admin')return;
- const {data,error}=await db.from('inv_users').select('*').order('created_at',{ascending:false});
- if(error){msg('accountMsg','Could not load accounts: '+error.message);return}
- members=data||[];
- $('userRows').innerHTML=members.map(m=>'<tr><td><b>'+esc(m.username||'—')+'</b>'+(m.user_id===user.id?' <span class="pill">You</span>':'')+'</td><td>'+esc(m.role.replace('_',' '))+'</td><td>'+(m.active?'<span class="pill">Active</span>':'<span class="pill low">Disabled</span>')+'</td><td>'+dt(m.created_at)+'</td><td><button class="btn outline" data-edit="'+m.id+'">Edit</button> <button class="btn outline" data-role="'+m.id+'">'+(m.role==='staff'?'Make Super Admin':'Make Reseller')+'</button> <button class="btn danger" data-active="'+m.id+'">'+(m.active?'Disable':'Reactivate')+'</button></td></tr>').join('');
- $('userRows').querySelectorAll('[data-edit]').forEach(b=>b.onclick=()=>{
-   const m=members.find(x=>x.id===b.dataset.edit);
-   $('accountId').value=m.id;$('accountUsername').value=m.username||'';
-   $('accountPassword').value='';$('accountPassword').placeholder=String(m.email||'').toLowerCase().endsWith('@login.sexydust.invalid')?'Leave blank to keep current password':'Set password for username login';
-   $('accountRole').value=m.role;$('accountActive').value=String(m.active);
-   msg('accountMsg','Editing '+(m.username||'account')+'. Enter a password to save the account.');
-   $('accountUsername').focus();
- });
- $('userRows').querySelectorAll('[data-role]').forEach(b=>b.onclick=async()=>{
-   const m=members.find(x=>x.id===b.dataset.role);
-   if(m.user_id===user.id&&m.role==='super_admin'){alert('You cannot remove your own Super Admin role.');return}
-   const q=await db.from('inv_users').update({role:m.role==='staff'?'super_admin':'staff',updated_at:new Date().toISOString()}).eq('id',m.id);
-   if(q.error)alert(q.error.message);else{await loadUsers();await loadActivities()}
- });
- $('userRows').querySelectorAll('[data-active]').forEach(b=>b.onclick=async()=>{
-   const m=members.find(x=>x.id===b.dataset.active);
-   if(m.user_id===user.id){alert('You cannot disable your own account.');return}
-   const q=await db.from('inv_users').update({active:!m.active,updated_at:new Date().toISOString()}).eq('id',m.id);
-   if(q.error)alert(q.error.message);else{await loadUsers();await loadActivities()}
- });
-}
-function clearAccountForm(){
- $('accountId').value='';$('accountUsername').value='';$('accountPassword').value='';
- $('accountPassword').placeholder='Set password';$('accountRole').value='staff';$('accountActive').value='true';
- msg('accountMsg','');
-}
-$('cancelAccountEdit').onclick=clearAccountForm;
-$('saveAccount').onclick=async()=>{
- const accountId=$('accountId').value||null;
- const username=$('accountUsername').value.trim();
- const password=$('accountPassword').value;
- const role=$('accountRole').value;
- const active=$('accountActive').value==='true';
- if(!/^[a-zA-Z0-9][a-zA-Z0-9._-]{2,29}$/.test(username)){msg('accountMsg','Username must be 3–30 characters and use letters, numbers, dot, underscore, or hyphen.');return}
- const existing=accountId?members.find(x=>x.id===accountId):null;
- const needsPassword=!existing||!String(existing.email||'').toLowerCase().endsWith('@login.sexydust.invalid');
- if((needsPassword&&!password)||(password&&password.length<8)){msg('accountMsg','Set a password with at least 8 characters.');return}
- msg('accountMsg','Saving account…');
- const {data,error}=await db.functions.invoke('inventory-manage-user',{body:{action:'save_account',account_id:accountId,username,password,role,active}});
- if(error||data?.error){msg('accountMsg',data?.error||error?.message||'Could not save account.');return}
- msg('accountMsg',data?.message||'Account saved.');
- if(accountId===member.id){member={...member,username,email:authEmail(username),role,active};showApp()}
- clearAccountForm();await loadUsers();await loadActivities();
-};
+async function loadUsers(){if(member.role!=='super_admin')return;const {data,error}=await db.from('inv_users').select('*').order('created_at',{ascending:false});if(error){alert(error.message);return}members=data||[];$('userRows').innerHTML=members.map(m=>'<tr><td>'+esc(m.email)+(m.email===member.email?' <span class="pill">You</span>':'')+'</td><td>'+esc(m.role.replace('_',' '))+'</td><td>'+(m.active?'<span class="pill">Active</span>':'<span class="pill low">Disabled</span>')+'</td><td>'+dt(m.created_at)+'</td><td><button class="btn outline" data-role="'+m.id+'">'+(m.role==='staff'?'Make Super Admin':'Make Staff')+'</button> <button class="btn danger" data-active="'+m.id+'">'+(m.active?'Revoke':'Reactivate')+'</button></td></tr>').join('');$('userRows').querySelectorAll('[data-role]').forEach(b=>b.onclick=async()=>{const m=members.find(x=>x.id===b.dataset.role);if(m.email===member.email&&m.role==='super_admin'){alert('You cannot remove your own Super Admin role.');return}const q=await db.from('inv_users').update({role:m.role==='staff'?'super_admin':'staff',updated_at:new Date().toISOString()}).eq('id',m.id);if(q.error)alert(q.error.message);else{await loadUsers();await loadActivities()}});$('userRows').querySelectorAll('[data-active]').forEach(b=>b.onclick=async()=>{const m=members.find(x=>x.id===b.dataset.active);if(m.email===member.email){alert('You cannot revoke your own access.');return}const q=await db.from('inv_users').update({active:!m.active,updated_at:new Date().toISOString()}).eq('id',m.id);if(q.error)alert(q.error.message);else{await loadUsers();await loadActivities()}})}
+$('inviteUser').onclick=async()=>{const email=$('inviteEmail').value.trim().toLowerCase(),role=$('inviteRole').value;if(!email.includes('@')){msg('inviteMsg','Enter a valid email.');return}const q=await db.from('inv_users').upsert({email,role,active:true,invited_by:user.id,updated_at:new Date().toISOString()},{onConflict:'email'});if(q.error){msg('inviteMsg',q.error.message);return}$('inviteEmail').value='';msg('inviteMsg','Access granted to '+email+'. They can now request an email login code.');await loadUsers();await loadActivities()};
 if(window.location.hash.includes('access_token')){history.replaceState(null,'',location.pathname)}
 showLogin();
 db.auth.getSession().then(({data})=>{if(data.session)checkMember(data.session)});
