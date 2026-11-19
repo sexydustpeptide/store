@@ -670,6 +670,13 @@ body{background:linear-gradient(135deg,#fff7fa 0%,#ffe3ed 45%,#fff7fb 100%);colo
  #resellerDashboard .rd-payment-table th,#resellerDashboard .rd-payment-table td{padding:9px 7px}
 }
 
+
+/* Make the logged-in reseller's name prominent in the dashboard greeting */
+#resellerDashboard #dashboardGreeting{font-size:15px;line-height:1.5;color:#765064}
+#resellerDashboard #dashboardGreeting .dashboard-reseller-name{display:inline-block;margin:0 3px;color:#9b174d;font-family:Georgia,serif;font-size:1.55em;font-weight:800;letter-spacing:.1px;text-shadow:0 1px 0 rgba(255,255,255,.8)}
+#resellerDashboard #dashboardGreeting .dashboard-greeting-note{font-size:1em;color:#765064}
+@media(max-width:600px){#resellerDashboard #dashboardGreeting .dashboard-reseller-name{font-size:1.35em}}
+
 </style>
 </head>
 <body>
@@ -777,7 +784,7 @@ function renderDashboard(){
   renderResellerDashboardDetails();
   const mine=movements.filter(m=>m.movement_type==='stock_out'&&(m.created_by===currentUser.id||m.assigned_user_id===currentUser.id));
   const total=mine.reduce((a,m)=>a+Number(m.payment_total||0),0),paid=mine.filter(m=>m.payment_status==='paid').reduce((a,m)=>a+Number(m.payment_total||0),0),qty=mine.reduce((a,m)=>a+Math.abs(Number(m.quantity)||0),0);
-  $('dashboardGreeting').textContent='Welcome, '+(currentMember?.username||'Reseller')+'. Here is your stock and payment summary.';
+  $('dashboardGreeting').innerHTML='Welcome, <strong class="dashboard-reseller-name">'+esc(currentMember?.username||'Reseller')+'</strong>! <span class="dashboard-greeting-note">Here is your stock and payment summary.</span>';
   $('rdStocks').textContent=qty.toLocaleString();$('rdTotal').textContent=peso(total);$('rdPaid').textContent=peso(paid);$('rdDue').textContent=peso(Math.max(0,total-paid));
  } else if(currentRole==='super_admin'){
   const allOut=movements.filter(m=>m.movement_type==='stock_out'),pending=paymentSubmissions.filter(x=>x.status==='pending'),approved=paymentSubmissions.filter(x=>x.status==='approved').reduce((a,x)=>a+Number(x.amount||0),0),due=allOut.filter(m=>m.payment_status!=='paid').reduce((a,m)=>a+Number(m.payment_total||0),0);
