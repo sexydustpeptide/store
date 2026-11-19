@@ -398,11 +398,11 @@ async function loadManualStockOutUsers(){const {data,error}=await db.rpc('inv_li
 function renderDashboard(){
  if(currentRole==='staff'){
   const mine=movements.filter(m=>m.movement_type==='stock_out'&&(m.created_by===currentUser.id||m.assigned_user_id===currentUser.id));
-  const total=mine.reduce((a,m)=>a+Number(m.payment_total||0),0),paid=mine.reduce((a,m)=>a+Number(m.amount_paid||0),0),qty=mine.reduce((a,m)=>a+Math.abs(Number(m.quantity)||0),0);
+  const total=mine.reduce((a,m)=>a+Number(m.payment_total||0),0),paid=mine.filter(m=>m.payment_status==='paid').reduce((a,m)=>a+Number(m.payment_total||0),0),qty=mine.reduce((a,m)=>a+Math.abs(Number(m.quantity)||0),0);
   $('dashboardGreeting').textContent='Welcome, '+(currentMember?.username||'Reseller')+'. Here is your stock and payment summary.';
   $('rdStocks').textContent=qty.toLocaleString();$('rdTotal').textContent=peso(total);$('rdPaid').textContent=peso(paid);$('rdDue').textContent=peso(Math.max(0,total-paid));
  } else if(currentRole==='super_admin'){
-  const allOut=movements.filter(m=>m.movement_type==='stock_out'),pending=paymentSubmissions.filter(x=>x.status==='pending'),approved=paymentSubmissions.filter(x=>x.status==='approved').reduce((a,x)=>a+Number(x.amount||0),0),due=allOut.reduce((a,m)=>a+Math.max(0,Number(m.payment_total||0)-Number(m.amount_paid||0)),0);
+  const allOut=movements.filter(m=>m.movement_type==='stock_out'),pending=paymentSubmissions.filter(x=>x.status==='pending'),approved=paymentSubmissions.filter(x=>x.status==='approved').reduce((a,x)=>a+Number(x.amount||0),0),due=allOut.filter(m=>m.payment_status!=='paid').reduce((a,m)=>a+Number(m.payment_total||0),0);
   $('adPending').textContent=pending.length;$('adApproved').textContent=peso(approved);$('adOutstanding').textContent=peso(due);
  }
 }
