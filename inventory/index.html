@@ -455,6 +455,86 @@ tbody tr:hover td{background:#fff9fc}
  .dashboard-stats .stat strong{font-size:19px}
 }
 
+
+/* SEXY DUST — visual redesign inspired by the approved pink dashboard reference */
+:root{--sd-wine:#641d3c;--sd-wine2:#7e2c50;--sd-rose:#c94f79;--sd-petal:#f9dce8;--sd-pale:#fff1f6;--sd-cream:#fffafd;--sd-ink:#501b34;--sd-muted:#987181;--sd-border:#f1bfd1}
+body{min-height:100vh;background:radial-gradient(ellipse at 76% 0%,#ffe2ed 0,transparent 34%),radial-gradient(ellipse at 0 60%,#f9dce8 0,transparent 28%),linear-gradient(135deg,#fff8fb,#ffeaf2 55%,#fff9fc);color:var(--sd-ink);font-family:"Avenir Next",Avenir,"Segoe UI",sans-serif}
+#appView.shell{max-width:none;width:100%;min-height:100vh;margin:0;padding:0 28px 32px 292px;display:block;position:relative}
+#appView:not(.hidden){display:block}
+#appView>.top{position:relative;min-height:82px;margin:0 -28px 24px -292px;padding:13px 30px 13px 318px;background:linear-gradient(100deg,rgba(255,244,249,.96),rgba(255,226,238,.88));border-bottom:1px solid #f0c8d8;box-shadow:0 5px 24px rgba(105,30,62,.05)}
+#appView>.top:before{content:"";position:absolute;inset:0;background:linear-gradient(115deg,transparent 20%,rgba(255,255,255,.42) 48%,transparent 72%);pointer-events:none}
+#appView>.top>div:first-child{display:none}
+#appView>.top .topright{margin-left:auto}
+#who{font-weight:750;color:var(--sd-wine);font-size:13px}
+#appView>.tabs{position:fixed;z-index:30;left:0;top:0;bottom:0;width:270px;margin:0;padding:215px 14px 24px;display:flex;flex-direction:column;align-items:stretch;gap:9px;overflow-y:auto;border:0;border-radius:0;background:linear-gradient(165deg,#58142f 0%,#742344 50%,#9a3c61 100%);box-shadow:9px 0 35px rgba(87,20,48,.16)}
+#appView>.tabs:before{content:"Sexy\A Dust";white-space:pre;position:absolute;top:48px;left:24px;right:24px;text-align:center;color:#ffe0eb;font:italic 48px/.86 Georgia,serif;letter-spacing:-2px;text-shadow:0 3px 16px rgba(255,215,231,.22)}
+#appView>.tabs:after{content:"♕  INVENTORY MANAGEMENT  ♕";position:absolute;top:157px;left:15px;right:15px;text-align:center;color:#f6c4d6;font-size:9px;letter-spacing:2.8px;font-weight:800}
+#appView>.tabs .tab{width:100%;text-align:left;white-space:normal;padding:14px 16px;border:1px solid transparent;border-radius:14px;background:transparent;color:#ffe8f0;font-size:13px;font-weight:700;transition:all .18s ease}
+#appView>.tabs .tab:before{display:inline-block;width:27px;margin-right:8px;color:#f4b5cc;font-size:17px;text-align:center;vertical-align:middle}
+#appView>.tabs .tab[data-page="overview"]:before{content:"⌂"}
+#appView>.tabs .tab[data-page="inventory"]:before{content:"♧"}
+#appView>.tabs .tab[data-page="movements"]:before{content:"⇄"}
+#appView>.tabs .tab[data-page="user-report"]:before{content:"▥"}
+#appView>.tabs .tab[data-page="pricelist"]:before{content:"▤"}
+#appView>.tabs .tab[data-page="activity"]:before{content:"◷"}
+#appView>.tabs .tab[data-page="users"]:before{content:"♙"}
+#appView>.tabs .tab:hover{background:rgba(255,224,236,.13);border-color:rgba(255,224,236,.18);transform:translateX(2px)}
+#appView>.tabs .tab.active{background:linear-gradient(105deg,#d45d87,#b63e6c);color:white;border-color:rgba(255,255,255,.18);box-shadow:0 9px 22px rgba(42,5,21,.22)}
+#appView>main{min-width:0;padding:0 0 28px}
+#appView main section> .card:first-child,#appView main section>.dashboard-welcome{box-shadow:0 18px 44px rgba(113,34,68,.075)}
+#appView .dashboard-welcome{min-height:190px;padding:34px 36px;border:1px solid #f0bfd1;border-radius:25px;background:radial-gradient(circle at 82% 12%,rgba(255,255,255,.92),transparent 22%),linear-gradient(110deg,#fbdce8,#fff6fa 54%,#f8dce8);box-shadow:0 16px 36px rgba(112,36,69,.08)}
+#appView .dashboard-welcome h2{font:italic clamp(34px,4vw,48px) Georgia,serif!important;color:#742344!important}
+#appView .dashboard-welcome p{font-size:14px;color:#946579}
+#appView .stats{gap:15px;margin:16px 0 20px}
+#appView .stat{min-height:120px;padding:20px;border-radius:20px;border:1px solid #f0c4d5;background:linear-gradient(145deg,#fff,#ffedf4);box-shadow:0 9px 25px rgba(112,36,69,.07)}
+#appView .stat small{font-size:10px;letter-spacing:.8px;text-transform:uppercase;color:#986b80;font-weight:800}
+#appView .stat strong{display:block;margin-top:9px;color:#8d244d;font:700 clamp(25px,2.6vw,34px) Georgia,serif}
+#appView .card{border:1px solid #f0cbd9;border-radius:21px;background:rgba(255,255,255,.92);box-shadow:0 10px 28px rgba(112,36,69,.055)}
+#appView h2,#appView h3,#appView h4{color:#712441}
+#appView .btn{border-radius:999px;font-weight:750;transition:transform .18s,box-shadow .18s}
+#appView .btn:hover{transform:translateY(-2px);box-shadow:0 8px 18px rgba(112,36,69,.14)}
+#appView .primary{background:linear-gradient(110deg,#d65e89,#a92e5c);color:white;box-shadow:0 6px 15px rgba(169,46,92,.18)}
+#appView .soft{background:#fbe2ec;color:#772743;border:1px solid #f2c5d6}
+#appView .outline{background:#fffafd;color:#772743;border:1px solid #e9b8ca}
+#appView input,#appView select,#appView textarea{border:1px solid #ecc8d7;border-radius:12px;background:#fffafd;color:#501b34}
+#appView input:focus,#appView select:focus,#appView textarea:focus{outline:none;border-color:#c94f79;box-shadow:0 0 0 4px rgba(201,79,121,.13)}
+#appView .notice{background:#fff0f6;border:1px solid #f2c6d7;color:#80304f;border-radius:14px}
+#appView table{border-collapse:separate;border-spacing:0;width:100%}
+#appView th{background:#f9dce8;color:#7a3150;font-size:10px;letter-spacing:.7px;text-transform:uppercase}
+#appView td{border-bottom:1px solid #f5e2ea}
+#appView tbody tr:hover td{background:#fff6fa}
+#appView .pill{border-radius:99px;background:#fbe4ed;color:#8c3154}
+#loginView.shell{max-width:100%;min-height:100vh;display:grid;place-items:center;padding:24px;background:radial-gradient(ellipse at 20% 20%,#f8d5e3,transparent 40%),linear-gradient(135deg,#fff8fb,#f9e2ec)}
+#loginView .login{width:min(460px,100%);padding:40px;border-radius:28px;border:1px solid #efbfd1;background:rgba(255,255,255,.94);box-shadow:0 25px 75px rgba(92,24,53,.16)}
+#loginView .brand{font:italic 43px Georgia,serif;color:#712441}
+#loginView .login h1{font:italic 36px Georgia,serif;color:#712441}
+@media(max-width:900px){
+ #appView.shell{padding-left:0;padding-right:16px;padding-bottom:20px}
+ #appView>.top{margin:0 -16px 16px;padding:12px 16px}
+ #appView>.top>div:first-child{display:block}
+ #appView>.top .brand{font-size:27px}
+ #appView>.tabs{position:sticky;top:0;left:auto;bottom:auto;width:auto;z-index:30;height:auto;padding:8px;margin:0 -16px 18px;flex-direction:row;gap:5px;border-radius:0 0 16px 16px;overflow-x:auto}
+ #appView>.tabs:before,#appView>.tabs:after{display:none}
+ #appView>.tabs .tab{width:auto;flex:0 0 auto;padding:10px 13px;font-size:11px}
+ #appView>.tabs .tab:before{display:none}
+ #appView>main{padding:0 0 20px}
+ #appView .dashboard-welcome{padding:24px;min-height:155px}
+}
+@media(max-width:560px){
+ #appView.shell{padding:0 12px 18px}
+ #appView>.top{margin:0 -12px 12px;padding:12px;gap:8px}
+ #appView>.topright{gap:5px}
+ #appView>.topright .btn{font-size:10px;padding:8px 10px}
+ #appView>.tabs{margin:0 -12px 14px;padding:7px 8px}
+ #appView .stats{grid-template-columns:repeat(2,minmax(0,1fr));gap:9px}
+ #appView .stat{min-height:98px;padding:13px}
+ #appView .stat strong{font-size:22px}
+ #appView .card{padding:14px;border-radius:17px}
+ #appView .dashboard-welcome{padding:20px 17px}
+ #appView .dashboard-welcome h2{font-size:32px!important}
+ #loginView .login{padding:27px 22px}
+}
+
 </style>
 </head>
 <body>
