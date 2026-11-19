@@ -759,9 +759,9 @@ body{background:linear-gradient(135deg,#fff7fa 0%,#ffe3ed 45%,#fff7fb 100%);colo
 const SUPABASE_URL='https://ijqrfbnkdaskttefwkdh.supabase.co';
 const SUPABASE_KEY='sb_publishable_cWaEZyhW_H23iUCX-YN4bg_Ghs14eGF';
 const db=window.supabase.createClient(SUPABASE_URL,SUPABASE_KEY);
-let currentUser=null, currentMember=null, currentRole='staff', products=[], movements=[], activities=[], users=[], paymentSubmissions=[];
+let currentUser=null, currentMember=null, currentRole='staff', products=[], movements=[], activities=[], users=[], paymentSubmissions=[], resellerNameByEmail={};
 const authEmail=username=>String(username||'').trim().toLowerCase()+'@login.sexydust.invalid';
-const userLabel=value=>String(value||'').split('@')[0];
+const userLabel=value=>{const email=String(value||'').trim().toLowerCase();return resellerNameByEmail[email]||email.split('@')[0]||'Unknown reseller'};
 const $=id=>document.getElementById(id), peso=n=>'₱'+Number(n||0).toLocaleString('en-PH',{minimumFractionDigits:2,maximumFractionDigits:2});
 const fmtDate=s=>new Intl.DateTimeFormat('en-PH',{dateStyle:'medium',timeStyle:'short',timeZone:'Asia/Manila'}).format(new Date(s));
 function msg(id,text,error=false){$(id).textContent=text;$(id).style.color=error?'var(--red)':'var(--green)'}
@@ -777,8 +777,8 @@ async function loadAll(){await loadProducts();await loadMovements();if(['admin',
 async function loadProducts(){const {data,error}=await db.from('inv_products').select('*').order('name');if(error){alert(error.message);return}products=data||[];renderProducts();$('mProduct').innerHTML=products.filter(p=>p.active).map(p=>'<option value="'+p.id+'">'+esc(p.name)+' · '+p.stock+' '+esc(p.unit)+'</option>').join('')||'<option value="">No active products</option>'}
 async function loadMovements(){const {data,error}=await db.from('inv_stock_movements').select('*').order('created_at',{ascending:false}).limit(1000);if(error){console.error('Unable to load stock movements:',error);movements=[];renderMovements();renderUserReport();renderDashboard();return}const productById=new Map(products.map(p=>[p.id,p]));movements=(data||[]).map(m=>({...m,inv_products:productById.has(m.product_id)?{name:productById.get(m.product_id).name,unit:productById.get(m.product_id).unit}:null}));renderMovements();renderUserReport();renderDashboard()}
 async function loadActivities(){const {data,error}=await db.from('inv_activity_log').select('*').order('created_at',{ascending:false}).limit(500);if(error){console.error(error);return}activities=data||[];renderActivities()}
-async function loadUsers(){const {data,error}=await db.from('inv_users').select('*').order('created_at');if(error){msg('userMsg',error.message,true);return}users=data||[];renderUsers()}
-async function loadManualStockOutUsers(){const {data,error}=await db.rpc('inv_list_reseller_accounts');if(error){msg('manualTargetMsg',error.message,true);return}const select=$('manualTargetUser');select.innerHTML=(data||[]).filter(u=>u.user_id).map(u=>'<option value="'+u.user_id+'">'+esc(u.username||userLabel(u.email))+'</option>').join('')||'<option value="">No active Reseller accounts</option>';$('manualTargetProduct').innerHTML=products.filter(p=>p.active).map(p=>'<option value="'+p.id+'">'+esc(p.name)+' · '+p.stock+' '+esc(p.unit)+'</option>').join('')||'<option value="">No active products</option>'}
+async function loadUsers(){const {data,error}=await db.from('inv_users').select('*').order('created_at');if(error){msg('userMsg',error.message,true);return}users=data||[];users.forEach(u=>{if(u.email&&u.username)resellerNameByEmail[String(u.email).trim().toLowerCase()]=u.username});renderUsers();renderUserReport()}
+async function loadManualStockOutUsers(){const {data,error}=await db.rpc('inv_list_reseller_accounts');if(error){msg('manualTargetMsg',error.message,true);return}resellerNameByEmail={};(data||[]).forEach(u=>{if(u.email&&u.username)resellerNameByEmail[String(u.email).trim().toLowerCase()]=u.username});const select=$('manualTargetUser');select.innerHTML=(data||[]).filter(u=>u.user_id).map(u=>'<option value="'+u.user_id+'">'+esc(u.username||userLabel(u.email))+'</option>').join('')||'<option value="">No active Reseller accounts</option>';$('manualTargetProduct').innerHTML=products.filter(p=>p.active).map(p=>'<option value="'+p.id+'">'+esc(p.name)+' · '+p.stock+' '+esc(p.unit)+'</option>').join('')||'<option value="">No active products</option>';renderUserReport()}
 function renderDashboard(){
  if(currentRole==='staff'){
   renderResellerDashboardDetails();
