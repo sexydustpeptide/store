@@ -92,7 +92,7 @@
             <label>Username *</label><input id="accountUsername" type="text" maxlength="30" placeholder="e.g. reseller01" autocomplete="off">
             <small class="muted">3–30 characters. Letters, numbers, dot, underscore, or hyphen.</small>
             <label>Password *</label><input id="accountPassword" type="password" minlength="8" maxlength="72" placeholder="Set or reset password" autocomplete="new-password">
-            <small class="muted">Required when saving an account. Minimum 8 characters.</small>
+            <small class="muted">For existing username accounts, leave blank to keep the current password. First-time setup requires a password.</small>
             <label>Access role</label><select id="accountRole"><option value="staff">Reseller / Staff — inventory access</option><option value="super_admin">Super Admin — full access</option></select>
             <label>Account status</label><select id="accountActive"><option value="true">Active</option><option value="false">Disabled</option></select>
             <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:14px"><button id="saveAccount" class="btn" type="button">SAVE ACCOUNT</button><button id="cancelAccountEdit" class="btn outline" type="button">CLEAR</button></div>
@@ -202,7 +202,7 @@ async function loadUsers(){
  $('userRows').querySelectorAll('[data-edit]').forEach(b=>b.onclick=()=>{
    const m=members.find(x=>x.id===b.dataset.edit);
    $('accountId').value=m.id;$('accountUsername').value=m.username||'';
-   $('accountPassword').value='';$('accountPassword').placeholder='Enter new password (required)';
+   $('accountPassword').value='';$('accountPassword').placeholder=String(m.email||'').toLowerCase().endsWith('@login.sexydust.invalid')?'Leave blank to keep current password':'Set password for username login';
    $('accountRole').value=m.role;$('accountActive').value=String(m.active);
    msg('accountMsg','Editing '+(m.username||'account')+'. Enter a password to save the account.');
    $('accountUsername').focus();
@@ -233,12 +233,14 @@ $('saveAccount').onclick=async()=>{
  const role=$('accountRole').value;
  const active=$('accountActive').value==='true';
  if(!/^[a-zA-Z0-9][a-zA-Z0-9._-]{2,29}$/.test(username)){msg('accountMsg','Username must be 3–30 characters and use letters, numbers, dot, underscore, or hyphen.');return}
- if(password.length<8){msg('accountMsg','Please set a password with at least 8 characters.');return}
+ const existing=accountId?members.find(x=>x.id===accountId):null;
+ const needsPassword=!existing||!String(existing.email||'').toLowerCase().endsWith('@login.sexydust.invalid');
+ if((needsPassword&&!password)||(password&&password.length<8)){msg('accountMsg','Set a password with at least 8 characters.');return}
  msg('accountMsg','Saving account…');
  const {data,error}=await db.functions.invoke('inventory-manage-user',{body:{action:'save_account',account_id:accountId,username,password,role,active}});
  if(error||data?.error){msg('accountMsg',data?.error||error?.message||'Could not save account.');return}
  msg('accountMsg',data?.message||'Account saved.');
- if(accountId===member.id){member={...member,username,role,active};showApp()}
+ if(accountId===member.id){member={...member,username,email:authEmail(username),role,active};showApp()}
  clearAccountForm();await loadUsers();await loadActivities();
 };
 if(window.location.hash.includes('access_token')){history.replaceState(null,'',location.pathname)}
