@@ -182,7 +182,44 @@ tr:hover td{background:#fffafd}
  #priceListContent .price-footer{margin-top:8px;padding-top:5px;font-size:10px}
  #priceListContent .price-footer small{font-size:7px;margin-top:2px}
 }
-.user-report-podium{margin:16px 0 8px}.user-report-podium-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;max-width:760px;margin:0 auto}.user-report-podium-card{display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;gap:5px;padding:18px 10px;border:1px solid #efdce5;border-radius:18px;background:linear-gradient(145deg,#fff,#fff7fa)}.user-report-podium-card.rank-1{background:linear-gradient(145deg,#fff9e9,#fff);border-color:#e9d39b}.user-report-podium-card strong{font:28px Georgia;color:#713b55}.user-report-podium-card small{font-size:10px;color:#927d8b}.user-report-medal{font-size:24px}.user-report-podium-name{font-weight:800;color:#704258}.user-report-progress{height:7px;background:#f4e7ed;border-radius:99px;overflow:hidden;margin-top:13px}.user-report-progress span{display:block;height:100%;border-radius:99px;background:linear-gradient(90deg,#d99ab2,#8c4565)}.user-report-meta{display:flex;justify-content:space-between;gap:8px;flex-wrap:wrap;font-size:11px;color:#927d8b;margin:9px 0}.user-report-meta b{color:#704258}.user-report-card.is-me{border:2px solid #d99ab2;box-shadow:0 8px 22px rgba(113,59,85,.1)}@media(max-width:540px){.user-report-podium-grid{gap:6px}.user-report-podium-card{padding:12px 5px}.user-report-podium-name{font-size:12px}.user-report-podium-card strong{font-size:23px}}</style>
+.user-report-podium{margin:16px 0 8px}.user-report-podium-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;max-width:760px;margin:0 auto}.user-report-podium-card{display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;gap:5px;padding:18px 10px;border:1px solid #efdce5;border-radius:18px;background:linear-gradient(145deg,#fff,#fff7fa)}.user-report-podium-card.rank-1{background:linear-gradient(145deg,#fff9e9,#fff);border-color:#e9d39b}.user-report-podium-card strong{font:28px Georgia;color:#713b55}.user-report-podium-card small{font-size:10px;color:#927d8b}.user-report-medal{font-size:24px}.user-report-podium-name{font-weight:800;color:#704258}.user-report-progress{height:7px;background:#f4e7ed;border-radius:99px;overflow:hidden;margin-top:13px}.user-report-progress span{display:block;height:100%;border-radius:99px;background:linear-gradient(90deg,#d99ab2,#8c4565)}.user-report-meta{display:flex;justify-content:space-between;gap:8px;flex-wrap:wrap;font-size:11px;color:#927d8b;margin:9px 0}.user-report-meta b{color:#704258}.user-report-card.is-me{border:2px solid #d99ab2;box-shadow:0 8px 22px rgba(113,59,85,.1)}@media(max-width:540px){.user-report-podium-grid{gap:6px}.user-report-podium-card{padding:12px 5px}.user-report-podium-name{font-size:12px}.user-report-podium-card strong{font-size:23px}}/* Reseller report: mobile-first layout */
+#page-user-report>.card{padding:clamp(12px,3vw,22px)}
+#page-user-report .toolbar{align-items:stretch}
+#page-user-report .toolbar>div:first-child{min-width:0}
+#page-user-report #userReportPeriod{min-width:145px}
+#page-user-report #userReportSearch{flex:1;min-width:0;max-width:none}
+#page-user-report .stats{gap:10px}
+#page-user-report .stats>.card{min-width:0}
+#page-user-report .user-report-card{min-width:0;padding:clamp(12px,3vw,18px)}
+#page-user-report .user-report-products{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:0 12px}
+#page-user-report .user-report-product{min-width:0;display:flex;justify-content:space-between;align-items:center;gap:8px;padding:9px 0;border-bottom:1px solid #f5eaf0;font-size:12px}
+#page-user-report .user-report-product span{min-width:0;overflow-wrap:anywhere}
+#page-user-report .user-report-product b{flex:none}
+@media(max-width:600px){
+ #page-user-report .toolbar{display:flex;flex-direction:column;align-items:stretch;gap:10px}
+ #page-user-report .toolbar>*{width:100%;max-width:none}
+ #page-user-report .toolbar button{min-height:42px}
+ #page-user-report .stats{grid-template-columns:repeat(3,minmax(0,1fr));gap:6px}
+ #page-user-report .stats>.card{padding:10px 7px}
+ #page-user-report .stats small{display:block;font-size:9px;line-height:1.25}
+ #page-user-report .stats strong{font-size:21px;overflow-wrap:anywhere}
+ #page-user-report .user-report-podium-grid{grid-template-columns:repeat(3,minmax(0,1fr));gap:6px}
+ #page-user-report .user-report-podium-card{padding:11px 5px;min-width:0}
+ #page-user-report .user-report-podium-name{font-size:11px;overflow-wrap:anywhere}
+ #page-user-report .user-report-podium-card strong{font-size:21px}
+ #page-user-report .user-report-head{align-items:center;gap:8px}
+ #page-user-report .user-report-head h3{font-size:14px;overflow-wrap:anywhere}
+ #page-user-report .user-report-total strong{font-size:24px}
+ #page-user-report .user-report-meta{display:grid;grid-template-columns:1fr;gap:5px}
+ #page-user-report .user-report-products{grid-template-columns:1fr}
+ #page-user-report .user-report-product{font-size:12px}
+}
+@media(max-width:360px){
+ #page-user-report .stats small{font-size:8px}
+ #page-user-report .stats strong{font-size:18px}
+ #page-user-report .user-report-podium-card strong{font-size:18px}
+ #page-user-report .user-report-medal{font-size:20px}
+}</style>
 </head>
 <body>
 <div id="loginView" class="shell">
