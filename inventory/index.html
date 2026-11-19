@@ -677,6 +677,92 @@ body{background:linear-gradient(135deg,#fff7fa 0%,#ffe3ed 45%,#fff7fb 100%);colo
 #resellerDashboard #dashboardGreeting .dashboard-greeting-note{font-size:1em;color:#765064}
 @media(max-width:600px){#resellerDashboard #dashboardGreeting .dashboard-reseller-name{font-size:1.35em}}
 
+
+/* FULL MOBILE RESPONSIVE PASS — preserve desktop styling and all app behavior */
+@media screen and (max-width:900px){
+ html,body{width:100%;max-width:100%;overflow-x:hidden}
+ #appView.shell{box-sizing:border-box;width:100%;max-width:100%;padding-left:14px;padding-right:14px}
+ #appView>.top{box-sizing:border-box;width:auto;min-width:0;display:flex;flex-wrap:wrap;align-items:center;gap:10px;margin-left:-14px;margin-right:-14px;padding:12px 14px}
+ #appView>.top>div:first-child{min-width:0;flex:1 1 100%}
+ #appView>.top .topright{display:flex;flex-wrap:wrap;align-items:center;justify-content:flex-end;gap:7px;max-width:100%}
+ #who{max-width:100%;overflow-wrap:anywhere}
+ #appView>.tabs{box-sizing:border-box;max-width:calc(100% + 28px);scrollbar-width:thin;scrollbar-color:#d987a8 #fbe8f0;overscroll-behavior-x:contain;-webkit-overflow-scrolling:touch}
+ #appView>.tabs .tab{min-height:42px;white-space:nowrap}
+ #appView>main,#appView main section,#appView .card{min-width:0;max-width:100%;box-sizing:border-box}
+ #appView .grid{grid-template-columns:minmax(0,1fr)!important}
+ #appView .stats{grid-template-columns:repeat(2,minmax(0,1fr))}
+ #appView .toolbar{align-items:stretch}
+ #appView .toolbar input,#appView .toolbar select{flex:1 1 180px;min-width:0;max-width:100%}
+ #appView .tablewrap,#appView .rd-payment-table-wrap{display:block;width:100%;max-width:100%;overflow-x:auto!important;overscroll-behavior-x:contain;-webkit-overflow-scrolling:touch}
+ #appView table{max-width:none}
+ #appView input,#appView select,#appView textarea{box-sizing:border-box;max-width:100%;min-height:42px;font-size:16px}
+ #appView button,#appView .btn{min-height:40px;touch-action:manipulation}
+ #appView .actions{gap:7px}
+ #appView .dashboard-detail-grid{grid-template-columns:minmax(0,1fr)!important}
+ #appView .dashboard-welcome{overflow:hidden}
+ #appView .user-report-card{min-width:0;overflow:hidden}
+ #appView .user-report-payment-summary{grid-template-columns:repeat(3,minmax(0,1fr))}
+}
+@media screen and (max-width:600px){
+ body{font-size:14px}
+ #appView.shell{padding:0 10px 18px}
+ #appView>.top{margin:0 -10px 10px;padding:10px;gap:8px}
+ #appView>.top>div:first-child{display:block}
+ #appView>.top .brand{font-size:26px;line-height:1}
+ #appView>.top .sub{font-size:8px;letter-spacing:2.4px}
+ #appView>.top .topright{width:100%;justify-content:space-between}
+ #appView>.top .topright .btn{flex:0 1 auto;min-height:36px;padding:8px 11px;font-size:11px}
+ #appView>.tabs{position:sticky;top:0;margin:0 -10px 12px;padding:7px 8px;gap:5px;border-radius:0 0 14px 14px}
+ #appView>.tabs .tab{min-height:40px;padding:9px 12px;font-size:11px}
+ #appView>main{padding:0 0 18px}
+ #appView .card{padding:13px;border-radius:16px}
+ #appView h2{font-size:23px}
+ #appView h3{font-size:18px}
+ #appView .stats{gap:8px;margin:10px 0 14px}
+ #appView .stat{min-height:90px;padding:12px;border-radius:15px}
+ #appView .stat small{font-size:9px;line-height:1.35}
+ #appView .stat strong{font-size:21px;overflow-wrap:anywhere}
+ #appView .dashboard-welcome{min-height:0;padding:20px 16px;border-radius:18px}
+ #appView .dashboard-welcome h2{font-size:clamp(27px,8vw,36px)!important;line-height:1.05}
+ #appView .dashboard-welcome p{font-size:12px;line-height:1.5}
+ #appView .dashboard-detail-card{padding:13px}
+ #appView .dashboard-section-heading{gap:9px;margin-bottom:10px}
+ #appView .dashboard-section-icon{width:35px;height:35px;flex-basis:35px;font-size:20px}
+ #appView .dashboard-section-heading h3{font-size:18px}
+ #appView .dashboard-section-heading p{font-size:11px}
+ #appView .rd-recent-row{grid-template-columns:68px minmax(0,1fr) auto;gap:6px;padding:10px 2px}
+ #appView .rd-recent-date,#appView .rd-recent-product small{font-size:10px}
+ #appView .rd-recent-product b{font-size:12px}
+ #appView .rd-qty-out{font-size:15px}
+ #appView .toolbar{display:flex;flex-direction:column;gap:8px}
+ #appView .toolbar>*{width:100%;max-width:100%}
+ #appView .toolbar .btn{width:100%}
+ #appView .actions{display:flex;flex-wrap:wrap}
+ #appView .actions .btn,#appView .actions button{flex:1 1 auto}
+ #appView .user-report-head{gap:8px}
+ #appView .user-report-head h3{overflow-wrap:anywhere;font-size:16px}
+ #appView .user-report-total strong{font-size:25px}
+ #appView .user-report-payment-summary{gap:6px;padding:10px}
+ #appView .user-report-payment-summary small{font-size:9px}
+ #appView .user-report-payment-summary b{font-size:12px;overflow-wrap:anywhere}
+ #appView .user-report-products{grid-template-columns:1fr}
+ #appView .ur-payment-row{gap:7px;flex-wrap:wrap}
+ #appView .ur-payment-product{min-width:0;flex:1 1 55%}
+ #appView .ur-payment-amount{min-width:0}
+ #appView .login{width:100%;max-width:100%;box-sizing:border-box}
+ #loginView .login{margin:3vh auto;padding:26px 19px}
+ #loginView .brand{font-size:36px}
+ #loginView .login h1{font-size:31px}
+}
+@media screen and (max-width:380px){
+ #appView>.tabs .tab{padding:8px 10px;font-size:10px}
+ #appView .stats{grid-template-columns:repeat(2,minmax(0,1fr));gap:6px}
+ #appView .stat{padding:10px}
+ #appView .stat strong{font-size:19px}
+ #appView .user-report-payment-summary{grid-template-columns:1fr}
+ #appView .rd-recent-row{grid-template-columns:58px minmax(0,1fr) auto}
+}
+
 </style>
 </head>
 <body>
