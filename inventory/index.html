@@ -563,6 +563,113 @@ body{min-height:100vh;background:radial-gradient(ellipse at 76% 0%,#ffe2ed 0,tra
 @media(max-width:900px){#resellerDashboard .dashboard-detail-grid{grid-template-columns:1fr}}
 @media(max-width:560px){#resellerDashboard .dashboard-detail-card{padding:14px;border-radius:17px}#resellerDashboard .dashboard-section-heading h3{font-size:19px}#resellerDashboard .rd-recent-row{grid-template-columns:75px minmax(0,1fr) auto;gap:7px;padding:11px 4px}#resellerDashboard .rd-payment-table{font-size:11px}#resellerDashboard .rd-payment-table th,#resellerDashboard .rd-payment-table td{padding:10px 8px}}
 
+
+/* FINAL MATCH: satin-bow luxury pink dashboard */
+:root{--wine:#760d35;--sd-deep:#650d31;--sd-hot:#d91d67;--sd-pink:#f7a9c7;--sd-soft:#fff0f6;--sd-line:#f2b5cd;--sd-text:#54162f}
+body{background:linear-gradient(135deg,#fff7fa 0%,#ffe3ed 45%,#fff7fb 100%);color:var(--sd-text);font-family:"Trebuchet MS",Arial,sans-serif}
+#appView.shell{max-width:none;width:100%;min-height:100vh;margin:0;padding:0 20px 34px 300px;display:block}
+#appView>.top{height:88px;margin:0 -20px 18px -300px;padding:12px 26px 12px 320px;display:flex;align-items:center;justify-content:flex-end;background:linear-gradient(105deg,#ffe8f0 0%,#fff8fb 40%,#ffd7e6 100%);border-bottom:2px solid #f4b2ca;box-shadow:0 5px 22px #8e17401c;position:relative}
+#appView>.top:before{content:"";position:absolute;left:calc(300px + 32%);top:-40px;width:210px;height:125px;background:radial-gradient(ellipse at 50% 50%,#fff8 0 9%,transparent 10%),linear-gradient(145deg,#ffb4cf,#f36b9d 45%,#ffe4ed 55%,#d83b78);clip-path:polygon(0 0,38% 14%,50% 44%,62% 14%,100% 0,77% 66%,56% 57%,50% 100%,44% 57%,23% 66%);filter:drop-shadow(0 8px 7px #9a164b44);opacity:.92;pointer-events:none}
+#appView>.top:after{content:"♡  ✧";position:absolute;left:calc(300px + 48%);top:61px;color:#9d1749;font-size:21px;pointer-events:none}
+#appView>.top>div:first-child{display:none}
+#appView>.top .topright{margin-left:auto;position:relative;z-index:2;gap:10px}
+#who{font-weight:800;color:#64122f;font-size:14px}
+#appView>.tabs{position:fixed;z-index:40;left:0;top:0;bottom:0;width:300px;margin:0;padding:178px 13px 28px;display:flex;flex-direction:column;align-items:stretch;gap:9px;overflow-y:auto;border:0;border-radius:0;background:radial-gradient(ellipse at 10% 90%,#ed76a1 0,transparent 32%),linear-gradient(165deg,#700d35 0%,#941344 58%,#b92b63 100%);box-shadow:8px 0 28px #65102f30}
+#appView>.tabs:before{content:"♡  ✧";white-space:pre;position:absolute;top:20px;left:25px;right:25px;text-align:center;color:#ffe8f1;font:34px Georgia,serif}
+#appView>.tabs:after{content:"Sexy Dust";white-space:pre;position:absolute;top:54px;left:12px;right:12px;text-align:center;color:#fff1f6;font:italic 52px/.9 Georgia,serif;letter-spacing:-2px;text-shadow:0 3px 12px #4d0929}
+#appView>.tabs .tab{width:100%;text-align:left;white-space:normal;padding:13px 13px;border:1px solid transparent;border-radius:16px;background:transparent;color:#fff4f8;font-size:15px;font-weight:800;transition:all .18s ease;display:flex;align-items:center}
+#appView>.tabs .tab:before{display:inline-grid;place-items:center;width:38px;height:36px;flex:0 0 38px;margin-right:12px;color:#ffe0eb;font-size:22px;text-align:center;vertical-align:middle}
+#appView>.tabs .tab[data-page="overview"]:before{content:"⌂"}
+#appView>.tabs .tab[data-page="inventory"]:before{content:"◇"}
+#appView>.tabs .tab[data-page="movements"]:before{content:"⇄"}
+#appView>.tabs .tab[data-page="user-report"]:before{content:"♧"}
+#appView>.tabs .tab[data-page="pricelist"]:before{content:"▤"}
+#appView>.tabs .tab[data-page="activity"]:before{content:"◷"}
+#appView>.tabs .tab[data-page="users"]:before{content:"♙"}
+#appView>.tabs .tab:hover{background:#ffffff20;border-color:#ffffff30;transform:translateX(2px)}
+#appView>.tabs .tab.active{background:linear-gradient(100deg,#f75b98,#d51b66);color:white;border:1px solid #ffc3d8;box-shadow:0 6px 17px #4d092b66,inset 0 1px #ffffff75}
+#appView>main{min-width:0;padding:0 0 28px}
+#resellerDashboard .dashboard-welcome{min-height:154px;padding:28px 30px 22px;border:2px solid #f7b5ce;border-radius:26px;background:radial-gradient(ellipse at 90% 48%,#fff9 0 10%,transparent 28%),linear-gradient(115deg,#ffc6dc 0%,#fff0f6 43%,#f8b2ce 100%);box-shadow:0 12px 26px #8f17401f;position:relative;overflow:hidden}
+#resellerDashboard .dashboard-welcome:after{content:"♡  ✧     🦋";position:absolute;right:28px;top:30px;color:#c04b79;font-size:36px;opacity:.68}
+#resellerDashboard .user-report-kicker{font-size:10px;letter-spacing:2px;color:#a12c58;font-weight:900}
+#resellerDashboard .dashboard-welcome h2{font:italic clamp(38px,4vw,54px) Georgia,serif!important;color:#760d35!important;margin:8px 0!important}
+#resellerDashboard .dashboard-welcome p{font-size:16px;color:#6e3a50;margin:0}
+#resellerDashboard .dashboard-stats{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px;margin:16px 0 18px}
+#resellerDashboard .dashboard-stats .stat{min-height:116px;padding:19px 18px 17px 82px;border:2px solid #f2a9c5;border-radius:24px;background:linear-gradient(145deg,#fff8fb,#ffddea);box-shadow:0 7px 14px #8d17402a;position:relative;overflow:hidden}
+#resellerDashboard .dashboard-stats .stat:before{content:"";position:absolute;left:17px;top:21px;width:58px;height:58px;border-radius:50%;background:linear-gradient(145deg,#ffd0e2,#f69abd);box-shadow:inset 0 2px 8px #fff9;color:#a9154d;font:30px/58px Georgia,serif;text-align:center}
+#resellerDashboard .dashboard-stats .stat:nth-child(1):before{content:"♧"}
+#resellerDashboard .dashboard-stats .stat:nth-child(2):before{content:"🛒";font-size:24px}
+#resellerDashboard .dashboard-stats .stat:nth-child(3):before{content:"✓";border:2px solid #c52b68}
+#resellerDashboard .dashboard-stats .stat:nth-child(4):before{content:"▣"}
+#resellerDashboard .dashboard-stats .stat small{display:block;color:#711335;font-size:13px;font-weight:800;line-height:1.2}
+#resellerDashboard .dashboard-stats .stat strong{font:700 clamp(22px,2vw,31px) Georgia,serif;color:#8f123f;margin-top:7px;white-space:nowrap}
+#resellerDashboard .dashboard-upload-card{padding:18px 22px;border:2px solid #f4b3cb;border-radius:24px;background:linear-gradient(110deg,#ffe4ee,#fff7fa 50%,#ffd8e7);box-shadow:0 8px 18px #8d17401c}
+#resellerDashboard .dashboard-upload-card h3{font:700 28px Georgia,serif!important;color:#760d35!important}
+#resellerDashboard .dashboard-detail-grid{display:grid;grid-template-columns:1.08fr 1fr;gap:16px;margin-top:16px;align-items:stretch}
+#resellerDashboard .dashboard-detail-card{min-width:0;padding:17px 15px;border:2px solid #f4b3cb;border-radius:25px;background:linear-gradient(145deg,#fff8fb,#ffe5ef);box-shadow:0 9px 20px #8d174022}
+#resellerDashboard .dashboard-section-heading{display:flex;align-items:center;gap:12px;margin:0 0 12px;padding:0 2px}
+#resellerDashboard .dashboard-section-icon{width:43px;height:43px;display:grid;place-items:center;flex:0 0 43px;border-radius:12px;background:transparent;color:#a3134d;font-size:30px}
+#resellerDashboard .dashboard-section-heading h3{margin:0;color:#760d35;font:700 27px Georgia,serif}
+#resellerDashboard .dashboard-section-heading p{margin:2px 0 0;color:#714357;font-size:13px}
+#resellerDashboard .rd-recent-list{overflow:hidden;border:1px solid #f2b4ca;border-radius:17px;background:#fff9fb}
+#resellerDashboard .rd-recent-head,#resellerDashboard .rd-recent-row{display:grid;grid-template-columns:1.05fr 1.6fr 1fr .6fr;align-items:center;gap:8px;padding:10px 12px}
+#resellerDashboard .rd-recent-head{background:linear-gradient(90deg,#f7a5c2,#f8c2d5);color:#65112f;font-size:12px;font-weight:900}
+#resellerDashboard .rd-recent-row{min-height:40px;border-bottom:1px solid #f5d6e2;font-size:12px}
+#resellerDashboard .rd-recent-row:last-child{border-bottom:0}
+#resellerDashboard .rd-recent-date{font-size:11px;color:#4f2437;white-space:nowrap}
+#resellerDashboard .rd-recent-product{min-width:0}
+#resellerDashboard .rd-recent-product b{font-size:12px;color:#3f1d2d;overflow-wrap:anywhere}
+#resellerDashboard .rd-move-tag{justify-self:start;border-radius:99px;padding:4px 9px;font-size:10px;font-weight:900;white-space:nowrap}
+#resellerDashboard .rd-move-tag.in{background:#e4edca;color:#426326}
+#resellerDashboard .rd-move-tag.out{background:#f9c2d8;color:#8d1741}
+#resellerDashboard .rd-qty{font-weight:900;text-align:center;font-size:13px}
+#resellerDashboard .rd-qty.in{color:#4c7a2c}#resellerDashboard .rd-qty.out{color:#981647}
+#resellerDashboard .rd-payment-table-wrap{width:100%;overflow-x:auto;border:1px solid #f2b4ca;border-radius:17px;background:#fff9fb}
+#resellerDashboard .rd-payment-table{width:100%;border-collapse:separate;border-spacing:0;font-size:12px}
+#resellerDashboard .rd-payment-table th{background:linear-gradient(90deg,#f7a5c2,#f8c2d5);color:#65112f;padding:11px 9px;text-align:left;white-space:nowrap}
+#resellerDashboard .rd-payment-table td{padding:11px 9px;border-bottom:1px solid #f5d6e2;white-space:nowrap;color:#3f1d2d}
+#resellerDashboard .rd-payment-status,#resellerDashboard .rd-proof-tag{display:inline-flex;align-items:center;justify-content:center;border-radius:99px;padding:5px 11px;font-size:11px;font-weight:900}
+#resellerDashboard .rd-payment-status.paid,#resellerDashboard .rd-proof-tag.approved{background:#dce9bd;color:#3d6422}
+#resellerDashboard .rd-payment-status.unpaid{background:#f9c2d8;color:#8d1741}
+#resellerDashboard .rd-proof-tag.pending{background:#fff0c9;color:#94630c}
+#resellerDashboard .rd-proof-tag.rejected{background:#fbe0e6;color:#a23854}
+#appView .card{border-color:#f2c0d3}
+#appView .btn.primary{background:linear-gradient(100deg,#ed4b8b,#b90e50);box-shadow:0 5px 13px #a80c4a35}
+#appView .btn.soft{background:#ffe1ec;color:#83143e}
+#appView .btn.outline{background:#fff8fb;border:1px solid #e889ad;color:#83143e}
+#appView input,#appView select,#appView textarea{border-color:#edc0d1;border-radius:11px}
+@media(max-width:1050px){#resellerDashboard .dashboard-stats{grid-template-columns:repeat(2,minmax(0,1fr))}#resellerDashboard .dashboard-detail-grid{grid-template-columns:1fr}}
+@media(max-width:760px){
+ #appView.shell{padding:0 12px 20px}
+ #appView>.top{height:auto;min-height:70px;margin:0 -12px 12px;padding:12px;justify-content:flex-end}
+ #appView>.top:before,#appView>.top:after{display:none}
+ #appView>.topright{gap:5px}
+ #appView>.topright .btn{font-size:11px;padding:8px 10px}
+ #appView>.tabs{position:sticky;top:0;left:auto;bottom:auto;width:auto;height:auto;z-index:40;margin:0 -12px 14px;padding:8px;flex-direction:row;gap:5px;border-radius:0 0 17px 17px;overflow-x:auto}
+ #appView>.tabs:before{top:5px;left:8px;right:auto;font-size:18px}
+ #appView>.tabs:after{display:none}
+ #appView>.tabs .tab{width:auto;flex:0 0 auto;padding:10px 12px;font-size:11px}
+ #appView>.tabs .tab:before{display:none}
+ #appView>main{padding:0 0 20px}
+ #resellerDashboard .dashboard-welcome{padding:23px 18px;min-height:140px}
+ #resellerDashboard .dashboard-welcome:after{font-size:22px;right:15px;top:15px}
+ #resellerDashboard .dashboard-stats{gap:9px}
+ #resellerDashboard .dashboard-stats .stat{padding:14px 10px 13px 57px;min-height:92px;border-radius:17px}
+ #resellerDashboard .dashboard-stats .stat:before{left:9px;top:18px;width:40px;height:40px;font-size:22px;line-height:40px}
+ #resellerDashboard .dashboard-stats .stat small{font-size:10px}
+ #resellerDashboard .dashboard-stats .stat strong{font-size:19px}
+ #resellerDashboard .dashboard-upload-card{padding:14px}
+ #resellerDashboard .dashboard-upload-card h3{font-size:22px!important}
+ #resellerDashboard .dashboard-detail-card{padding:13px;border-radius:18px}
+ #resellerDashboard .dashboard-section-heading h3{font-size:21px}
+ #resellerDashboard .rd-recent-head,#resellerDashboard .rd-recent-row{grid-template-columns:76px minmax(95px,1fr) 78px 40px;gap:5px;padding:9px 7px;font-size:10px}
+ #resellerDashboard .rd-recent-date{font-size:10px}
+ #resellerDashboard .rd-recent-product b{font-size:10px}
+ #resellerDashboard .rd-move-tag{font-size:9px;padding:4px 6px}
+ #resellerDashboard .rd-payment-table{font-size:10px}
+ #resellerDashboard .rd-payment-table th,#resellerDashboard .rd-payment-table td{padding:9px 7px}
+}
+
 </style>
 </head>
 <body>
@@ -678,12 +785,13 @@ function renderDashboard(){
  }
 }
 function renderResellerDashboardDetails(){
- const mine=movements.filter(m=>m.movement_type==='stock_out'&&(m.created_by===currentUser.id||m.assigned_user_id===currentUser.id)).slice().sort((a,b)=>new Date(b.movement_date||b.created_at)-new Date(a.movement_date||a.created_at));
- const recent=mine.slice(0,6);
- $('rdRecentStock').innerHTML=recent.length?'<div class="rd-recent-list">'+recent.map(m=>'<div class="rd-recent-row"><div class="rd-recent-date">'+esc(m.movement_date||m.created_at?.slice(0,10)||'')+'</div><div class="rd-recent-product"><b>'+esc(m.inv_products?.name||'Product')+'</b><small>Stock Out · '+Math.abs(Number(m.quantity)||0)+' '+esc(m.inv_products?.unit||'pcs')+'</small></div><span class="rd-qty-out">−'+Math.abs(Number(m.quantity)||0)+'</span></div>').join('')+'</div>':'<div class="empty">No stock movements found yet.</div>';
- const subs=paymentSubmissions.filter(x=>mine.some(m=>m.id===x.movement_id)).slice().sort((a,b)=>new Date(b.submitted_at)-new Date(a.submitted_at));
- const rows=mine.slice(0,8).map(m=>({date:m.movement_date||m.created_at,amount:Number(m.payment_total)||0,paid:Number(m.amount_paid)||0,status:m.payment_status==='paid'?'paid':'unpaid',proof:subs.find(x=>x.movement_id===m.id)}));
- $('rdPaymentSummary').innerHTML=rows.length?'<div class="rd-payment-table-wrap"><table class="rd-payment-table"><thead><tr><th>Payment Date</th><th>Amount</th><th>Status</th><th>Proof</th></tr></thead><tbody>'+rows.map(x=>'<tr><td>'+esc(x.date||'')+'</td><td>'+peso(x.amount)+'</td><td><span class="rd-payment-status '+x.status+'">'+(x.status==='paid'?'✓ Paid':'Unpaid')+'</span></td><td>'+(x.proof?'<span class="rd-proof-tag '+esc(x.proof.status)+'">'+esc(x.proof.status==='approved'?'Verified':x.proof.status==='pending'?'Pending':'Rejected')+'</span>':'—')+'</td></tr>').join('')+'</tbody></table></div>':'<div class="empty">No payment records yet.</div>';
+ const mine=movements.filter(m=>currentRole!=='staff'||m.created_by===currentUser.id||m.assigned_user_id===currentUser.id).slice().sort((a,b)=>new Date(b.movement_date||b.created_at)-new Date(a.movement_date||a.created_at));
+ const recent=mine.slice(0,5);
+ $('rdRecentStock').innerHTML=recent.length?'<div class="rd-recent-list"><div class="rd-recent-head"><span>Date</span><span>Product</span><span>Type</span><span>Quantity</span></div>'+recent.map(m=>{const incoming=m.movement_type==='stock_in',q=Math.abs(Number(m.quantity)||0);return '<div class="rd-recent-row"><div class="rd-recent-date">'+esc(fmtDate(m.movement_date||m.created_at?.slice(0,10)))+'</div><div class="rd-recent-product"><b>'+esc(m.inv_products?.name||'Product')+'</b></div><span class="rd-move-tag '+(incoming?'in':'out')+'">'+(incoming?'Stock In':'Stock Out')+'</span><span class="rd-qty '+(incoming?'in':'out')+'">'+(incoming?'+':'−')+q+'</span></div>'}).join('')+'</div>':'<div class="empty">No stock movements found yet.</div>';
+ const stockouts=mine.filter(m=>m.movement_type==='stock_out');
+ const subs=paymentSubmissions.filter(x=>stockouts.some(m=>m.id===x.movement_id));
+ const rows=stockouts.slice(0,5).map(m=>({date:m.movement_date||m.created_at,amount:Number(m.payment_total)||0,status:m.payment_status==='paid'?'paid':'unpaid',proof:subs.filter(x=>x.movement_id===m.id).sort((a,b)=>new Date(b.submitted_at)-new Date(a.submitted_at))[0]}));
+ $('rdPaymentSummary').innerHTML=rows.length?'<div class="rd-payment-table-wrap"><table class="rd-payment-table"><thead><tr><th>Payment Date</th><th>Amount</th><th>Status</th><th>Proof</th></tr></thead><tbody>'+rows.map(x=>'<tr><td>'+esc(fmtDate(x.date))+'</td><td>'+peso(x.amount)+'</td><td><span class="rd-payment-status '+x.status+'">'+(x.status==='paid'?'✓ Paid':'Unpaid')+'</span></td><td>'+(x.proof?'<span class="rd-proof-tag '+esc(x.proof.status)+'">'+esc(x.proof.status==='approved'?'✓':x.proof.status==='pending'?'◷':'!')+'</span>':'—')+'</td></tr>').join('')+'</tbody></table></div>':'<div class="empty">No payment records yet.</div>';
 }
 function renderOverview(){const active=products.filter(p=>p.active),low=active.filter(p=>p.stock<=p.reorder_level);$('sProducts').textContent=active.length;$('sUnits').textContent=active.reduce((s,p)=>s+Number(p.stock),0).toLocaleString();$('sLow').textContent=low.length;$('sValue').textContent=peso(active.reduce((s,p)=>s+Number(p.stock)*Number(p.selling_price||0),0));$('lowList').innerHTML=low.length?low.map(p=>'<div class="log"><b>'+esc(p.name)+'</b><div class="muted">'+p.stock+' '+esc(p.unit)+' remaining · alert at '+p.reorder_level+'</div></div>').join(''):'<div class="empty">No low stock items.</div>';$('recentList').innerHTML=movements.slice(0,6).map(m=>'<div class="log"><b>'+esc(m.inv_products?.name||'Product')+'</b><div class="muted">'+esc(userLabel(m.created_by_email))+' · '+fmtDate(m.created_at)+'</div><div>'+esc(m.movement_type.replace('_',' '))+' · '+m.stock_before+' → '+m.stock_after+'</div></div>').join('')||'<div class="empty">No stock movements yet.</div>'}
 function renderPriceList(){const active=products.filter(p=>p.active);const groups={};active.forEach(p=>{const c=p.category||'Other';(groups[c]??=[]).push(p)});const stamp=new Intl.DateTimeFormat('en-PH',{dateStyle:'long',timeStyle:'short',timeZone:'Asia/Manila'}).format(new Date());$('priceListContent').innerHTML='<div class="price-cover"><div class="price-brandline"><span>SEXY DUST</span><i>BEAUTY · WELLNESS · ESSENTIALS</i></div><div class="price-rule"></div><div class="price-eyebrow">OFFICIAL PRODUCT CATALOGUE</div><h1>Our Pricelist</h1><p class="price-intro">A curated list of our available products and current pricing.</p><div class="price-snapshot"><span class="snapshot-label">INVENTORY SNAPSHOT</span><strong>Stocks as of '+esc(stamp)+'</strong><small>Quantities shown are based on the live inventory record at the time this list was opened.</small></div><div class="price-key"><span><b>PER VIAL</b> Regular price</span><span><b>WITH SET</b> Regular price + ₱200 / vial</span></div></div>'+Object.keys(groups).sort().map((cat,index)=>'<section class="price-group"><div class="price-group-heading"><span class="price-group-number">'+String(index+1).padStart(2,'0')+'</span><h2>'+esc(cat)+'</h2></div><div class="tablewrap price-table-wrap"><table class="price-table"><thead><tr><th>PRODUCT</th><th>STOCK ON HAND</th><th>PER VIAL</th><th>WITH SET</th></tr></thead><tbody>'+groups[cat].sort((a,b)=>a.name.localeCompare(b.name)).map(p=>'<tr><td><b>'+esc(p.name)+'</b>'+(p.sku?'<small class="price-sku">'+esc(p.sku)+'</small>':'')+'</td><td><span class="price-stock '+(Number(p.stock)<=0?'out':Number(p.stock)<=Number(p.reorder_level||0)?'low':'')+'">'+Number(p.stock||0).toLocaleString('en-PH')+' '+esc(p.unit||'pcs')+'</span></td><td class="price-amount">'+peso(p.selling_price)+'</td><td class="price-amount price-set">'+peso(Number(p.selling_price||0)+200)+'</td></tr>').join('')+'</tbody></table></div></section>').join('')+'<div class="price-footer"><span>SEXY DUST</span><span>Thank you for choosing us.</span><small>Prices and stock quantities may change without prior notice.</small></div>'||'<div class="empty">No active products found.</div>'}
