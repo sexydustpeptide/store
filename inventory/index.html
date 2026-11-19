@@ -784,6 +784,48 @@ body{background:linear-gradient(135deg,#fff7fa 0%,#ffe3ed 45%,#fff7fb 100%);colo
  #appView .rd-recent-row{grid-template-columns:58px minmax(0,1fr) auto}
 }
 
+
+/* Mobile reseller comparison: keep two report cards side by side */
+@media(max-width:700px){
+  .user-report-list{
+    grid-template-columns:repeat(2,minmax(0,1fr))!important;
+    gap:9px!important;
+    align-items:stretch;
+  }
+  .user-report-card{
+    min-width:0!important;
+    padding:11px 9px!important;
+    border-radius:15px!important;
+  }
+  .user-report-head{gap:5px!important;align-items:flex-start!important}
+  .user-report-head h3{
+    font-size:15px!important;
+    line-height:1.12!important;
+    padding:6px 7px!important;
+    margin-top:6px!important;
+    border-radius:9px!important;
+    overflow-wrap:anywhere!important;
+  }
+  .user-report-total strong{font-size:21px!important}
+  .user-report-total small{font-size:8px!important}
+  .user-report-kicker{font-size:7px!important;letter-spacing:.6px!important}
+  .user-report-tx{
+    grid-template-columns:minmax(0,1fr) auto!important;
+    gap:5px 6px!important;
+    padding:9px 0!important;
+    font-size:10px!important;
+  }
+  .user-report-tx small{font-size:8px!important}
+  .user-report-status{font-size:8px!important;padding:4px 6px!important}
+  .user-report-product{font-size:10px!important;gap:5px!important}
+  .user-report-product b{font-size:10px!important}
+}
+@media(max-width:360px){
+  .user-report-list{gap:6px!important}
+  .user-report-card{padding:9px 7px!important}
+  .user-report-head h3{font-size:13px!important;padding:5px 6px!important}
+  .user-report-total strong{font-size:18px!important}
+}
 </style>
 </head>
 <body>
