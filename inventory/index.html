@@ -535,6 +535,34 @@ body{min-height:100vh;background:radial-gradient(ellipse at 76% 0%,#ffe2ed 0,tra
  #loginView .login{padding:27px 22px}
 }
 
+
+/* Dashboard detail panels — live data presentation */
+#resellerDashboard .dashboard-detail-grid{display:grid;grid-template-columns:1.08fr 1fr;gap:16px;margin-top:16px;align-items:stretch}
+#resellerDashboard .dashboard-detail-card{min-width:0;padding:20px;border:1px solid #f0bfd1;border-radius:22px;background:linear-gradient(145deg,rgba(255,255,255,.97),rgba(255,239,246,.96));box-shadow:0 12px 30px rgba(112,36,69,.07)}
+#resellerDashboard .dashboard-section-heading{display:flex;align-items:center;gap:12px;margin-bottom:16px}
+#resellerDashboard .dashboard-section-icon{width:42px;height:42px;display:grid;place-items:center;flex:0 0 42px;border-radius:50%;background:linear-gradient(145deg,#ffe5ef,#f6c5d8);color:#8b2c52;font-size:25px}
+#resellerDashboard .dashboard-section-heading h3{margin:0;color:#712441;font:700 22px Georgia,serif}
+#resellerDashboard .dashboard-section-heading p{margin:3px 0 0;color:#987181;font-size:12px}
+#resellerDashboard .rd-recent-list{display:flex;flex-direction:column;gap:0}
+#resellerDashboard .rd-recent-row{display:grid;grid-template-columns:92px minmax(0,1fr) auto;align-items:center;gap:10px;padding:13px 10px;border-bottom:1px solid #f4dce6}
+#resellerDashboard .rd-recent-row:last-child{border-bottom:0}
+#resellerDashboard .rd-recent-date{font-size:11px;color:#9a7586}
+#resellerDashboard .rd-recent-product{min-width:0;display:flex;flex-direction:column;gap:4px}
+#resellerDashboard .rd-recent-product b{font-size:13px;color:#63213e;overflow-wrap:anywhere}
+#resellerDashboard .rd-recent-product small{font-size:11px;color:#987181}
+#resellerDashboard .rd-qty-out{font:700 17px Georgia,serif;color:#a12c56}
+#resellerDashboard .rd-payment-table-wrap{width:100%;overflow-x:auto}
+#resellerDashboard .rd-payment-table{width:100%;border-collapse:separate;border-spacing:0;font-size:12px}
+#resellerDashboard .rd-payment-table th{background:#f6c9da;color:#68223f;padding:12px 10px;text-align:left;white-space:nowrap}
+#resellerDashboard .rd-payment-table td{padding:12px 10px;border-bottom:1px solid #f3dce5;white-space:nowrap}
+#resellerDashboard .rd-payment-status,#resellerDashboard .rd-proof-tag{display:inline-flex;align-items:center;border-radius:99px;padding:5px 10px;font-size:10px;font-weight:800}
+#resellerDashboard .rd-payment-status.paid,#resellerDashboard .rd-proof-tag.approved{background:#e5f1d7;color:#46732b}
+#resellerDashboard .rd-payment-status.unpaid{background:#fde1eb;color:#9b3158}
+#resellerDashboard .rd-proof-tag.pending{background:#fff0d6;color:#91620f}
+#resellerDashboard .rd-proof-tag.rejected{background:#fbe2e8;color:#a23854}
+@media(max-width:900px){#resellerDashboard .dashboard-detail-grid{grid-template-columns:1fr}}
+@media(max-width:560px){#resellerDashboard .dashboard-detail-card{padding:14px;border-radius:17px}#resellerDashboard .dashboard-section-heading h3{font-size:19px}#resellerDashboard .rd-recent-row{grid-template-columns:75px minmax(0,1fr) auto;gap:7px;padding:11px 4px}#resellerDashboard .rd-payment-table{font-size:11px}#resellerDashboard .rd-payment-table th,#resellerDashboard .rd-payment-table td{padding:10px 8px}}
+
 </style>
 </head>
 <body>
@@ -562,7 +590,7 @@ body{min-height:100vh;background:radial-gradient(ellipse at 76% 0%,#ffe2ed 0,tra
    <div id="resellerDashboard" class="hidden">
     <div class="card dashboard-welcome"><span class="user-report-kicker">SEXY DUST · RESELLER PORTAL</span><h2 style="font:italic 30px Georgia;color:var(--wine);margin:5px 0">Your Dashboard</h2><p class="muted" id="dashboardGreeting">Your stock and payment summary at a glance.</p></div>
     <div class="stats dashboard-stats"><div class="card stat"><small>Total stocks received</small><strong id="rdStocks">0</strong></div><div class="card stat"><small>Total amount</small><strong id="rdTotal">₱0</strong></div><div class="card stat"><small>Total paid</small><strong id="rdPaid">₱0</strong></div><div class="card stat"><small>Remaining balance</small><strong id="rdDue">₱0</strong></div></div>
-    <div class="card" style="margin-top:14px"><div class="toolbar"><div style="flex:1"><h3 style="margin:0;color:var(--wine)">My Stock & Payments</h3><span class="muted">Upload proof for each payment and follow its verification status.</span></div></div><div id="dashboardPayments"></div></div>
+    <div class="card dashboard-upload-card" style="margin-top:14px"><div class="toolbar"><div style="flex:1"><h3 style="margin:0;color:var(--wine)">My Stock & Payments</h3><span class="muted">Upload proof for each payment and follow its verification status.</span></div></div><div id="dashboardPayments"></div></div><div class="dashboard-detail-grid"><div class="card dashboard-detail-card"><div class="dashboard-section-heading"><span class="dashboard-section-icon">↻</span><div><h3>Recent Stock Movements</h3><p>View your latest stock releases and updates.</p></div></div><div id="rdRecentStock"></div></div><div class="card dashboard-detail-card"><div class="dashboard-section-heading"><span class="dashboard-section-icon">▤</span><div><h3>Payment Summary</h3><p>Track your payments and balances.</p></div></div><div id="rdPaymentSummary"></div></div></div>
    </div>
    <div id="adminDashboard" class="hidden">
     <div class="card dashboard-welcome"><span class="user-report-kicker">SEXY DUST · SUPER ADMIN</span><h2 style="font:italic 30px Georgia;color:var(--wine);margin:5px 0">Payment Proof Inbox</h2><p class="muted">Review reseller uploads, open screenshots, and approve or reject payments.</p></div>
@@ -639,6 +667,7 @@ async function loadUsers(){const {data,error}=await db.from('inv_users').select(
 async function loadManualStockOutUsers(){const {data,error}=await db.rpc('inv_list_reseller_accounts');if(error){msg('manualTargetMsg',error.message,true);return}const select=$('manualTargetUser');select.innerHTML=(data||[]).filter(u=>u.user_id).map(u=>'<option value="'+u.user_id+'">'+esc(u.username||userLabel(u.email))+'</option>').join('')||'<option value="">No active Reseller accounts</option>';$('manualTargetProduct').innerHTML=products.filter(p=>p.active).map(p=>'<option value="'+p.id+'">'+esc(p.name)+' · '+p.stock+' '+esc(p.unit)+'</option>').join('')||'<option value="">No active products</option>'}
 function renderDashboard(){
  if(currentRole==='staff'){
+  renderResellerDashboardDetails();
   const mine=movements.filter(m=>m.movement_type==='stock_out'&&(m.created_by===currentUser.id||m.assigned_user_id===currentUser.id));
   const total=mine.reduce((a,m)=>a+Number(m.payment_total||0),0),paid=mine.filter(m=>m.payment_status==='paid').reduce((a,m)=>a+Number(m.payment_total||0),0),qty=mine.reduce((a,m)=>a+Math.abs(Number(m.quantity)||0),0);
   $('dashboardGreeting').textContent='Welcome, '+(currentMember?.username||'Reseller')+'. Here is your stock and payment summary.';
@@ -647,6 +676,14 @@ function renderDashboard(){
   const allOut=movements.filter(m=>m.movement_type==='stock_out'),pending=paymentSubmissions.filter(x=>x.status==='pending'),approved=paymentSubmissions.filter(x=>x.status==='approved').reduce((a,x)=>a+Number(x.amount||0),0),due=allOut.filter(m=>m.payment_status!=='paid').reduce((a,m)=>a+Number(m.payment_total||0),0);
   $('adPending').textContent=pending.length;$('adApproved').textContent=peso(approved);$('adOutstanding').textContent=peso(due);
  }
+}
+function renderResellerDashboardDetails(){
+ const mine=movements.filter(m=>m.movement_type==='stock_out'&&(m.created_by===currentUser.id||m.assigned_user_id===currentUser.id)).slice().sort((a,b)=>new Date(b.movement_date||b.created_at)-new Date(a.movement_date||a.created_at));
+ const recent=mine.slice(0,6);
+ $('rdRecentStock').innerHTML=recent.length?'<div class="rd-recent-list">'+recent.map(m=>'<div class="rd-recent-row"><div class="rd-recent-date">'+esc(m.movement_date||m.created_at?.slice(0,10)||'')+'</div><div class="rd-recent-product"><b>'+esc(m.inv_products?.name||'Product')+'</b><small>Stock Out · '+Math.abs(Number(m.quantity)||0)+' '+esc(m.inv_products?.unit||'pcs')+'</small></div><span class="rd-qty-out">−'+Math.abs(Number(m.quantity)||0)+'</span></div>').join('')+'</div>':'<div class="empty">No stock movements found yet.</div>';
+ const subs=paymentSubmissions.filter(x=>mine.some(m=>m.id===x.movement_id)).slice().sort((a,b)=>new Date(b.submitted_at)-new Date(a.submitted_at));
+ const rows=mine.slice(0,8).map(m=>({date:m.movement_date||m.created_at,amount:Number(m.payment_total)||0,paid:Number(m.amount_paid)||0,status:m.payment_status==='paid'?'paid':'unpaid',proof:subs.find(x=>x.movement_id===m.id)}));
+ $('rdPaymentSummary').innerHTML=rows.length?'<div class="rd-payment-table-wrap"><table class="rd-payment-table"><thead><tr><th>Payment Date</th><th>Amount</th><th>Status</th><th>Proof</th></tr></thead><tbody>'+rows.map(x=>'<tr><td>'+esc(x.date||'')+'</td><td>'+peso(x.amount)+'</td><td><span class="rd-payment-status '+x.status+'">'+(x.status==='paid'?'✓ Paid':'Unpaid')+'</span></td><td>'+(x.proof?'<span class="rd-proof-tag '+esc(x.proof.status)+'">'+esc(x.proof.status==='approved'?'Verified':x.proof.status==='pending'?'Pending':'Rejected')+'</span>':'—')+'</td></tr>').join('')+'</tbody></table></div>':'<div class="empty">No payment records yet.</div>';
 }
 function renderOverview(){const active=products.filter(p=>p.active),low=active.filter(p=>p.stock<=p.reorder_level);$('sProducts').textContent=active.length;$('sUnits').textContent=active.reduce((s,p)=>s+Number(p.stock),0).toLocaleString();$('sLow').textContent=low.length;$('sValue').textContent=peso(active.reduce((s,p)=>s+Number(p.stock)*Number(p.selling_price||0),0));$('lowList').innerHTML=low.length?low.map(p=>'<div class="log"><b>'+esc(p.name)+'</b><div class="muted">'+p.stock+' '+esc(p.unit)+' remaining · alert at '+p.reorder_level+'</div></div>').join(''):'<div class="empty">No low stock items.</div>';$('recentList').innerHTML=movements.slice(0,6).map(m=>'<div class="log"><b>'+esc(m.inv_products?.name||'Product')+'</b><div class="muted">'+esc(userLabel(m.created_by_email))+' · '+fmtDate(m.created_at)+'</div><div>'+esc(m.movement_type.replace('_',' '))+' · '+m.stock_before+' → '+m.stock_after+'</div></div>').join('')||'<div class="empty">No stock movements yet.</div>'}
 function renderPriceList(){const active=products.filter(p=>p.active);const groups={};active.forEach(p=>{const c=p.category||'Other';(groups[c]??=[]).push(p)});const stamp=new Intl.DateTimeFormat('en-PH',{dateStyle:'long',timeStyle:'short',timeZone:'Asia/Manila'}).format(new Date());$('priceListContent').innerHTML='<div class="price-cover"><div class="price-brandline"><span>SEXY DUST</span><i>BEAUTY · WELLNESS · ESSENTIALS</i></div><div class="price-rule"></div><div class="price-eyebrow">OFFICIAL PRODUCT CATALOGUE</div><h1>Our Pricelist</h1><p class="price-intro">A curated list of our available products and current pricing.</p><div class="price-snapshot"><span class="snapshot-label">INVENTORY SNAPSHOT</span><strong>Stocks as of '+esc(stamp)+'</strong><small>Quantities shown are based on the live inventory record at the time this list was opened.</small></div><div class="price-key"><span><b>PER VIAL</b> Regular price</span><span><b>WITH SET</b> Regular price + ₱200 / vial</span></div></div>'+Object.keys(groups).sort().map((cat,index)=>'<section class="price-group"><div class="price-group-heading"><span class="price-group-number">'+String(index+1).padStart(2,'0')+'</span><h2>'+esc(cat)+'</h2></div><div class="tablewrap price-table-wrap"><table class="price-table"><thead><tr><th>PRODUCT</th><th>STOCK ON HAND</th><th>PER VIAL</th><th>WITH SET</th></tr></thead><tbody>'+groups[cat].sort((a,b)=>a.name.localeCompare(b.name)).map(p=>'<tr><td><b>'+esc(p.name)+'</b>'+(p.sku?'<small class="price-sku">'+esc(p.sku)+'</small>':'')+'</td><td><span class="price-stock '+(Number(p.stock)<=0?'out':Number(p.stock)<=Number(p.reorder_level||0)?'low':'')+'">'+Number(p.stock||0).toLocaleString('en-PH')+' '+esc(p.unit||'pcs')+'</span></td><td class="price-amount">'+peso(p.selling_price)+'</td><td class="price-amount price-set">'+peso(Number(p.selling_price||0)+200)+'</td></tr>').join('')+'</tbody></table></div></section>').join('')+'<div class="price-footer"><span>SEXY DUST</span><span>Thank you for choosing us.</span><small>Prices and stock quantities may change without prior notice.</small></div>'||'<div class="empty">No active products found.</div>'}
