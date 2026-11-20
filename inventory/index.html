@@ -841,6 +841,30 @@ body{background:linear-gradient(135deg,#fff7fa 0%,#ffe3ed 45%,#fff7fb 100%);colo
  font-size:10px;line-height:1.4;white-space:pre-wrap;overflow-wrap:anywhere;
 }
 .ur-transaction-note b{color:#a52b60;letter-spacing:.4px}
+
+/* Super Admin reseller report: wider cards so payment details never collapse vertically */
+#appView .user-report-list{
+  grid-template-columns:repeat(auto-fit,minmax(min(100%,560px),1fr))!important;
+  gap:18px!important;
+  align-items:start;
+}
+#appView .user-report-card{min-width:0;width:100%;padding:20px!important}
+#appView .ur-payment-row{
+  display:grid!important;
+  grid-template-columns:minmax(0,1.5fr) minmax(130px,.9fr) auto auto!important;
+  align-items:center!important;
+  gap:12px!important;
+}
+#appView .ur-payment-product{min-width:0}
+#appView .ur-payment-product b,#appView .ur-payment-product small{overflow-wrap:anywhere;word-break:normal}
+#appView .ur-payment-amount{min-width:0;text-align:right;white-space:normal}
+#appView .ur-payment-badge{white-space:nowrap}
+@media(max-width:700px){
+ #appView .user-report-list{grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:9px!important}
+ #appView .user-report-card{padding:11px 9px!important}
+ #appView .ur-payment-row{grid-template-columns:minmax(0,1fr) auto!important;gap:6px!important}
+}
+
 </style>
 </head>
 <body>
