@@ -941,6 +941,8 @@ body{background:linear-gradient(135deg,#fff7fa 0%,#ffe3ed 45%,#fff7fb 100%);colo
     <div class="card stat"><small>Cash collected</small><strong id="cCollected">₱0.00</strong></div>
     <div class="card stat"><small>Outstanding balance</small><strong id="cOutstanding">₱0.00</strong></div>
     <div class="card stat"><small>Releases missing costing</small><strong id="cUncosted">0</strong></div>
+    <div class="card stat"><small>Total Stock Selling Value</small><strong id="cStockSellValue">₱0.00</strong></div>
+    <div class="card stat"><small>Total Stock Cost Value</small><strong id="cStockCostValue">₱0.00</strong></div>
    </div>
    <div class="notice">Bac Water is included in Per Vial Costing. Set Costing is separate and adds the set inclusions to the complete vial cost. With Set sales use the existing ₱200 set price add-on.</div>
    <h3 style="margin-top:22px">Bac Water Price List</h3>
@@ -1104,6 +1106,8 @@ function renderCosting(){
   return {m,p,qty,sale,isSet,lineCapital,lineProfit,hasCost};
  }).filter(Boolean);
  $('cVialSales').textContent=peso(vialSales);$('cVialProfit').textContent=peso(vialProfit);$('cSetSales').textContent=peso(setSales);$('cSetProfit').textContent=peso(setProfit);$('cSales').textContent=peso(revenue);$('cCapital').textContent=peso(capital);$('cProfit').textContent=peso(profit);$('cCollected').textContent=peso(collected);$('cOutstanding').textContent=peso(outstanding);$('cUncosted').textContent=uncosted.toLocaleString();
+ const activeStock=products.filter(p=>p.active),stockSellValue=activeStock.reduce((sum,p)=>sum+Math.max(0,Number(p.stock)||0)*Math.max(0,Number(p.selling_price)||0),0),stockCostValue=activeStock.reduce((sum,p)=>{const c=costByProduct.get(p.id);return sum+Math.max(0,Number(p.stock)||0)*Math.max(0,Number(c?.cost_per_vial)||0)},0);
+ $('cStockSellValue').textContent=peso(stockSellValue);$('cStockCostValue').textContent=peso(stockCostValue);
  $('costTransactionRows').innerHTML=tx.slice(0,100).map(x=>'<tr><td>'+esc(fmtDate(x.m.movement_date||x.m.created_at))+'</td><td><b>'+esc(x.p.name)+'</b></td><td>'+x.qty+'</td><td><span class="pill">'+(x.isSet?'With Set':'Per Vial')+'</span></td><td>'+peso(x.sale)+'</td><td>'+(x.hasCost?peso(x.lineCapital):'<span class="danger">Not set</span>')+'</td><td>'+(x.hasCost?'<b>'+peso(x.lineProfit)+'</b>':'—')+'</td><td>'+esc(x.m.payment_status||'unpaid')+'</td></tr>').join('')||'<tr><td colspan="8" class="empty">No stock-out sales found yet.</td></tr>';
 }
 $('refreshCosting').onclick=loadCosting;
