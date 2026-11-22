@@ -931,6 +931,10 @@ body{background:linear-gradient(135deg,#fff7fa 0%,#ffe3ed 45%,#fff7fb 100%);colo
   <section id="page-costing" class="hidden"><div class="card">
    <div class="toolbar"><div style="flex:1"><h2 style="margin:0;color:var(--wine);font:26px Georgia">Costing & Profit</h2><span class="muted">Super Admin only · Separate costing for per-vial sales and complete sets.</span></div><button class="btn soft" id="refreshCosting">↻ Refresh</button></div>
    <div class="stats">
+    <div class="card stat"><small>Per Vial Sales</small><strong id="cVialSales">₱0.00</strong></div>
+    <div class="card stat"><small>Per Vial Profit</small><strong id="cVialProfit">₱0.00</strong></div>
+    <div class="card stat"><small>Set Sales</small><strong id="cSetSales">₱0.00</strong></div>
+    <div class="card stat"><small>Set Profit</small><strong id="cSetProfit">₱0.00</strong></div>
     <div class="card stat"><small>Gross sales released</small><strong id="cSales">₱0.00</strong></div>
     <div class="card stat"><small>Product capital</small><strong id="cCapital">₱0.00</strong></div>
     <div class="card stat"><small>Gross profit · costed releases</small><strong id="cProfit">₱0.00</strong></div>
@@ -1015,7 +1019,12 @@ function renderCosting(){
   if(!Number.isFinite(cost)||cost<0){msg('costingStatus','Enter a valid non-negative Bac Water cost.',true);return}
   const {error}=await db.from('inv_bac_water_costs').update({cost,updated_by:currentUser.id,updated_at:new Date().toISOString()}).eq('bac_type',type);
   if(error){msg('costingStatus','Could not save '+type+': '+error.message,true);return}
-  await loadCosting();msg('costingStatus',type+' cost updated.');
+  for(const record of productCosts.filter(x=>x.bac_water_type===type)){
+   const vial=Number(record.base_vial_cost??record.cost_per_vial??0)+cost,extras=(Array.isArray(record.set_inclusions)?record.set_inclusions:[]).reduce((sum,x)=>sum+Number(x.line_total??Number(x.quantity||0)*Number(x.unit_cost||0)),0);
+   const {error:syncError}=await db.from('inv_product_costs').upsert({...record,cost_per_vial:vial,cost_per_set:vial+extras,updated_by:currentUser.id,updated_at:new Date().toISOString()},{onConflict:'product_id'});
+   if(syncError){msg('costingStatus','Bac Water updated, but product costing sync failed: '+syncError.message,true);return}
+  }
+  await loadCosting();msg('costingStatus',type+' cost updated and linked product costs recalculated.');
  });
  $('costVialRows').innerHTML=shown.map(p=>{
   const saved=productCosts.find(x=>x.product_id===p.id),base=Number(saved?.base_vial_cost??saved?.cost_per_vial??0),bacType=saved?.bac_water_type||'',bacCost=Number(bacByType.get(bacType)?.cost||0),total=base+bacCost,sell=Number(p.selling_price||0);
@@ -1044,7 +1053,7 @@ function renderCosting(){
  });
  const costByProduct=new Map(productCosts.map(x=>[x.product_id,x]));
  const sales=movements.filter(m=>m.movement_type==='stock_out'&&Number(m.payment_total||0)>0);
- let revenue=0,capital=0,profit=0,collected=0,outstanding=0,uncosted=0;
+ let revenue=0,capital=0,profit=0,collected=0,outstanding=0,uncosted=0,vialSales=0,vialProfit=0,setSales=0,setProfit=0;
  const tx=sales.map(m=>{
   const p=products.find(x=>x.id===m.product_id),qty=Math.abs(Number(m.quantity)||0),sale=Number(m.payment_total)||0;
   if(!p||!qty)return null;
@@ -1052,10 +1061,11 @@ function renderCosting(){
   const isSet=fee>0.01,record=costByProduct.get(m.product_id),unitCost=record?(isSet?Number(record.cost_per_set||0):Number(record.cost_per_vial||0)):null;
   const hasCost=unitCost!==null&&unitCost>0,lineCapital=hasCost?unitCost*qty:null,lineProfit=hasCost?sale-lineCapital:null;
   revenue+=sale;collected+=Number(m.amount_paid||0);outstanding+=Math.max(0,sale-Number(m.amount_paid||0));
+  if(isSet){setSales+=sale;if(hasCost)setProfit+=lineProfit}else{vialSales+=sale;if(hasCost)vialProfit+=lineProfit}
   if(hasCost){capital+=lineCapital;profit+=lineProfit}else uncosted++;
   return {m,p,qty,sale,isSet,lineCapital,lineProfit,hasCost};
  }).filter(Boolean);
- $('cSales').textContent=peso(revenue);$('cCapital').textContent=peso(capital);$('cProfit').textContent=peso(profit);$('cCollected').textContent=peso(collected);$('cOutstanding').textContent=peso(outstanding);$('cUncosted').textContent=uncosted.toLocaleString();
+ $('cVialSales').textContent=peso(vialSales);$('cVialProfit').textContent=peso(vialProfit);$('cSetSales').textContent=peso(setSales);$('cSetProfit').textContent=peso(setProfit);$('cSales').textContent=peso(revenue);$('cCapital').textContent=peso(capital);$('cProfit').textContent=peso(profit);$('cCollected').textContent=peso(collected);$('cOutstanding').textContent=peso(outstanding);$('cUncosted').textContent=uncosted.toLocaleString();
  $('costTransactionRows').innerHTML=tx.slice(0,100).map(x=>'<tr><td>'+esc(fmtDate(x.m.movement_date||x.m.created_at))+'</td><td><b>'+esc(x.p.name)+'</b></td><td>'+x.qty+'</td><td><span class="pill">'+(x.isSet?'With Set':'Per Vial')+'</span></td><td>'+peso(x.sale)+'</td><td>'+(x.hasCost?peso(x.lineCapital):'<span class="danger">Not set</span>')+'</td><td>'+(x.hasCost?'<b>'+peso(x.lineProfit)+'</b>':'—')+'</td><td>'+esc(x.m.payment_status||'unpaid')+'</td></tr>').join('')||'<tr><td colspan="8" class="empty">No stock-out sales found yet.</td></tr>';
 }
 $('refreshCosting').onclick=loadCosting;
