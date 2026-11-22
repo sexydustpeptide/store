@@ -987,7 +987,7 @@ async function loadCosting(){
  renderCosting();
 }
 function parseSetInclusions(raw){
- return String(raw||'').split('\\n').map(line=>line.trim()).filter(Boolean).map((line,index)=>{
+ return String(raw||'').split(String.fromCharCode(10)).map(line=>line.trim()).filter(Boolean).map((line,index)=>{
   const parts=line.split('|').map(x=>x.trim()),name=parts[0]||('Inclusion '+(index+1)),qty=Number(parts[1]||1),unitCost=Number(parts[2]||0);
   if(!Number.isFinite(qty)||qty<0||!Number.isFinite(unitCost)||unitCost<0)throw new Error('Invalid quantity or unit cost on line '+(index+1));
   return {name,quantity:qty,unit_cost:unitCost,line_total:qty*unitCost};
@@ -999,7 +999,7 @@ function renderCosting(){
  $('costProductRows').innerHTML=shown.map(p=>{
   const saved=productCosts.find(x=>x.product_id===p.id),vial=Number(saved?.cost_per_vial||0),sell=Number(p.selling_price||0);
   const inclusions=Array.isArray(saved?.set_inclusions)?saved.set_inclusions:[];
-  const lines=inclusions.map(x=>(x.name||'Inclusion')+' | '+Number(x.quantity||1)+' | '+Number(x.unit_cost||0)).join('\\n');
+  const lines=inclusions.map(x=>(x.name||'Inclusion')+' | '+Number(x.quantity||1)+' | '+Number(x.unit_cost||0)).join(String.fromCharCode(10));
   const extras=inclusions.reduce((sum,x)=>sum+Number(x.quantity||0)*Number(x.unit_cost||0),0),set=vial+extras;
   return '<tr><td><b>'+esc(p.name)+'</b><div class="muted">'+esc(p.sku||'')+'</div></td><td>'+peso(sell)+'</td><td><input type="number" min="0" step=".01" data-cost-vial="'+p.id+'" value="'+vial.toFixed(2)+'" style="min-width:100px"></td><td>'+peso(sell-vial)+'</td><td>'+peso(sell+200)+'</td><td><textarea data-cost-inclusions="'+p.id+'" rows="4" placeholder="Syringe | 2 | 5&#10;Bac Water | 1 | 30&#10;Freebie | 1 | 10" style="min-width:230px;width:100%">'+esc(lines)+'</textarea><small class="muted">Name | quantity | unit cost (₱)</small></td><td><b>'+peso(set)+'</b></td><td>'+peso(sell+200-set)+'</td><td><button class="btn primary" data-save-cost="'+p.id+'">Save</button></td></tr>';
  }).join('')||'<tr><td colspan="9" class="empty">No products found.</td></tr>';
