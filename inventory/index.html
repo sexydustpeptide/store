@@ -1015,7 +1015,11 @@ function renderSetItemCatalog(){
   if(!name||!Number.isFinite(cost)||cost<0){msg('costingStatus','Enter a valid item name and non-negative amount.',true);return}
   const {error}=await db.from('inv_set_cost_items').update({item_name:name,unit_cost:cost,updated_by:currentUser.id,updated_at:new Date().toISOString()}).eq('id',id);
   if(error){msg('costingStatus','Could not update item: '+error.message,true);return}
-  await loadCosting();msg('costingStatus','Set costing item updated.');
+  for(const record of productCosts){
+   const items=(Array.isArray(record.set_inclusions)?record.set_inclusions:[]).map(x=>x.item_id===id?{...x,name,unit_cost:cost,line_total:Number(x.quantity||0)*cost}:x),extras=items.reduce((sum,x)=>sum+Number(x.line_total??Number(x.quantity||0)*Number(x.unit_cost||0)),0),vial=Number(record.cost_per_vial||0);
+   if(items.some(x=>x.item_id===id)){const {error:syncError}=await db.from('inv_product_costs').upsert({...record,set_inclusions:items,cost_per_set:vial+extras,updated_by:currentUser.id,updated_at:new Date().toISOString()},{onConflict:'product_id'});if(syncError){msg('Item updated but product set costs could not sync: '+syncError.message,true);return}}
+  }
+  await loadCosting();msg('costingStatus','Set item updated. Linked product set costs recalculated.');
  });
  $('setItemCatalogRows').querySelectorAll('[data-delete-set-item]').forEach(btn=>btn.onclick=async()=>{
   const {error}=await db.from('inv_set_cost_items').delete().eq('id',btn.dataset.deleteSetItem);
@@ -1032,8 +1036,8 @@ function refreshSetChoiceTotals(id){
  const rows=[...$('costSetRows').querySelectorAll('[data-set-choice="'+id+'"]')],saved=productCosts.find(x=>x.product_id===id),vial=Number(saved?.cost_per_vial||0);
  let extras=0;
  rows.forEach(row=>{const item=setCostItems.find(x=>x.id===row.querySelector('select').value),qty=Number(row.querySelector('input').value||0),line=qty*Number(item?.unit_cost||0);extras+=line;row.querySelector('span').textContent=peso(line)});
- const product=products.find(x=>x.id===id),set=vial+extras,summary=$('costSetRows').querySelector('[data-set-summary="'+id+'"]');
- if(summary){summary.querySelector('[data-set-extra]').textContent=peso(extras);summary.querySelector('[data-set-total]').textContent=peso(set);summary.querySelector('[data-set-profit]').textContent=peso(Number(product?.selling_price||0)+200-set)}
+ const product=products.find(x=>x.id===id),set=vial+extras,summary=[...$('costSetRows').querySelectorAll('[data-set-summary="'+id+'"]')];
+ if(summary.length){summary[0].querySelector('[data-set-extra]').textContent=peso(extras);summary[1].querySelector('[data-set-total]').textContent=peso(set);summary[2].querySelector('[data-set-profit]').textContent=peso(Number(product?.selling_price||0)+200-set)}
 }
 function renderCosting(){
  const term=($('costSearch')?.value||'').trim().toLowerCase(),shown=products.filter(p=>(p.name+' '+(p.sku||'')).toLowerCase().includes(term)),bacByType=new Map(bacWaterCosts.map(x=>[x.bac_type,x]));
@@ -1064,13 +1068,13 @@ function renderCosting(){
  });
  renderSetItemCatalog();
  $('costSetRows').innerHTML=shown.map(p=>{
-  const saved=productCosts.find(x=>x.product_id===p.id),vial=Number(saved?.cost_per_vial||0),sell=Number(p.selling_price||0),items=Array.isArray(saved?.set_inclusions)?saved.set_inclusions:[],extras=items.reduce((sum,x)=>sum+Number(x.line_total??Number(x.quantity||0)*Number(x.unit_cost||0)),0),set=vial+extras;
+  const saved=productCosts.find(x=>x.product_id===p.id),vial=Number(saved?.cost_per_vial||0),sell=Number(p.selling_price||0),items=Array.isArray(saved?.set_inclusions)?saved.set_inclusions:[],extras=items.reduce((sum,x)=>{const item=setCostItems.find(y=>y.id===x.item_id);return sum+Number(x.quantity||0)*Number(item?.unit_cost??x.unit_cost??0)},0),set=vial+extras;
   return '<tr><td><b>'+esc(p.name)+'</b></td><td>'+peso(sell+200)+'</td><td><div data-set-choice-wrap="'+p.id+'">'+setChoiceMarkup(p.id,items)+'</div><button type="button" class="btn soft" data-choice-add="'+p.id+'">＋ Add item</button></td><td data-set-summary="'+p.id+'"><b data-set-extra>'+peso(extras)+'</b></td><td data-set-summary="'+p.id+'"><b data-set-total>'+peso(set)+'</b></td><td data-set-summary="'+p.id+'"><b data-set-profit>'+peso(sell+200-set)+'</b></td><td><button class="btn primary" data-save-set="'+p.id+'">Save Set</button></td></tr>';
  }).join('')||'<tr><td colspan="7" class="empty">No products found.</td></tr>';
  shown.forEach(p=>{
   const saved=productCosts.find(x=>x.product_id===p.id),items=Array.isArray(saved?.set_inclusions)?saved.set_inclusions:[],wrap=$('costSetRows').querySelector('[data-set-choice-wrap="'+p.id+'"]');
   wrap.querySelectorAll('select[data-choice-item]').forEach((select,i)=>{const x=items[i];if(x?.item_id)select.value=x.item_id;else if(x?.name){const match=setCostItems.find(y=>y.item_name===x.name);if(match)select.value=match.id}});
-  wrap.querySelectorAll('select,input').forEach(el=>el.onchange=()=>refreshSetChoiceTotals(p.id));
+  wrap.querySelectorAll('select,input').forEach(el=>el.onchange=()=>refreshSetChoiceTotals(p.id));refreshSetChoiceTotals(p.id);
   wrap.querySelectorAll('[data-choice-remove]').forEach(btn=>btn.onclick=()=>{btn.closest('.set-choice-row').remove();refreshSetChoiceTotals(p.id)});
  });
  $('costSetRows').querySelectorAll('[data-choice-add]').forEach(btn=>btn.onclick=()=>{
