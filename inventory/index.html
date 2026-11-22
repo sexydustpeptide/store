@@ -938,9 +938,9 @@ body{background:linear-gradient(135deg,#fff7fa 0%,#ffe3ed 45%,#fff7fb 100%);colo
     <div class="card stat"><small>Outstanding balance</small><strong id="cOutstanding">₱0.00</strong></div>
     <div class="card stat"><small>Releases missing costing</small><strong id="cUncosted">0</strong></div>
    </div>
-   <p class="notice">Profit is computed from stock-out releases: selling amount minus the matching vial or set cost. Cash collected is shown separately, so unpaid releases still appear in sales and profit. “Cost per set” means the total cost to prepare one complete set, including the vial and its inclusions.</p>
+   <p class="notice">For a set, enter the product's vial cost separately, then list every extra inclusion below (for example syringes, bac water, alcohol pads, labels, freebies and packaging). The system adds the vial cost + all inclusion costs to calculate the complete set cost. Unpaid releases are still included in sales/profit; cash collected is shown separately.</p>
    <h3>Product Cost Setup</h3><div class="toolbar"><input id="costSearch" placeholder="Search product…" style="max-width:320px"></div>
-   <div class="tablewrap"><table><thead><tr><th>Product</th><th>Sell / Vial</th><th>Cost / Vial (₱)</th><th>Profit / Vial</th><th>Sell / Set</th><th>Cost / Set (₱)</th><th>Profit / Set</th><th>Action</th></tr></thead><tbody id="costProductRows"></tbody></table></div>
+   <div class="tablewrap"><table><thead><tr><th>Product</th><th>Sell / Vial</th><th>Cost / Vial (₱)</th><th>Profit / Vial</th><th>Sell / Set</th><th>Set inclusions (one per line: name | qty | unit cost)</th><th>Total Set Cost</th><th>Profit / Set</th><th>Action</th></tr></thead><tbody id="costProductRows"></tbody></table></div>
    <h3 style="margin-top:24px">Recent Profit Breakdown</h3><div class="tablewrap"><table><thead><tr><th>Date</th><th>Product</th><th>Qty</th><th>Option</th><th>Sales</th><th>Capital</th><th>Profit</th><th>Payment</th></tr></thead><tbody id="costTransactionRows"></tbody></table></div>
    <p id="costingStatus" class="muted" style="margin-top:10px"></p>
   </div></section>
@@ -986,21 +986,31 @@ async function loadCosting(){
  productCosts=data||[];
  renderCosting();
 }
+function parseSetInclusions(raw){
+ return String(raw||'').split('\\n').map(line=>line.trim()).filter(Boolean).map((line,index)=>{
+  const parts=line.split('|').map(x=>x.trim()),name=parts[0]||('Inclusion '+(index+1)),qty=Number(parts[1]||1),unitCost=Number(parts[2]||0);
+  if(!Number.isFinite(qty)||qty<0||!Number.isFinite(unitCost)||unitCost<0)throw new Error('Invalid quantity or unit cost on line '+(index+1));
+  return {name,quantity:qty,unit_cost:unitCost,line_total:qty*unitCost};
+ });
+}
 function renderCosting(){
  const term=($('costSearch').value||'').trim().toLowerCase();
  const shown=products.filter(p=>(p.name+' '+(p.sku||'')).toLowerCase().includes(term));
  $('costProductRows').innerHTML=shown.map(p=>{
-  const saved=productCosts.find(x=>x.product_id===p.id);
-  const vial=Number(saved?.cost_per_vial||0),set=Number(saved?.cost_per_set||0),sell=Number(p.selling_price||0);
-  return '<tr><td><b>'+esc(p.name)+'</b><div class="muted">'+esc(p.sku||'')+'</div></td><td>'+peso(sell)+'</td><td><input type="number" min="0" step=".01" data-cost-vial="'+p.id+'" value="'+vial.toFixed(2)+'" style="min-width:105px"></td><td>'+peso(sell-vial)+'</td><td>'+peso(sell+200)+'</td><td><input type="number" min="0" step=".01" data-cost-set="'+p.id+'" value="'+set.toFixed(2)+'" style="min-width:105px"></td><td>'+peso(sell+200-set)+'</td><td><button class="btn primary" data-save-cost="'+p.id+'">Save</button></td></tr>';
- }).join('')||'<tr><td colspan="8" class="empty">No products found.</td></tr>';
+  const saved=productCosts.find(x=>x.product_id===p.id),vial=Number(saved?.cost_per_vial||0),sell=Number(p.selling_price||0);
+  const inclusions=Array.isArray(saved?.set_inclusions)?saved.set_inclusions:[];
+  const lines=inclusions.map(x=>(x.name||'Inclusion')+' | '+Number(x.quantity||1)+' | '+Number(x.unit_cost||0)).join('\\n');
+  const extras=inclusions.reduce((sum,x)=>sum+Number(x.quantity||0)*Number(x.unit_cost||0),0),set=vial+extras;
+  return '<tr><td><b>'+esc(p.name)+'</b><div class="muted">'+esc(p.sku||'')+'</div></td><td>'+peso(sell)+'</td><td><input type="number" min="0" step=".01" data-cost-vial="'+p.id+'" value="'+vial.toFixed(2)+'" style="min-width:100px"></td><td>'+peso(sell-vial)+'</td><td>'+peso(sell+200)+'</td><td><textarea data-cost-inclusions="'+p.id+'" rows="4" placeholder="Syringe | 2 | 5&#10;Bac Water | 1 | 30&#10;Freebie | 1 | 10" style="min-width:230px;width:100%">'+esc(lines)+'</textarea><small class="muted">Name | quantity | unit cost (₱)</small></td><td><b>'+peso(set)+'</b></td><td>'+peso(sell+200-set)+'</td><td><button class="btn primary" data-save-cost="'+p.id+'">Save</button></td></tr>';
+ }).join('')||'<tr><td colspan="9" class="empty">No products found.</td></tr>';
  $('costProductRows').querySelectorAll('[data-save-cost]').forEach(b=>b.onclick=async()=>{
-  const id=b.dataset.saveCost,vialInput=$('costProductRows').querySelector('[data-cost-vial="'+id+'"]'),setInput=$('costProductRows').querySelector('[data-cost-set="'+id+'"]');
-  const vial=Number(vialInput.value),set=Number(setInput.value);
-  if(!Number.isFinite(vial)||vial<0||!Number.isFinite(set)||set<0){msg('costingStatus','Enter valid non-negative costing amounts.',true);return}
-  const {error}=await db.from('inv_product_costs').upsert({product_id:id,cost_per_vial:vial,cost_per_set:set,updated_by:currentUser.id,updated_at:new Date().toISOString()},{onConflict:'product_id'});
+  const id=b.dataset.saveCost,vialInput=$('costProductRows').querySelector('[data-cost-vial="'+id+'"]'),incInput=$('costProductRows').querySelector('[data-cost-inclusions="'+id+'"]'),vial=Number(vialInput.value);
+  if(!Number.isFinite(vial)||vial<0){msg('costingStatus','Enter a valid non-negative vial cost.',true);return}
+  let inclusions;try{inclusions=parseSetInclusions(incInput.value)}catch(e){msg('costingStatus',e.message,true);return}
+  const set=vial+inclusions.reduce((sum,x)=>sum+x.line_total,0);
+  const {error}=await db.from('inv_product_costs').upsert({product_id:id,cost_per_vial:vial,cost_per_set:set,set_inclusions:inclusions,updated_by:currentUser.id,updated_at:new Date().toISOString()},{onConflict:'product_id'});
   if(error){msg('costingStatus','Could not save costing: '+error.message,true);return}
-  msg('costingStatus','Costing saved for '+(products.find(p=>p.id===id)?.name||'product')+'.');
+  msg('costingStatus','Vial cost and set inclusion breakdown saved for '+(products.find(p=>p.id===id)?.name||'product')+'. Total set cost: '+peso(set));
   const {data}=await db.from('inv_product_costs').select('*');productCosts=data||[];renderCosting();
  });
  const costByProduct=new Map(productCosts.map(x=>[x.product_id,x]));
@@ -1009,14 +1019,12 @@ function renderCosting(){
  const tx=sales.map(m=>{
   const p=products.find(x=>x.id===m.product_id),qty=Math.abs(Number(m.quantity)||0),sale=Number(m.payment_total)||0;
   if(!p||!qty)return null;
-  const inferredFee=qty>0?sale/qty-Number(p.selling_price||0):0;
-  const fee=Number(m.set_fee||0)>0?Number(m.set_fee):Math.max(0,inferredFee);
+  const inferredFee=qty>0?sale/qty-Number(p.selling_price||0):0,fee=Number(m.set_fee||0)>0?Number(m.set_fee):Math.max(0,inferredFee);
   const isSet=fee>0.01,record=costByProduct.get(m.product_id),unitCost=record?(isSet?Number(record.cost_per_set||0):Number(record.cost_per_vial||0)):null;
-  const hasCost=unitCost!==null&&unitCost>0;
-  const lineCapital=hasCost?unitCost*qty:null, lineProfit=hasCost?sale-lineCapital:null;
+  const hasCost=unitCost!==null&&unitCost>0,lineCapital=hasCost?unitCost*qty:null,lineProfit=hasCost?sale-lineCapital:null;
   revenue+=sale;collected+=Number(m.amount_paid||0);outstanding+=Math.max(0,sale-Number(m.amount_paid||0));
   if(hasCost){capital+=lineCapital;profit+=lineProfit}else uncosted++;
-  return {m,p,qty,sale,isSet,fee,lineCapital,lineProfit,hasCost};
+  return {m,p,qty,sale,isSet,lineCapital,lineProfit,hasCost};
  }).filter(Boolean);
  $('cSales').textContent=peso(revenue);$('cCapital').textContent=peso(capital);$('cProfit').textContent=peso(profit);$('cCollected').textContent=peso(collected);$('cOutstanding').textContent=peso(outstanding);$('cUncosted').textContent=uncosted.toLocaleString();
  $('costTransactionRows').innerHTML=tx.slice(0,100).map(x=>'<tr><td>'+esc(fmtDate(x.m.movement_date||x.m.created_at))+'</td><td><b>'+esc(x.p.name)+'</b></td><td>'+x.qty+'</td><td><span class="pill">'+(x.isSet?'With Set':'Per Vial')+'</span></td><td>'+peso(x.sale)+'</td><td>'+(x.hasCost?peso(x.lineCapital):'<span class="danger">Not set</span>')+'</td><td>'+(x.hasCost?'<b>'+peso(x.lineProfit)+'</b>':'—')+'</td><td>'+esc(x.m.payment_status||'unpaid')+'</td></tr>').join('')||'<tr><td colspan="8" class="empty">No stock-out sales found yet.</td></tr>';
