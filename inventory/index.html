@@ -1400,6 +1400,17 @@ body{background:#fff8fb}
   #appView .portal-profile b{max-width:48px!important}
 }
 
+
+/* Reseller navigation labels and shared leaderboard visibility */
+#appView.reseller-mode>.tabs .tab[data-page="inventory"]{font-size:0!important}
+#appView.reseller-mode>.tabs .tab[data-page="inventory"]:after{content:"My Stock";font-size:11px}
+#appView.reseller-mode>.tabs .tab[data-page="user-report"]{display:inline-flex!important;order:5!important}
+#appView.reseller-mode>.tabs .tab[data-page="user-report"]{font-size:11px!important}
+#appView.reseller-mode>.tabs .tab[data-page="user-report"]:after{content:none!important}
+@media(max-width:640px){
+ #appView.reseller-mode>.tabs .tab[data-page="user-report"]{display:inline-flex!important;min-width:max-content!important}
+}
+
 </style>
 </head>
 <body>
