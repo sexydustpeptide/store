@@ -1339,6 +1339,67 @@ body{background:#fff8fb}
  #resellerDashboard .reseller-kpis .stat strong,#appView .reseller-kpis .stat strong{font-size:19px!important}
 }
 
+
+/* Mobile header repair: brand and account chip get separate, non-overlapping space */
+@media(max-width:620px){
+  #appView>.top{
+    height:88px!important;min-height:88px!important;
+    padding:8px 12px!important;
+    display:flex!important;align-items:center!important;justify-content:flex-end!important;
+    position:relative!important;overflow:visible!important;
+  }
+  #appView .portal-brand{
+    position:absolute!important;left:50%!important;top:50%!important;
+    transform:translate(-50%,-50%)!important;
+    width:max-content!important;max-width:calc(100% - 150px)!important;
+    display:flex!important;flex-direction:column!important;align-items:center!important;
+    gap:0!important;z-index:1!important;pointer-events:none!important;
+  }
+  #appView .portal-brand .portal-logo{
+    width:clamp(125px,42vw,165px)!important;height:43px!important;
+    max-width:100%!important;object-fit:contain!important;
+  }
+  #appView .portal-role{
+    display:inline-flex!important;align-items:center!important;justify-content:center!important;
+    margin:2px 0 0!important;padding:3px 9px!important;
+    font-size:6px!important;line-height:1.2!important;letter-spacing:1px!important;
+    white-space:nowrap!important;
+  }
+  #appView>.top .topright{
+    position:relative!important;z-index:3!important;
+    display:flex!important;align-items:center!important;justify-content:flex-end!important;
+    width:auto!important;max-width:112px!important;min-width:0!important;
+    margin-left:auto!important;gap:0!important;flex:0 0 auto!important;
+  }
+  #appView .portal-profile{
+    display:flex!important;align-items:center!important;justify-content:flex-start!important;
+    gap:6px!important;width:auto!important;max-width:108px!important;min-width:0!important;
+    flex:0 1 auto!important;padding:5px 8px 5px 5px!important;
+    border-radius:28px!important;box-sizing:border-box!important;
+    background:#fffafd!important;
+  }
+  #appView .portal-avatar{width:31px!important;height:31px!important;min-width:31px!important;font-size:16px!important}
+  #appView .portal-profile>span:last-child{display:flex!important;min-width:0!important;gap:1px!important}
+  #appView .portal-profile b{font-size:10px!important;line-height:1.2!important;white-space:nowrap!important;max-width:58px!important;overflow:hidden!important;text-overflow:ellipsis!important}
+  #appView .portal-profile small{font-size:8px!important;line-height:1.1!important}
+  #appView>.tabs{
+    display:flex!important;flex-wrap:nowrap!important;justify-content:flex-start!important;
+    gap:6px!important;padding:7px 9px!important;
+    overflow-x:auto!important;overflow-y:hidden!important;
+    -webkit-overflow-scrolling:touch!important;scrollbar-width:none!important;
+  }
+  #appView>.tabs::-webkit-scrollbar{display:none!important}
+  #appView>.tabs .tab{flex:0 0 auto!important;min-width:max-content!important;padding:9px 13px!important}
+  #appView>main{padding:13px 10px 26px!important}
+}
+@media(max-width:380px){
+  #appView .portal-brand{max-width:calc(100% - 128px)!important}
+  #appView .portal-brand .portal-logo{width:118px!important;height:39px!important}
+  #appView>.top .topright{max-width:100px!important}
+  #appView .portal-profile{max-width:98px!important}
+  #appView .portal-profile b{max-width:48px!important}
+}
+
 </style>
 </head>
 <body>
