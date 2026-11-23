@@ -1280,6 +1280,65 @@ body{background:#fff8fb}
 @media(max-width:900px){#appView .reseller-kpis .stat{padding-left:78px!important}#appView .reseller-kpis .stat .rd-icon{left:13px!important;width:44px!important;height:44px!important}}
 @media(max-width:620px){#appView .reseller-kpis .stat{padding:12px 8px 10px 58px!important;min-height:88px!important}#appView .reseller-kpis .stat .rd-icon{left:8px!important;width:38px!important;height:38px!important;font-size:19px!important}}
 
+
+/* Real KPI layout fix: icon occupies its own grid column; it never overlays text */
+#resellerDashboard .reseller-kpis .stat,
+#appView #resellerDashboard .reseller-kpis .stat,
+#appView .reseller-kpis .stat{
+  display:grid!important;
+  grid-template-columns:44px minmax(0,1fr)!important;
+  grid-template-rows:auto auto auto!important;
+  column-gap:13px!important;
+  align-content:center!important;
+  align-items:center!important;
+  justify-items:start!important;
+  position:relative!important;
+  overflow:visible!important;
+  box-sizing:border-box!important;
+  min-width:0!important;
+  min-height:96px!important;
+  padding:13px 16px!important;
+}
+#resellerDashboard .reseller-kpis .stat .rd-icon,
+#appView #resellerDashboard .reseller-kpis .stat .rd-icon,
+#appView .reseller-kpis .stat .rd-icon{
+  position:static!important;
+  inset:auto!important;
+  transform:none!important;
+  grid-column:1!important;
+  grid-row:1 / span 3!important;
+  align-self:center!important;
+  justify-self:center!important;
+  display:flex!important;
+  align-items:center!important;
+  justify-content:center!important;
+  width:40px!important;
+  height:40px!important;
+  margin:0!important;
+  padding:0!important;
+  border-radius:50%!important;
+  background:#ffe3ef!important;
+  border:1px solid #f6bad1!important;
+  box-shadow:none!important;
+  color:#c52b70!important;
+  font-size:21px!important;
+  line-height:1!important;
+  z-index:auto!important;
+}
+#resellerDashboard .reseller-kpis .stat small,
+#appView .reseller-kpis .stat small{grid-column:2!important;grid-row:1!important;align-self:end!important;margin:0!important;position:static!important}
+#resellerDashboard .reseller-kpis .stat strong,
+#appView .reseller-kpis .stat strong{grid-column:2!important;grid-row:2!important;align-self:center!important;margin:3px 0 0!important;position:static!important;max-width:100%!important}
+#resellerDashboard .reseller-kpis .stat p,
+#appView .reseller-kpis .stat p{grid-column:2!important;grid-row:3!important;align-self:start!important;margin:1px 0 0!important;position:static!important}
+#resellerDashboard .reseller-kpis .stat:after,
+#appView .reseller-kpis .stat:after{pointer-events:none!important;z-index:0!important}
+@media(max-width:620px){
+ #resellerDashboard .reseller-kpis .stat,#appView .reseller-kpis .stat{grid-template-columns:34px minmax(0,1fr)!important;column-gap:8px!important;padding:11px 9px!important;min-height:86px!important}
+ #resellerDashboard .reseller-kpis .stat .rd-icon,#appView .reseller-kpis .stat .rd-icon{width:32px!important;height:32px!important;font-size:17px!important}
+ #resellerDashboard .reseller-kpis .stat strong,#appView .reseller-kpis .stat strong{font-size:19px!important}
+}
+
 </style>
 </head>
 <body>
