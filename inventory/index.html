@@ -1411,6 +1411,23 @@ body{background:#fff8fb}
  #appView.reseller-mode>.tabs .tab[data-page="user-report"]{display:inline-flex!important;min-width:max-content!important}
 }
 
+
+/* Today's release summary — reseller report */
+.ur-today-summary{margin:16px 0 19px;padding:17px 19px;border:1px solid #efbdd1;border-radius:18px;background:linear-gradient(110deg,#fff5f9 0%,#fff 55%,#fff2f7 100%);box-shadow:0 7px 20px rgba(143,28,78,.045)}
+.ur-today-head{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-bottom:13px}
+.ur-today-kicker{font-size:9px;letter-spacing:1.5px;font-weight:900;color:#bd477b}
+.ur-today-head h3{font:italic 23px Georgia,serif;color:#a20f55;margin:4px 0}
+.ur-today-head p{font-size:11px;color:#98758a;margin:0}
+.ur-today-date{padding:7px 12px;border-radius:99px;background:#ffe5ef;color:#a21d58;font-size:9px;font-weight:900;letter-spacing:1px}
+.ur-today-stats{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:9px}
+.ur-today-stats>div{padding:11px 13px;border:1px solid #f3d7e2;border-radius:13px;background:rgba(255,255,255,.86);min-width:0}
+.ur-today-stats small{display:block;font-size:10px;color:#98758a}
+.ur-today-stats strong{display:block;font: bold 23px Georgia,serif;color:#a21d58;margin-top:3px;overflow-wrap:anywhere}
+.ur-today-products{display:flex;gap:7px;flex-wrap:wrap;margin-top:11px}
+.ur-today-products span{display:flex;align-items:center;gap:9px;padding:7px 10px;border:1px solid #f1dce5;border-radius:10px;background:#fff;font-size:10px;color:#704258}
+.ur-today-products strong{color:#a21d58}.ur-today-products .ur-today-empty{color:#98758a}
+@media(max-width:700px){.ur-today-summary{padding:13px}.ur-today-head h3{font-size:20px}.ur-today-stats{grid-template-columns:repeat(2,minmax(0,1fr));gap:7px}.ur-today-stats>div{padding:10px}.ur-today-stats strong{font-size:20px}}
+
 </style>
 </head>
 <body>
@@ -1480,6 +1497,7 @@ body{background:#fff8fb}
     <div class="toolbar"><div style="flex:1"><h2 style="margin:4px 0;color:var(--wine);font:italic 30px Georgia">Reseller Leaderboard</h2><span class="muted">Stock received and payment status per reseller</span></div><select id="userReportPeriod"><option value="all" selected>All time</option><option value="week">This week</option><option value="month">This month</option><option value="7">Last 7 days</option><option value="30">Last 30 days</option></select><button id="refreshUserReport" class="btn soft">↻ Refresh</button></div>
     <div class="stats"><div class="card stat"><small>Total stocks released</small><strong id="urTotalQty">0</strong></div><div class="card stat"><small>Active resellers</small><strong id="urUsers">0</strong></div><div class="card stat"><small>Stock-out transactions</small><strong id="urRecords">0</strong></div></div>
     
+    <div id="urTodaySummary" class="ur-today-summary" aria-live="polite"></div>
     <div class="toolbar" style="margin-top:18px"><div style="flex:1"><h3 style="margin:0;color:var(--wine)">Reseller stock & payment reports</h3><span class="muted" id="urPeriodLabel">This week</span></div><input id="userReportSearch" placeholder="Search reseller or product…"></div>
     <div id="userReportList" class="user-report-list"></div>
    </div>
@@ -1785,6 +1803,18 @@ function renderUserReport(){
  const map={};rows.forEach(m=>{const accountId=m.assigned_user_id||m.created_by,account=users.find(u=>u.user_id===accountId),who=resellerNameById[accountId]||m.reseller_name||account?.username||'Unknown reseller',product=m.inv_products?.name||'Product';if(!map[who])map[who]={qty:0,records:0,total:0,paid:0,due:0,products:{},transactions:[]};const u=map[who],q=Math.abs(Number(m.quantity)||0),total=Number(m.payment_total)||0,paid=Number(m.amount_paid)||0;u.qty+=q;u.records++;u.products[product]=(u.products[product]||0)+q;u.total+=total;u.paid+=paid;u.due+=Math.max(0,total-paid);u.transactions.push(m)});
  const all=Object.entries(map).map(([name,d])=>({name,...d})).sort((a,b)=>b.qty-a.qty||a.name.localeCompare(b.name));
  $('urTotalQty').textContent=rows.reduce((n,m)=>n+Math.abs(Number(m.quantity)||0),0).toLocaleString();$('urUsers').textContent=all.length;$('urRecords').textContent=rows.length;
+ const todayKey=new Intl.DateTimeFormat('en-CA',{timeZone:'Asia/Manila'}).format(new Date());
+ const dailyRows=sharedReportMovements.filter(m=>{
+  const raw=m.movement_date||m.created_at;
+  if(!raw)return false;
+  const key=/^\\d{4}-\\d{2}-\\d{2}$/.test(String(raw))?String(raw):new Intl.DateTimeFormat('en-CA',{timeZone:'Asia/Manila'}).format(new Date(raw));
+  return key===todayKey&&m.movement_type==='stock_out';
+ });
+ const dailyQty=dailyRows.reduce((n,m)=>n+Math.abs(Number(m.quantity)||0),0);
+ const dailyValue=dailyRows.reduce((n,m)=>n+Number(m.payment_total||0),0);
+ const dailyResellers=new Set(dailyRows.map(m=>m.assigned_user_id||m.reseller_name||m.created_by).filter(Boolean)).size;
+ const dailyProducts={};dailyRows.forEach(m=>{const name=m.inv_products?.name||'Product';dailyProducts[name]=(dailyProducts[name]||0)+Math.abs(Number(m.quantity)||0)});
+ $('urTodaySummary').innerHTML='<div class="ur-today-head"><div><span class="ur-today-kicker">DAILY RELEASE REPORT</span><h3>Today’s Released Summary</h3><p>Stock released today · '+new Intl.DateTimeFormat('en-PH',{dateStyle:'medium',timeZone:'Asia/Manila'}).format(new Date())+'</p></div><span class="ur-today-date">TODAY</span></div><div class="ur-today-stats"><div><small>Vials released</small><strong>'+dailyQty.toLocaleString()+'</strong></div><div><small>Release transactions</small><strong>'+dailyRows.length.toLocaleString()+'</strong></div><div><small>Resellers served</small><strong>'+dailyResellers.toLocaleString()+'</strong></div><div><small>Release value</small><strong>'+peso(dailyValue)+'</strong></div></div><div class="ur-today-products">'+(Object.keys(dailyProducts).length?Object.entries(dailyProducts).sort((a,b)=>b[1]-a[1]).map(([name,qty])=>'<span><b>'+esc(name)+'</b><strong>'+qty.toLocaleString()+'</strong></span>').join(''):'<span class="ur-today-empty">No stock released today yet.</span>')+'</div>';
  const shown=all.filter(u=>(u.name+' '+Object.keys(u.products).join(' ')).toLowerCase().includes(term));
  $('userReportList').innerHTML=shown.length?shown.map(u=>{const isMe=String(currentMember?.username||'').toLowerCase()===u.name.toLowerCase();const tx=u.transactions.slice().sort((a,b)=>new Date(b.movement_date||b.created_at)-new Date(a.movement_date||a.created_at));return '<article class="user-report-card '+(isMe?'is-me':'')+'"><div class="user-report-head"><div><span class="user-report-kicker">'+(isMe?'YOUR ACCOUNT':'RESELLER REPORT')+'</span><h3>'+esc(u.name)+'</h3></div><div class="user-report-total"><strong>'+u.qty.toLocaleString()+'</strong><small>stocks received</small></div></div><div class="user-report-payment-summary"><div><small>Total amount</small><b>'+peso(u.total)+'</b></div><div><small>Paid</small><b class="ur-paid">'+peso(u.paid)+'</b></div><div><small>Balance</small><b class="ur-due">'+peso(u.due)+'</b></div></div><div class="user-report-meta"><span>'+u.records+' stock-out '+(u.records===1?'transaction':'transactions')+'</span><span>'+Object.keys(u.products).length+' product types</span></div><div class="user-report-products">'+Object.entries(u.products).sort((a,b)=>b[1]-a[1]).map(([name,qty])=>'<div class="user-report-product"><span>'+esc(name)+'</span><b>'+qty.toLocaleString()+'</b></div>').join('')+'</div><div class="ur-payment-list"><div class="ur-payment-title">Payment details</div>'+tx.map(m=>{const total=Number(m.payment_total)||0,q=Math.abs(Number(m.quantity)||0),paidQty=Math.min(q,Math.max(0,Number(m.paid_quantity??(m.payment_status==='paid'?q:0))||0)),paid=Number(m.amount_paid??(q?total*paidQty/q:0))||0,due=Math.max(0,total-paid),status=paidQty>=q&&q>0?'paid':paidQty>0?'partial':'unpaid';return '<div class="ur-payment-row"><div class="ur-payment-product"><b>'+esc(m.inv_products?.name||'Stock-out')+'</b><small>'+esc(m.movement_date||m.created_at?.slice(0,10)||'')+' · Qty '+q+' · PAID '+paidQty+'/'+q+'</small>'+((m.reason||'').trim()?'<span class="ur-transaction-note"><b>NOTE:</b> '+esc(m.reason.trim())+'</span>':'')+'</div><div class="ur-payment-amount"><b>'+peso(total)+'</b><small>Paid '+peso(paid)+' · Due '+peso(due)+'</small></div><span class="ur-payment-badge '+status+'">'+(status==='paid'?'PAID '+paidQty+'/'+q:status==='partial'?'PAID '+paidQty+'/'+q:'UNPAID 0/'+q)+'</span>'+(currentRole==='super_admin'?'<button type="button" class="btn soft" style="font-size:10px;padding:6px 9px;white-space:nowrap" data-paid-qty="'+m.id+'">Update paid vials</button>':'')+'</div>'}).join('')+'</div></article>'}).join(''):'<div class="empty">No reseller or product matches this search.</div>';
  $('userReportList').querySelectorAll('[data-paid-qty]').forEach(b=>b.onclick=async()=>{const m=movements.find(x=>x.id===b.dataset.paidQty);if(!m)return;const qty=Math.abs(Number(m.quantity)||0),current=Number(m.paid_quantity)||0,raw=prompt('How many of '+qty+' vials are paid? Enter a number from 0 to '+qty+'.',String(current));if(raw===null)return;const next=Number(raw);if(!Number.isInteger(next)||next<0||next>qty){alert('Enter a whole number from 0 to '+qty+'.');return}const {data,error}=await db.rpc('inv_set_movement_paid_quantity',{p_movement_id:m.id,p_paid_quantity:next});if(error){alert(error.message);return}await loadMovements();alert('Payment updated: '+next+'/'+qty+' vials paid.')});
