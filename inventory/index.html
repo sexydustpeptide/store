@@ -1149,6 +1149,58 @@ body{background:#fff8fb}
 #resellerDashboard #dashboardPayments .proof-card form>button{grid-column:1/-1;grid-row:3}
 @media(max-width:700px){#appView .topright #logout{display:none}#resellerDashboard #dashboardPayments .proof-card form{grid-template-columns:1fr;grid-template-rows:auto}#resellerDashboard #dashboardPayments .proof-card form .field:nth-child(n){grid-column:1;grid-row:auto}}
 
+
+/* Structural correction: the portal must be a real two-column app grid */
+#appView.shell{
+ display:grid!important;
+ grid-template-columns:240px minmax(0,1fr)!important;
+ grid-template-rows:112px minmax(0,1fr)!important;
+ grid-template-areas:"sidebar top" "sidebar content"!important;
+ width:100%!important;max-width:none!important;min-height:100vh!important;
+ margin:0!important;padding:0!important;gap:0!important;
+ overflow-x:hidden;
+}
+#appView>.top{grid-area:top!important;width:100%;min-width:0;margin:0!important;box-sizing:border-box}
+#appView>.tabs{grid-area:sidebar!important;width:240px;min-width:240px;height:100vh;min-height:100vh;position:sticky;top:0;align-self:start;box-sizing:border-box}
+#appView>main{grid-area:content!important;width:100%;min-width:0;max-width:none;margin:0!important;padding:25px clamp(22px,2.2vw,38px) 42px!important;box-sizing:border-box}
+#appView .portal-brand{left:50%;max-width:calc(100% - 300px)}
+#appView .sidebar-brand{flex:0 0 auto}
+#appView .sidebar-brand .brand{display:block;white-space:nowrap}
+#appView .topright{flex-shrink:0}
+#resellerDashboard .reseller-page-heading{min-height:55px}
+#resellerDashboard .reseller-main-grid{grid-template-columns:minmax(0,1.15fr) minmax(380px,.85fr)}
+#resellerDashboard .rd-panel{min-height:0}
+#resellerDashboard .rd-stock-table{font-size:12px}
+#resellerDashboard .rd-stock-table th{font-size:10px;padding:11px}
+#resellerDashboard .rd-stock-table td{font-size:11px;padding:13px 10px}
+#resellerDashboard .rd-panel-head h3{font-size:20px}
+#resellerDashboard .rd-panel-head p{font-size:11px}
+#resellerDashboard .rd-summary-lines>div{font-size:12px}
+#resellerDashboard #dashboardPayments .proof-card{min-height:190px}
+@media(max-width:900px){
+ #appView.shell{grid-template-columns:205px minmax(0,1fr)!important;grid-template-rows:100px minmax(0,1fr)!important}
+ #appView>.tabs{width:205px;min-width:205px}
+ #appView .portal-brand .brand{font-size:40px}
+ #appView>main{padding:20px 16px 32px!important}
+ #resellerDashboard .reseller-main-grid{grid-template-columns:minmax(0,1fr)}
+ #resellerDashboard .rd-panel:nth-child(n){grid-column:1;grid-row:auto}
+}
+@media(max-width:650px){
+ #appView.shell{display:flex!important;flex-direction:column!important;min-height:100vh}
+ #appView>.top{order:0;min-height:90px;padding:10px 12px}
+ #appView .portal-brand{left:12px;top:50%;transform:translateY(-50%);align-items:flex-start;max-width:60%}
+ #appView .portal-brand .brand{font-size:29px}
+ #appView .portal-brand .sub{font-size:9px;letter-spacing:1.5px}
+ #appView .portal-role{font-size:7px;padding:4px 10px}
+ #appView>.tabs{order:1;position:relative;width:100%;min-width:0;height:auto;min-height:0;flex-direction:row;overflow-x:auto;padding:8px}
+ #appView .sidebar-brand,#appView .sidebar-label{display:none}
+ #appView .tabs .tab{width:auto;min-width:max-content}
+ #appView>main{order:2;padding:14px 10px 25px!important}
+ #resellerDashboard .reseller-page-heading{flex-direction:column;align-items:flex-start}
+ #resellerDashboard .reseller-kpis{grid-template-columns:repeat(2,minmax(0,1fr))}
+ #resellerDashboard .reseller-main-grid{grid-template-columns:minmax(0,1fr)}
+}
+
 </style>
 </head>
 <body>
