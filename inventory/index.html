@@ -1137,6 +1137,18 @@ body{background:#fff8fb}
 @media(max-width:1000px){#appView.shell{grid-template-columns:190px minmax(0,1fr)}#resellerDashboard .reseller-main-grid{grid-template-columns:minmax(0,1fr) minmax(0,.9fr)}}
 @media(max-width:700px){#appView.shell{display:flex;flex-direction:column;min-height:100vh}#appView>.top{order:0;min-height:94px;padding:10px 12px}#appView .portal-brand .brand{font-size:34px}#appView .portal-brand .sub{font-size:10px;letter-spacing:2px}#appView .portal-role{font-size:8px;padding:4px 12px}#appView>.tabs{order:1;position:relative;height:auto;min-height:0;flex-direction:row;overflow-x:auto;padding:8px;gap:6px}#appView .sidebar-brand,#appView .sidebar-label{display:none}#appView .tabs .tab{min-width:max-content;width:auto;min-height:40px;padding:9px 12px}#appView>main{order:2;padding:15px 10px 25px}#resellerDashboard .reseller-page-heading{align-items:flex-start;flex-direction:column}#resellerDashboard .rd-heading-actions{width:100%}#resellerDashboard .rd-heading-actions select{flex:1}#resellerDashboard .reseller-kpis{grid-template-columns:repeat(2,minmax(0,1fr))}#resellerDashboard .reseller-kpis .stat{padding:12px 8px 10px 44px;min-height:86px}#resellerDashboard .reseller-kpis .stat strong{font-size:21px}#resellerDashboard .rd-icon{left:11px;top:27px;font-size:19px}#resellerDashboard .reseller-main-grid{grid-template-columns:1fr;grid-template-rows:auto}#resellerDashboard .rd-panel:nth-child(n){grid-column:1;grid-row:auto}#resellerDashboard #dashboardPayments .proof-card{grid-template-columns:1fr}#resellerDashboard #dashboardPayments .proof-card .field:has(input[type=file]){grid-row:auto}}
 
+
+/* Final alignment and account access */
+#appView .topright #logout{display:inline-flex;min-height:38px;padding:0 12px;border-radius:20px;background:#fff9fc;border:1px solid #f2c3d7;color:#8c1748;font-size:10px}
+#appView .topright #changePassword{display:none}
+#resellerDashboard #dashboardPayments .proof-card form{display:grid;grid-template-columns:minmax(0,1.05fr) minmax(0,.95fr);grid-template-rows:auto auto auto;gap:0 14px}
+#resellerDashboard #dashboardPayments .proof-card form .field:nth-child(1){grid-column:2;grid-row:2}
+#resellerDashboard #dashboardPayments .proof-card form .field:nth-child(2){grid-column:2;grid-row:1}
+#resellerDashboard #dashboardPayments .proof-card form .field:nth-child(3){grid-column:1;grid-row:1/3;display:flex;flex-direction:column;justify-content:center;align-items:stretch;padding:8px;border:1.5px dashed #ee5a99;border-radius:14px;background:#fff7fb}
+#resellerDashboard #dashboardPayments .proof-card form .field:nth-child(3) input{width:100%;font-size:9px}
+#resellerDashboard #dashboardPayments .proof-card form>button{grid-column:1/-1;grid-row:3}
+@media(max-width:700px){#appView .topright #logout{display:none}#resellerDashboard #dashboardPayments .proof-card form{grid-template-columns:1fr;grid-template-rows:auto}#resellerDashboard #dashboardPayments .proof-card form .field:nth-child(n){grid-column:1;grid-row:auto}}
+
 </style>
 </head>
 <body>
