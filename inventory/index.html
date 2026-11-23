@@ -951,6 +951,44 @@ body{background:#fff8fb}
 #resellerDashboard .rd-profile{display:flex;flex-direction:column;align-items:center;padding:8px 0 13px}#resellerDashboard .rd-avatar{width:58px;height:58px;border-radius:50%;display:grid;place-items:center;background:linear-gradient(145deg,#f8bfd5,#c42c70);color:white;border:5px solid #fff0f6;box-shadow:0 0 0 1px #f5d1df;font:bold 24px Georgia,serif}#resellerDashboard .rd-profile b{font:bold 17px Georgia,serif;color:#94164b;margin-top:8px}#resellerDashboard .rd-profile small{color:#a27f90;font-size:10px;margin-top:3px}#resellerDashboard .rd-account-line{display:flex;justify-content:space-between;padding:10px 1px;border-top:1px solid #f3e3ea;color:#916d80;font-size:10px}#resellerDashboard .rd-active{color:#16945c}
 @media(max-width:900px){#resellerDashboard .reseller-kpis{grid-template-columns:repeat(2,minmax(0,1fr))}.reseller-main-grid{grid-template-columns:1fr}}@media(max-width:600px){.reseller-page-heading h2{font-size:29px}#resellerDashboard .reseller-kpis{gap:8px}#resellerDashboard .reseller-kpis .stat{padding:13px 10px 12px 43px;min-height:90px}#resellerDashboard .reseller-kpis .stat strong{font-size:21px}#resellerDashboard .rd-icon{left:11px;top:26px;font-size:19px}#resellerDashboard .rd-panel{padding:13px 10px}#resellerDashboard .rd-stock-table{min-width:440px}#resellerDashboard .rd-panel-head h3{font-size:15px}}
 
+
+/* Refined reseller portal finish */
+#resellerDashboard .rd-panel{border-radius:20px;box-shadow:0 12px 32px rgba(128,34,76,.055);transition:transform .18s ease,box-shadow .18s ease}
+#resellerDashboard .rd-panel:hover{box-shadow:0 16px 34px rgba(128,34,76,.09)}
+#resellerDashboard .reseller-kpis .stat{overflow:hidden}
+#resellerDashboard .reseller-kpis .stat:after{content:"";position:absolute;width:86px;height:86px;border:1px solid rgba(218,91,143,.15);border-radius:50%;right:-24px;bottom:-42px;background:rgba(255,230,240,.24)}
+#resellerDashboard .rd-panel-head{padding-bottom:11px;border-bottom:1px solid #f8e7ee}
+#resellerDashboard .rd-stock-table tbody tr{transition:background .15s}
+#resellerDashboard .rd-stock-table tbody tr:hover{background:#fff8fb}
+#resellerDashboard .rd-stock-table td:first-child{font-weight:700}
+#resellerDashboard .rd-summary-lines>div{padding:12px 2px}
+#resellerDashboard .rd-payment-hint{display:flex;align-items:center;gap:10px;padding:12px;margin-top:17px;border:1px solid #f5d5e2;border-radius:14px;background:linear-gradient(110deg,#fff4f8,#fffafd)}
+#resellerDashboard .rd-hint-icon{display:grid;place-items:center;flex:0 0 34px;width:34px;height:34px;border-radius:50%;background:#ffe2ed;color:#c12c70;font-size:18px}
+#resellerDashboard .rd-payment-hint div{display:flex;flex-direction:column;gap:3px;flex:1;min-width:0}
+#resellerDashboard .rd-payment-hint b{font-size:11px;color:#8e1748}
+#resellerDashboard .rd-payment-hint small{font-size:9px;color:#9d788b}
+#resellerDashboard .rd-payment-hint .btn{font-size:10px;padding:8px 11px;white-space:nowrap}
+#resellerDashboard .rd-profile{padding:14px 0 18px}
+#resellerDashboard .rd-avatar{width:66px;height:66px;font-size:27px;box-shadow:0 0 0 5px #fff4f8,0 0 0 6px #f3d2df}
+#resellerDashboard .rd-account-line{padding:13px 2px}
+#resellerDashboard .rd-wide{min-height:42px}
+#page-submit-proof .rd-proof-page-head{padding:12px 4px 20px}
+#page-submit-proof .rd-proof-page-head .user-report-kicker{font-size:10px;letter-spacing:2px;color:#bd477b;font-weight:900}
+#page-submit-proof .rd-proof-page-head h2{font:italic 34px Georgia,serif;color:#8c1748;margin:8px 0 4px}
+#page-submit-proof .rd-proof-page-head p{color:#98758a;font-size:13px;margin:0}
+#page-submit-proof .rd-proof-page-card{padding:clamp(18px,3vw,30px);border:1px solid #f0c6d8;border-radius:22px;background:linear-gradient(145deg,#fff,#fff7fa)}
+#page-submit-proof .rd-proof-steps{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin-bottom:24px}
+#page-submit-proof .rd-proof-steps>div{display:grid;grid-template-columns:34px 1fr;grid-template-rows:auto auto;column-gap:10px;align-items:center;padding:13px;border:1px solid #f4dce6;border-radius:14px;background:#fff}
+#page-submit-proof .rd-proof-steps span{grid-row:1/3;display:grid;place-items:center;width:32px;height:32px;border-radius:50%;background:#fce4ee;color:#b32765;font:700 12px Georgia}
+#page-submit-proof .rd-proof-steps b{font-size:11px;color:#7f284c}
+#page-submit-proof .rd-proof-steps small{font-size:9px;color:#a08090}
+#page-submit-proof .proof-card{max-width:780px;margin:0 auto;padding:22px;border:1px solid #f1ccdc;border-radius:18px;background:white;box-shadow:0 12px 28px rgba(128,34,76,.05)}
+#page-submit-proof .proof-card h3{font: bold 19px Georgia,serif!important}
+#page-submit-proof .proof-card .field{margin:15px 0}
+#page-submit-proof .proof-card input,#page-submit-proof .proof-card select{min-height:44px;border-radius:12px}
+#page-submit-proof .proof-card button{min-height:46px;width:100%;margin-top:8px}
+@media(max-width:700px){#page-submit-proof .rd-proof-steps{grid-template-columns:1fr;gap:8px}#page-submit-proof .rd-proof-page-head h2{font-size:29px}#resellerDashboard .rd-payment-hint{align-items:flex-start;flex-wrap:wrap}#resellerDashboard .rd-payment-hint .btn{margin-left:44px}}
+
 </style>
 </head>
 <body>
@@ -968,7 +1006,7 @@ body{background:#fff8fb}
  <header class="top"><div><div class="brand">Sexy Dust</div><div class="sub">INVENTORY MANAGEMENT</div></div><div class="topright"><span id="who" class="muted"></span><button id="changePassword" class="btn soft">Change password</button><button id="logout" class="btn outline">Log out</button></div></header>
  <nav class="tabs">
   <div class="sidebar-brand"><div class="brand">Sexy Dust</div><div class="sub">♡ INVENTORY PORTAL</div></div><div class="sidebar-label">WORKSPACE</div>
-  <button class="tab active" data-page="overview">Overview</button><button class="tab" data-page="inventory">Inventory</button><button class="tab" data-page="movements">Stock movements</button><button class="tab" data-page="user-report" id="userReportTab">Per-user report</button><button class="tab" data-page="pricelist" id="pricelistTab">Printable Pricelist</button><button class="tab hidden" data-page="costing" id="costingTab">Costing & Profit</button><button class="tab" data-page="activity">Activity log</button><button class="tab" data-page="users" id="usersTab">User access</button>
+  <button class="tab active" data-page="overview">Overview</button><button class="tab" data-page="submit-proof" id="submitProofTab">Submit Payment Proof</button><button class="tab" data-page="inventory">Inventory</button><button class="tab" data-page="movements">Stock movements</button><button class="tab" data-page="user-report" id="userReportTab">Per-user report</button><button class="tab" data-page="pricelist" id="pricelistTab">Printable Pricelist</button><button class="tab hidden" data-page="costing" id="costingTab">Costing & Profit</button><button class="tab" data-page="activity">Activity log</button><button class="tab" data-page="users" id="usersTab">User access</button>
  </nav>
  <main>
   <section id="page-overview">
@@ -986,7 +1024,7 @@ body{background:#fff8fb}
     </div>
     <div class="reseller-main-grid">
      <article class="card rd-panel"><div class="rd-panel-head"><div><h3>♡ My Received Stocks</h3><p>Products assigned to your account</p></div><span class="rd-count" id="rdProductCount">0 product types</span></div><div class="tablewrap"><table class="rd-stock-table"><thead><tr><th>PRODUCT</th><th>QTY RECEIVED</th><th>AMOUNT</th><th>PAYMENT</th></tr></thead><tbody id="rdReceivedRows"><tr><td colspan="4" class="empty">Loading…</td></tr></tbody></table></div></article>
-     <article class="card rd-panel"><div class="rd-panel-head"><div><h3>♡ Payment Summary</h3><p>Your payment progress</p></div></div><div class="rd-progress-label"><span>Amount paid</span><b id="rdPaidPercent">0%</b></div><div class="rd-progress"><span id="rdPaidBar" style="width:0%"></span></div><div class="rd-summary-lines"><div><span>Total amount</span><b id="rdSummaryTotal">₱0.00</b></div><div class="paid"><span>Paid</span><b id="rdSummaryPaid">₱0.00</b></div><div class="due"><span>Balance</span><b id="rdSummaryDue">₱0.00</b></div></div><button class="btn primary rd-wide" type="button" id="rdShowPaymentUpload">Upload Payment Proof</button><div id="dashboardPayments" class="rd-upload-slot"></div></article>
+     <article class="card rd-panel"><div class="rd-panel-head"><div><h3>♡ Payment Summary</h3><p>Your payment progress</p></div></div><div class="rd-progress-label"><span>Amount paid</span><b id="rdPaidPercent">0%</b></div><div class="rd-progress"><span id="rdPaidBar" style="width:0%"></span></div><div class="rd-summary-lines"><div><span>Total amount</span><b id="rdSummaryTotal">₱0.00</b></div><div class="paid"><span>Paid</span><b id="rdSummaryPaid">₱0.00</b></div><div class="due"><span>Balance</span><b id="rdSummaryDue">₱0.00</b></div></div><div class="rd-payment-hint"><span class="rd-hint-icon">♡</span><div><b>Payment due?</b><small>Send your receipt for admin verification.</small></div><button class="btn soft" type="button" id="rdShowPaymentUpload">Submit proof →</button></div></article>
      <article class="card rd-panel"><div class="rd-panel-head"><div><h3>▤ Recent Payments</h3><p>Payments recorded on your account</p></div><button class="btn soft" type="button" id="rdViewAllPayments">View all</button></div><div class="tablewrap"><table class="rd-stock-table"><thead><tr><th>DATE</th><th>PAYMENT FOR</th><th>AMOUNT</th><th>STATUS</th></tr></thead><tbody id="rdRecentPaymentRows"><tr><td colspan="4" class="empty">No payment records yet.</td></tr></tbody></table></div></article>
      <article class="card rd-panel"><div class="rd-panel-head"><div><h3>♟ My Account</h3><p>Your reseller profile</p></div></div><div class="rd-profile"><div class="rd-avatar" id="rdAvatar">R</div><b id="rdProfileName">Reseller</b><small>Reseller Account</small></div><div class="rd-account-line"><span>Account status</span><b class="rd-active">Active</b></div><div class="rd-account-line"><span>Username</span><b id="rdUsername">—</b></div><button class="btn outline rd-wide" type="button" id="rdAccountSettings">Account Settings</button></article>
     </div>
@@ -1024,6 +1062,7 @@ body{background:#fff8fb}
    </div>
   </section>
   <section id="page-payments" class="hidden"><div class="card"><div class="toolbar"><div style="flex:1"><h2 style="margin:0;color:var(--wine);font:26px Georgia">Payment History & Proofs</h2><span class="muted">Upload proof even for older unpaid stock-outs. Admin approval updates the balance automatically.</span></div><button id="refreshPayments" class="btn soft">↻ Refresh</button></div><div class="stats"><div class="card stat"><small>Outstanding balance</small><strong id="phOutstanding">₱0</strong></div><div class="card stat"><small>Pending proofs</small><strong id="phPending">0</strong></div><div class="card stat"><small>Approved payments</small><strong id="phApproved">₱0</strong></div></div><div id="paymentHistory"></div></div></section>
+  <section id="page-submit-proof" class="hidden"><div class="rd-proof-page-head"><span class="user-report-kicker">SEXY DUST · PAYMENT CENTER</span><h2>Submit Payment Proof</h2><p>Upload your receipt so the admin can verify your payment.</p></div><div class="card rd-proof-page-card"><div class="rd-proof-steps"><div><span>01</span><b>Select transaction</b><small>Choose the stock release you paid for.</small></div><div><span>02</span><b>Enter amount</b><small>Input the exact amount transferred.</small></div><div><span>03</span><b>Attach receipt</b><small>Upload a clear screenshot or receipt.</small></div></div><div id="paymentProofPage"></div></div></section>
   <section id="page-pricelist" class="hidden"><div class="card"><div class="toolbar"><div style="flex:1"><h2 style="margin:0;color:var(--wine);font:italic 30px Georgia">SEXY DUST · Official Pricelist</h2><span class="muted">Live inventory prices · With Set adds ₱200 per vial</span></div><button class="btn primary" id="printPricelist">Print / Save PDF</button></div><div id="priceListContent"></div></div></section>
   <section id="page-costing" class="hidden"><div class="card">
    <div class="toolbar"><div style="flex:1"><h2 style="margin:0;color:var(--wine);font:26px Georgia">Costing & Profit</h2><span class="muted">Super Admin only · Separate costing for per-vial sales and complete sets.</span></div><button class="btn soft" id="refreshCosting">↻ Refresh</button></div>
@@ -1242,7 +1281,7 @@ function renderResellerDashboardDetails(){
  const subs=paymentSubmissions.filter(x=>mine.some(m=>m.id===x.movement_id)).sort((a,b)=>new Date(b.submitted_at)-new Date(a.submitted_at));
  $('rdRecentPaymentRows').innerHTML=subs.length?subs.slice(0,5).map(x=>{const m=mine.find(z=>z.id===x.movement_id);return '<tr><td>'+esc(fmtDate(x.submitted_at))+'</td><td>'+esc(m?.inv_products?.name||'Stock-out')+'</td><td><b>'+peso(x.amount)+'</b></td><td><span class="rd-status '+(x.status==='approved'?'paid':x.status==='rejected'?'unpaid':'partial')+'">'+(x.status==='approved'?'Verified':x.status==='rejected'?'Rejected':'Pending')+'</span></td></tr>'}).join(''):'<tr><td colspan="4" class="empty">No payment proofs submitted yet.</td></tr>';
  const name=currentMember?.username||'Reseller';$('rdProfileName').textContent=name;$('rdWelcomeName').textContent=name;$('rdAvatar').textContent=name.trim().charAt(0).toUpperCase();$('rdUsername').textContent=currentMember?.username||currentMember?.email||'—';
- $('rdShowPaymentUpload').onclick=()=>{const slot=$('dashboardPayments');slot.scrollIntoView({behavior:'smooth',block:'center'});const form=slot.querySelector('#resellerPaymentSubmit');if(form)form.querySelector('input[name="proof"]')?.focus()};
+ $('rdShowPaymentUpload').onclick=()=>document.querySelector('[data-page="submit-proof"]')?.click();
  $('rdViewAllPayments').onclick=()=>document.querySelector('[data-page="payments"]')?.click();
  $('rdAccountSettings').onclick=()=> $('changePassword').click();
 }
@@ -1263,15 +1302,15 @@ async function renderPayments(){
   const options=outstanding.map(m=>{const due=Math.max(0,Number(m.payment_total||0)-Number(m.amount_paid||0));return '<option value="'+m.id+'">'+esc(m.inv_products?.name||'Product')+' · '+esc(m.movement_date||m.created_at?.slice(0,10)||'')+' · Due '+peso(due)+'</option>'}).join('');
   const submitForm='<article class="proof-card"><h3 style="margin:0 0 12px;color:var(--wine)">Submit a Payment</h3><form id="resellerPaymentSubmit"><div class="field"><label>Select unpaid product / transaction *</label><select name="movement" required><option value="">Choose an unpaid stock-out</option>'+options+'</select></div><div class="field"><label>Amount Paid (₱) *</label><input name="amount" type="number" min="0.01" step="0.01" placeholder="Enter exact amount paid" required><small class="muted" id="resellerPaymentDue">Select a transaction to see its remaining balance.</small></div><div class="field"><label>Payment screenshot / receipt *</label><input name="proof" type="file" accept="image/png,image/jpeg,image/webp" required><small class="muted">JPG, PNG or WEBP · maximum 5MB</small></div><button class="btn primary" type="button" data-submit-reseller-payment '+(outstanding.length?'':'disabled')+'>Submit Payment for Verification</button></form></article>';
   const history=rows.map(m=>{const q=Math.abs(Number(m.quantity)||0),paidQty=Number(m.paid_quantity)||0,due=Math.max(0,Number(m.payment_total||0)-Number(m.amount_paid||0)),subs=paymentSubmissions.filter(x=>x.movement_id===m.id);return '<article class="proof-card"><div class="proof-row"><div><b>'+esc(m.inv_products?.name||'Stock-out')+'</b><div class="muted">'+esc(m.movement_date||m.created_at?.slice(0,10)||'')+' · '+q+' vials · PAID '+paidQty+'/'+q+'</div></div><div style="text-align:right"><b>'+peso(m.payment_total)+'</b><div class="muted">Total amount</div></div></div><div class="proof-row" style="margin-top:8px"><span class="proof-status '+(due<=0?'approved':Number(m.amount_paid)>0?'pending':'rejected')+'">'+(due<=0?'FULLY PAID':Number(m.amount_paid)>0?'PARTIALLY PAID':'UNPAID')+'</span><span><b>Paid '+peso(m.amount_paid||0)+'</b> · Due '+peso(due)+'</span></div>'+(subs.length?'<div class="muted" style="margin-top:10px"><b>Payment proof history</b></div>'+subs.map(x=>'<div class="proof-row" style="padding:8px 0;border-top:1px solid var(--line)"><span>'+fmtDate(x.submitted_at)+' · '+peso(x.amount)+'</span><span class="proof-status '+x.status+'">'+x.status.toUpperCase()+'</span></div>'+(x.admin_note?'<small class="muted">Admin note: '+esc(x.admin_note)+'</small>':'')).join(''):'')+'</article>'}).join('')||'<div class="empty">No stock-out transactions found for this account yet.</div>';
-  html=submitForm+'<h3 style="margin:20px 0 10px;color:var(--wine)">My Stock Payment History</h3>'+history;
+  $('paymentProofPage').innerHTML=submitForm;html='<h3 style="margin:20px 0 10px;color:var(--wine)">My Stock Payment History</h3>'+history;
  } else {
   const adminRows=paymentSubmissions.slice().sort((a,b)=>(a.status==='pending'?0:1)-(b.status==='pending'?0:1)||new Date(b.submitted_at)-new Date(a.submitted_at));
   html='<h3 style="margin:22px 0 10px;color:var(--wine)">Submitted payment proofs</h3>'+adminRows.map(x=>{const m=movements.find(z=>z.id===x.movement_id);return '<article class="proof-card"><div class="proof-row"><div><b>'+esc(userLabel(m?.assigned_user_email||m?.created_by_email||'Reseller'))+'</b><div class="muted">'+esc(m?.inv_products?.name||'Stock-out')+' · '+fmtDate(x.submitted_at)+'</div></div><div style="text-align:right"><b>'+peso(x.amount)+'</b><div class="proof-status '+x.status+'">'+x.status.toUpperCase()+'</div></div></div><div class="muted" style="margin:8px 0">Transaction total '+peso(m?.payment_total||0)+' · Current paid '+peso(m?.amount_paid||0)+'</div><div class="proof-actions"><button class="btn soft" data-proof-view="'+x.id+'">View screenshot</button>'+(x.status==='pending'?'<button class="btn primary" data-proof-review="'+x.id+'" data-status="approved">Approve</button><button class="btn outline" data-proof-review="'+x.id+'" data-status="rejected">Reject</button>':'')+'</div><div id="proof-view-'+x.id+'" style="margin-top:10px"></div>'+(x.admin_note?'<small class="muted">Admin note: '+esc(x.admin_note)+'</small>':'')+'</article>'}).join('')||'<div class="empty">No payment proof uploads yet.</div>';
  }
  $('paymentHistory').innerHTML=html;
- if(currentRole==='staff')$('dashboardPayments').innerHTML=html;
+ if(currentRole==='staff')$('dashboardPayments')&&($('dashboardPayments').innerHTML='');
  if(currentRole==='super_admin')$('adminDashboardProofs').innerHTML=html;
- const containers=[$('paymentHistory'),$('dashboardPayments'),$('adminDashboardProofs')].filter(Boolean);
+ const containers=[$('paymentHistory'),$('paymentProofPage'),$('adminDashboardProofs')].filter(Boolean);
  containers.forEach(container=>container.querySelectorAll('#resellerPaymentSubmit').forEach(form=>{
   const sel=form.elements.movement,amt=form.elements.amount,dueLabel=form.querySelector('#resellerPaymentDue'),submitBtn=form.querySelector('[data-submit-reseller-payment]');
   sel.onchange=()=>{const m=movements.find(z=>z.id===sel.value);const due=m?Math.max(0,Number(m.payment_total||0)-Number(m.amount_paid||0)):0;amt.max=due.toFixed(2);dueLabel.textContent=m?'Remaining balance: '+peso(due):'Select a transaction to see its remaining balance.'};
