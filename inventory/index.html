@@ -865,6 +865,64 @@ body{background:linear-gradient(135deg,#fff7fa 0%,#ffe3ed 45%,#fff7fb 100%);colo
  #appView .ur-payment-row{grid-template-columns:minmax(0,1fr) auto!important;gap:6px!important}
 }
 
+
+/* SEXY DUST INVENTORY — complete boutique portal refresh */
+#appView{
+  display:grid;grid-template-columns:244px minmax(0,1fr);grid-template-rows:auto 1fr;
+  grid-template-areas:"sidebar header" "sidebar content";
+  gap:0;max-width:none;min-height:100vh;padding:0;
+  background:linear-gradient(145deg,#fffafd 0%,#fff4f8 52%,#fffafd 100%);
+}
+#appView>.top{grid-area:header;margin:0;padding:24px 34px 20px;border:0;border-bottom:1px solid #f2dce6;background:rgba(255,255,255,.86);backdrop-filter:blur(16px);position:sticky;top:0;z-index:20}
+#appView>.top:after{content:"";position:absolute;left:34px;right:34px;bottom:-1px;height:2px;background:linear-gradient(90deg,#f5c8da,#b63870,#f5c8da);opacity:.65}
+#appView>.tabs{grid-area:sidebar;position:sticky;top:0;height:100vh;overflow-y:auto;display:flex;flex-direction:column;align-items:stretch;flex-wrap:nowrap;gap:7px;margin:0;padding:24px 15px 20px;border:0;border-radius:0;background:linear-gradient(180deg,#9e315f 0%,#7c234c 52%,#5f1d3d 100%);box-shadow:8px 0 28px rgba(105,32,66,.12);z-index:30}
+#appView>.tabs:before{content:"Sexy Dust";display:block;padding:8px 10px 2px;color:#fff;font:italic 31px Georgia,serif;letter-spacing:-1px}
+#appView>.tabs:after{content:"♡  RESELLER PORTAL";display:block;order:99;margin:auto 8px 0;padding-top:20px;border-top:1px solid rgba(255,255,255,.22);color:#f9dce8;font-size:9px;font-weight:800;letter-spacing:2px}
+#appView>.tabs .tab{width:100%;text-align:left;border:1px solid transparent;border-radius:13px;padding:12px 14px;color:#ffeaf2;background:transparent;font-weight:650;white-space:normal}
+#appView>.tabs .tab:hover{background:rgba(255,255,255,.12);color:#fff}
+#appView>.tabs .tab.active{background:linear-gradient(110deg,#fff7fb,#f8dce8);border-color:#f5bfd3;color:#922b59;box-shadow:0 7px 18px rgba(48,8,27,.17)}
+#appView>main{grid-area:content;min-width:0;padding:26px 34px 40px}
+#appView .brand{font-size:35px;color:#8b2854}
+#appView .sub{letter-spacing:3px;color:#a16d84}
+#appView .card{border:1px solid #f0d5e1;border-radius:20px;background:rgba(255,255,255,.92);box-shadow:0 10px 30px rgba(126,44,82,.065)}
+#appView .stat{background:linear-gradient(145deg,#fff 0%,#fff5f9 100%);border-color:#f1d5e1;min-height:122px}
+#appView .stat strong{font-size:32px;color:#982c5c}
+#appView h2,#appView h3{color:#81254e}
+#appView .dashboard-welcome{position:relative;overflow:hidden;padding:25px 28px;background:linear-gradient(110deg,#fff 0%,#fff0f6 65%,#f9dce8 100%)}
+#appView .dashboard-welcome:after{content:"♕";position:absolute;right:30px;top:-12px;font:100px Georgia,serif;color:rgba(181,65,111,.12);pointer-events:none}
+#appView .toolbar input,#appView .toolbar select{border-radius:12px;background:#fff}
+#appView .btn.primary{background:linear-gradient(120deg,#b83d70,#8e2856);box-shadow:0 6px 16px rgba(142,40,86,.2)}
+#appView .btn.soft{background:#ffedf4;border-color:#f2cbdc;color:#8d2855}
+#appView .btn.outline{border-color:#e7b7cb;color:#84264f;background:#fff}
+#appView .tablewrap{border:1px solid #f2e0e8;border-radius:15px;background:#fff;overflow:auto}
+#appView table{border-collapse:separate;border-spacing:0}
+#appView th{background:#fff0f6;color:#8d5870}
+#appView td{background:rgba(255,255,255,.8)}
+#appView tr:hover td{background:#fff7fa}
+#appView .notice{border:1px solid #f2d0de;background:#fff1f6}
+#appView .dashboard-detail-card,#appView .dashboard-upload-card{border-color:#efd2df}
+@media(max-width:900px){
+ #appView{grid-template-columns:1fr;grid-template-rows:auto auto 1fr;grid-template-areas:"header" "sidebar" "content"}
+ #appView>.top{position:relative;padding:18px 18px 15px}
+ #appView>.top:after{left:18px;right:18px}
+ #appView>.tabs{position:sticky;top:0;height:auto;overflow:visible;flex-direction:row;flex-wrap:wrap;padding:10px 13px;border-radius:0 0 16px 16px}
+ #appView>.tabs:before,#appView>.tabs:after{display:none}
+ #appView>.tabs .tab{width:auto;flex:0 0 auto;padding:9px 12px;font-size:12px}
+ #appView>main{padding:18px}
+}
+@media(max-width:560px){
+ #appView>.top{gap:12px;align-items:flex-start}
+ #appView>.topright{width:100%}
+ #appView>.topright button{flex:1}
+ #appView>main{padding:13px}
+ #appView .dashboard-welcome{padding:19px}
+ #appView .dashboard-welcome:after{right:8px;font-size:70px}
+ #appView .stats{gap:9px}
+ #appView .stat{padding:14px;min-height:100px}
+ #appView .stat strong{font-size:24px}
+ #appView>.tabs{gap:5px}
+ #appView>.tabs .tab{font-size:11px;padding:8px 10px}
+}
 </style>
 </head>
 <body>
