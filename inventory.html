@@ -72,6 +72,7 @@ th{background:#fff0f6;color:#8b1747}
     <nav class="side">
       <button class="nav active" data-page="overview">Overview</button>
       <button class="nav reseller-only hidden" data-page="reseller">My Dashboard</button>
+      <button class="nav admin-only" data-page="paymentreview">Payment Proof Review</button>
       <button class="nav" data-page="inventory">Inventory</button>
       <button class="nav" data-page="movements">Stock Movements</button>
       <button class="nav" data-page="pricelist">Printable Pricelist</button>
@@ -148,6 +149,11 @@ th{background:#fff0f6;color:#8b1747}
         </div>
         <div class="panel" style="margin-bottom:14px"><b id="reportHeading">All reseller transactions</b><p class="muted" id="reportSub" style="margin:5px 0 0">Stock-out records only. Payments are summarized from the recorded payment fields.</p></div>
         <div class="tablewrap"><table><thead><tr><th>Date</th><th>Reseller</th><th>Product</th><th>Qty Released</th><th>Paid Qty</th><th>Amount</th><th>Paid</th><th>Balance</th><th>Status</th><th>Reference / Notes</th></tr></thead><tbody id="userReportRows"></tbody></table></div>
+      </section>
+      <section id="page-paymentreview" class="hidden">
+        <div class="pagehead"><div><h1>Payment Proof Review</h1><p class="muted">Review reseller receipts and approve or reject submitted payments.</p></div><button class="btn outline" id="refreshPaymentQueue">Refresh</button></div>
+        <div class="cards"><div class="card"><div class="metric-label">Pending Proofs</div><div class="metric" id="pendingProofCount">0</div></div><div class="card"><div class="metric-label">Pending Amount</div><div class="metric" id="pendingProofAmount">₱0.00</div></div></div>
+        <div class="tablewrap"><table><thead><tr><th>Submitted</th><th>Reseller</th><th>Transaction</th><th>Amount</th><th>Receipt</th><th>Reference / Note</th><th>Review</th></tr></thead><tbody id="paymentQueueRows"></tbody></table></div>
       </section>
       <section id="page-activity" class="hidden">
         <div class="pagehead"><h1>Activity Log</h1></div>
@@ -228,7 +234,7 @@ $('verifyCode').onclick=async()=>{
 $('backEmail').onclick=()=>{$('loginStepOtp').classList.add('hidden');$('loginStepEmail').classList.remove('hidden');$('loginOtp').value='';msg('loginMsg','')};
 $('logout').onclick=async()=>{try{await db.rpc('inv_log_access',{p_action:'logout'})}catch(e){}await db.auth.signOut();member=null;user=null;showLogin()};
 db.auth.onAuthStateChange((event)=>{if(event==='SIGNED_OUT'){member=null;user=null;showLogin()}});
-function go(page){document.querySelectorAll('.nav').forEach(b=>b.classList.toggle('active',b.dataset.page===page));['overview','reseller','inventory','movements','pricelist','userreport','activity','users'].forEach(p=>$('page-'+p).classList.toggle('hidden',p!==page)); if(page==='reseller')renderReseller();if(page==='pricelist')renderPriceList();if(page==='userreport')loadUserReport();if(page==='activity'&&member.role==='super_admin')loadActivities();if(page==='users'&&member.role==='super_admin')loadUsers();if(page==='movements')renderMovements()}
+function go(page){document.querySelectorAll('.nav').forEach(b=>b.classList.toggle('active',b.dataset.page===page));['overview','reseller','inventory','movements','pricelist','userreport','paymentreview','activity','users'].forEach(p=>$('page-'+p).classList.toggle('hidden',p!==page)); if(page==='reseller')renderReseller();if(page==='paymentreview'&&member.role==='super_admin')loadPaymentQueue();if(page==='pricelist')renderPriceList();if(page==='userreport')loadUserReport();if(page==='activity'&&member.role==='super_admin')loadActivities();if(page==='users'&&member.role==='super_admin')loadUsers();if(page==='movements')renderMovements()}
 document.querySelectorAll('.nav').forEach(b=>b.onclick=()=>go(b.dataset.page));
 document.querySelectorAll('[data-goto]').forEach(b=>b.onclick=()=>go(b.dataset.goto));
 function open(id){$(id).classList.add('open')}function close(id){$(id).classList.remove('open')}
@@ -312,6 +318,31 @@ function renderUserReport(){
   $('userReportRows').innerHTML=rows.length?rows.map(m=>{const p=products.find(x=>x.id===m.product_id),owner=m.assigned_user_email||m.created_by_email||'Unassigned',st=balance(m)<=0?'Paid':paid(m)>0?'Partial':'Unpaid';return '<tr><td>'+esc((m.movement_date||m.created_at||'').slice(0,10))+'</td><td>'+esc(owner)+'</td><td><b>'+esc(p?.name||'Deleted product')+'</b></td><td>'+qty(m)+'</td><td>'+paidQty(m)+'</td><td>'+money(total(m))+'</td><td>'+money(paid(m))+'</td><td><b>'+money(balance(m))+'</b></td><td><span class="pill '+(st==='Paid'?'':'low')+'">'+st+'</span></td><td>'+esc(m.reason||'')+(m.notes?' · '+esc(m.notes):'')+'</td></tr>'}).join(''):'<tr><td colspan="10" class="empty">No matching reseller transactions found.</td></tr>';
 }
 $('refreshUserReport').onclick=loadUserReport;$('reportUserFilter').onchange=renderUserReport;$('reportSearch').oninput=renderUserReport;$('reportFrom').onchange=renderUserReport;$('reportTo').onchange=renderUserReport;
+async function loadPaymentQueue(){
+ if(member.role!=='super_admin')return;
+ const {data,error}=await db.from('inv_payment_submissions').select('*').eq('status','pending').order('submitted_at',{ascending:false}).limit(200);
+ if(error){$('paymentQueueRows').innerHTML='<tr><td colspan="7" class="empty">'+esc(error.message)+'</td></tr>';return}
+ const rows=data||[];$('pendingProofCount').textContent=rows.length;$('pendingProofAmount').textContent=money(rows.reduce((a,x)=>a+Number(x.amount||0),0));
+ const movementIds=[...new Set(rows.map(x=>x.movement_id))];
+ const {data:moves}=movementIds.length?await db.from('inv_stock_movements').select('*').in('id',movementIds):{data:[]};
+ const {data:users}=await db.from('inv_users').select('user_id,email,username');
+ const rendered=await Promise.all(rows.map(async x=>{
+   const m=(moves||[]).find(z=>z.id===x.movement_id),p=products.find(z=>z.id===m?.product_id),u=(users||[]).find(z=>z.user_id===x.user_id);
+   const {data:link}=await db.storage.from('sd-payment-proofs').createSignedUrl(x.proof_path,300);
+   return '<tr><td>'+dt(x.submitted_at)+'</td><td>'+esc(u?.username||u?.email||'Reseller')+'</td><td>'+esc(p?.name||'Stock-out')+' · '+Math.abs(m?.quantity||0)+' pcs</td><td><b>'+money(x.amount)+'</b></td><td>'+(link?.signedUrl?'<a class="btn outline" target="_blank" rel="noopener" href="'+esc(link.signedUrl)+'">View receipt</a>':'Unavailable')+'</td><td>'+esc(x.admin_note||'—')+'</td><td><button class="btn" data-approve="'+x.id+'">Approve</button> <button class="btn danger" data-reject="'+x.id+'">Reject</button></td></tr>';
+ }));
+ $('paymentQueueRows').innerHTML=rendered.join('')||'<tr><td colspan="7" class="empty">No pending payment proofs.</td></tr>';
+ $('paymentQueueRows').querySelectorAll('[data-approve]').forEach(b=>b.onclick=()=>reviewProof(b.dataset.approve,'approved'));
+ $('paymentQueueRows').querySelectorAll('[data-reject]').forEach(b=>b.onclick=()=>reviewProof(b.dataset.reject,'rejected'));
+}
+async function reviewProof(id,status){
+ const note=prompt(status==='approved'?'Optional admin note for this approved payment:':'Reason for rejecting this payment proof:')||'';
+ if(status==='rejected'&&!note.trim()){alert('Please enter a rejection reason.');return}
+ const {error}=await db.rpc('inv_review_payment_submission',{p_submission_id:id,p_status:status,p_admin_note:note});
+ if(error){alert('Review failed: '+error.message);return}
+ await loadPaymentQueue();await loadUserReport();await loadMovements();renderMovements();await loadActivities();
+}
+$('refreshPaymentQueue').onclick=loadPaymentQueue;
 async function loadActivities(){if(member.role!=='super_admin')return;const {data,error}=await db.from('inv_activity_log').select('*').order('created_at',{ascending:false}).limit(500);if(error){alert('Could not load activity log: '+error.message);return}activities=data||[];renderActivities()}
 function renderActivities(){const term=($('activitySearch').value||'').toLowerCase(),type=$('activityType').value;const rows=activities.filter(a=>(type==='all'||a.action===type)&&((a.actor_email+' '+a.action+' '+a.summary).toLowerCase().includes(term)));$('activityRows').innerHTML=rows.length?rows.map(a=>'<tr><td>'+dt(a.created_at)+'</td><td>'+esc(a.actor_email||'System')+'</td><td><span class="pill">'+esc(a.action.replaceAll('_',' '))+'</span></td><td>'+esc(a.summary)+'</td><td><small>'+esc(a.before_data?JSON.stringify(a.before_data):'—')+'</small></td><td><small>'+esc(a.after_data?JSON.stringify(a.after_data):'—')+'</small></td></tr>').join(''):'<tr><td colspan="6" class="empty">No matching activity.</td></tr>'}
 $('activitySearch').oninput=renderActivities;$('activityType').onchange=renderActivities;
