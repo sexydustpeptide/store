@@ -1225,7 +1225,7 @@ function renderDashboard(){
   renderResellerDashboardDetails();
   const mine=movements.filter(m=>m.movement_type==='stock_out'&&(m.created_by===currentUser.id||m.assigned_user_id===currentUser.id));
   const total=mine.reduce((a,m)=>a+Number(m.payment_total||0),0),paid=mine.reduce((a,m)=>a+Number(m.amount_paid||0),0),qty=mine.reduce((a,m)=>a+Math.abs(Number(m.quantity)||0),0);
-  $('dashboardGreeting').innerHTML='Welcome, <strong class="dashboard-reseller-name">'+esc(currentMember?.username||'Reseller')+'</strong>! <span class="dashboard-greeting-note">Here is your stock and payment summary.</span>';
+  const greeting=$('dashboardGreeting');if(greeting)greeting.innerHTML='Welcome, <strong class="dashboard-reseller-name">'+esc(currentMember?.username||'Reseller')+'</strong>! <span class="dashboard-greeting-note">Here is your stock and payment summary.</span>';
   $('rdStocks').textContent=qty.toLocaleString();$('rdTotal').textContent=peso(total);$('rdPaid').textContent=peso(paid);$('rdDue').textContent=peso(Math.max(0,total-paid));
  } else if(currentRole==='super_admin'){
   const allOut=movements.filter(m=>m.movement_type==='stock_out'),pending=paymentSubmissions.filter(x=>x.status==='pending'),approved=paymentSubmissions.filter(x=>x.status==='approved').reduce((a,x)=>a+Number(x.amount||0),0),due=allOut.reduce((a,m)=>a+Math.max(0,Number(m.payment_total||0)-Number(m.amount_paid||0)),0);
@@ -1242,7 +1242,7 @@ function renderResellerDashboardDetails(){
  const subs=paymentSubmissions.filter(x=>mine.some(m=>m.id===x.movement_id)).sort((a,b)=>new Date(b.submitted_at)-new Date(a.submitted_at));
  $('rdRecentPaymentRows').innerHTML=subs.length?subs.slice(0,5).map(x=>{const m=mine.find(z=>z.id===x.movement_id);return '<tr><td>'+esc(fmtDate(x.submitted_at))+'</td><td>'+esc(m?.inv_products?.name||'Stock-out')+'</td><td><b>'+peso(x.amount)+'</b></td><td><span class="rd-status '+(x.status==='approved'?'paid':x.status==='rejected'?'unpaid':'partial')+'">'+(x.status==='approved'?'Verified':x.status==='rejected'?'Rejected':'Pending')+'</span></td></tr>'}).join(''):'<tr><td colspan="4" class="empty">No payment proofs submitted yet.</td></tr>';
  const name=currentMember?.username||'Reseller';$('rdProfileName').textContent=name;$('rdWelcomeName').textContent=name;$('rdAvatar').textContent=name.trim().charAt(0).toUpperCase();$('rdUsername').textContent=currentMember?.username||currentMember?.email||'—';
- $('rdShowPaymentUpload').onclick=()=>{$('dashboardPayments').scrollIntoView({behavior:'smooth',block:'center'})};
+ $('rdShowPaymentUpload').onclick=()=>{const slot=$('dashboardPayments');slot.scrollIntoView({behavior:'smooth',block:'center'});const form=slot.querySelector('#resellerPaymentSubmit');if(form)form.querySelector('input[name="proof"]')?.focus()};
  $('rdViewAllPayments').onclick=()=>document.querySelector('[data-page="payments"]')?.click();
  $('rdAccountSettings').onclick=()=> $('changePassword').click();
 }
