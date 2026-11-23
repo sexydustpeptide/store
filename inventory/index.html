@@ -1272,6 +1272,14 @@ body{background:#fff8fb}
 #appView .sidebar-brand:before{display:none!important;content:none!important}
 #appView .sidebar-brand{padding:7px 10px 17px!important;text-align:center!important}
 @media(max-width:700px){.portal-logo{width:180px;height:52px;max-width:58vw}.sidebar-logo{height:60px}}
+
+/* KPI cards: reserve a dedicated icon column so icons never collide with values */
+#appView .reseller-kpis .stat{padding:15px 14px 12px 88px!important;display:flex!important;flex-direction:column!important;justify-content:center!important;align-items:flex-start!important;isolation:isolate!important}
+#appView .reseller-kpis .stat>*:not(.rd-icon){position:relative!important;z-index:1!important}
+#appView .reseller-kpis .stat .rd-icon{position:absolute!important;left:17px!important;top:50%!important;transform:translateY(-50%)!important;width:48px!important;height:48px!important;display:flex!important;align-items:center!important;justify-content:center!important;border-radius:50%!important;background:linear-gradient(145deg,#ffe0ed,#ffc1da)!important;border:1px solid #f8b2cf!important;box-shadow:0 3px 10px rgba(190,35,101,.10)!important;font-size:23px!important;line-height:1!important;z-index:0!important}
+@media(max-width:900px){#appView .reseller-kpis .stat{padding-left:78px!important}#appView .reseller-kpis .stat .rd-icon{left:13px!important;width:44px!important;height:44px!important}}
+@media(max-width:620px){#appView .reseller-kpis .stat{padding:12px 8px 10px 58px!important;min-height:88px!important}#appView .reseller-kpis .stat .rd-icon{left:8px!important;width:38px!important;height:38px!important;font-size:19px!important}}
+
 </style>
 </head>
 <body>
