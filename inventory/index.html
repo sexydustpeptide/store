@@ -1050,6 +1050,93 @@ body{background:#fff8fb}
 @media(max-width:900px){#resellerDashboard .reseller-kpis{grid-template-columns:repeat(2,minmax(0,1fr))}}
 @media(max-width:680px){#resellerDashboard .reseller-main-grid{grid-template-columns:1fr}#resellerDashboard .reseller-page-heading h2{font-size:29px}#resellerDashboard .reseller-kpis .stat{padding:13px 9px 11px 43px;min-height:88px}#resellerDashboard .reseller-kpis .stat strong{font-size:21px}#resellerDashboard .rd-icon{left:11px;top:25px;font-size:19px}#resellerDashboard .rd-panel{padding:13px 10px}#resellerDashboard .rd-stock-table{min-width:430px}}
 
+
+/* Approved reseller dashboard reference — full layout pass */
+#appView.shell{grid-template-columns:213px minmax(0,1fr);grid-template-rows:112px minmax(0,1fr);grid-template-areas:"sidebar top" "sidebar content";background:#fff7fb;min-height:100vh}
+#appView>.top{grid-area:top;position:relative;display:flex;align-items:center;justify-content:flex-end;min-height:112px;padding:12px 24px;background:linear-gradient(100deg,#fff5f9,#ffeaf3 52%,#fff7fa);border-bottom:1px solid #f5c9dc;box-shadow:none;z-index:4}
+#appView .portal-brand{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);display:flex;align-items:center;flex-direction:column;gap:1px;pointer-events:none}
+#appView .portal-brand .brand{font:italic 48px Georgia,serif;letter-spacing:-2px;color:#b51d61;line-height:1}
+#appView .portal-brand .sub{font-size:14px;font-weight:950;letter-spacing:3px;color:#991348}
+#appView .portal-role{margin-top:5px;border-radius:20px;padding:6px 19px;background:#b91d62;color:white;font-size:10px;font-weight:950;letter-spacing:1.3px}
+#appView .topright{display:flex;align-items:center;gap:10px}
+#appView .topright #who{display:none}
+#appView .portal-profile{display:flex;align-items:center;gap:10px;border:1px solid #f3bfd4;background:#fff9fc;border-radius:40px;padding:7px 13px 7px 8px;color:#75163f;cursor:pointer;box-shadow:0 4px 14px rgba(157,29,83,.06)}
+#appView .portal-avatar{display:grid;place-items:center;width:38px;height:38px;border-radius:50%;background:linear-gradient(140deg,#f6a7c8,#bf2468);color:white;border:3px solid #fff;font: bold 20px Georgia;box-shadow:0 0 0 1px #f3c4d7}
+#appView .portal-profile>span:last-child{display:flex;flex-direction:column;align-items:flex-start;gap:3px}
+#appView .portal-profile b{font-size:12px;color:#74153d}
+#appView .portal-profile small{font-size:9px;color:#a46c84}
+#appView .topright #changePassword,#appView .topright #logout{display:none}
+#appView>.tabs{grid-area:sidebar;position:sticky;top:0;height:100vh;min-height:100vh;overflow-y:auto;display:flex;flex-direction:column;align-items:stretch;gap:8px;margin:0;padding:24px 12px 20px;background:linear-gradient(180deg,#a41655 0%,#841847 55%,#581637 100%);border:0;border-radius:0;box-shadow:5px 0 25px rgba(90,22,54,.12)}
+#appView .sidebar-brand{padding:8px 12px 24px;margin-bottom:5px;border-bottom:1px solid rgba(255,255,255,.2);text-align:left}
+#appView .sidebar-brand:before{content:"♛";display:block;text-align:center;color:#ffd6e6;font-size:27px;margin-bottom:4px;text-shadow:0 0 12px #fff}
+#appView .sidebar-brand .brand{font:italic 31px Georgia,serif;color:#fff;letter-spacing:-1px}
+#appView .sidebar-brand .sub{font-size:10px;font-weight:900;letter-spacing:1.7px;color:#ffe1ec}
+#appView .sidebar-label{padding:7px 10px;color:#f6c4d7;font-size:9px;font-weight:950;letter-spacing:2px}
+#appView .tabs .tab{width:100%;min-height:48px;text-align:left;padding:12px 14px;border:1px solid transparent;border-radius:14px;background:transparent;color:#fff2f7;font-size:12px;font-weight:800;white-space:normal}
+#appView .tabs .tab.active{background:linear-gradient(110deg,#fff 0%,#ffe2ed 100%);border-color:#fff;color:#8c1748;box-shadow:0 5px 15px rgba(47,10,29,.13)}
+#appView>main{grid-area:content;min-width:0;width:100%;max-width:none;margin:0;padding:21px 12px 35px;background:linear-gradient(145deg,#fff7fb 0%,#ffeff6 65%,#fff8fb 100%)}
+#resellerDashboard.reseller-home{display:block;max-width:100%;padding:0 0 18px}
+#resellerDashboard .reseller-page-heading{display:flex;align-items:center;justify-content:space-between;gap:14px;margin:0 0 15px;padding:0 7px}
+#resellerDashboard .reseller-page-heading h2{font:italic 30px Georgia,serif;letter-spacing:-.5px;color:#b0185d;margin:0 0 3px}
+#resellerDashboard .reseller-page-heading p{font-size:12px;color:#98536f;margin:0}
+#resellerDashboard .rd-heading-actions{display:flex;align-items:center;gap:9px}
+#resellerDashboard .rd-heading-actions select{height:41px;min-width:110px;padding:0 12px;border:1px solid #f3bfd4;border-radius:11px;background:#fffafd;color:#7b2149;font-size:11px;font-weight:750}
+#resellerDashboard .rd-heading-actions button{height:41px;padding:0 15px;border-radius:12px;font-size:11px}
+#resellerDashboard .reseller-kpis{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;margin:0 0 14px}
+#resellerDashboard .reseller-kpis .stat{position:relative;min-width:0;min-height:94px;overflow:hidden;padding:14px 12px 12px 68px;border:1px solid #f4bfd4;border-radius:19px;background:linear-gradient(140deg,#fff 0%,#fff5f9 100%);box-shadow:0 8px 22px rgba(142,28,78,.05)}
+#resellerDashboard .reseller-kpis .stat:after{content:"";position:absolute;right:-20px;bottom:-37px;width:78px;height:78px;border:1px solid #f9d8e6;border-radius:50%}
+#resellerDashboard .reseller-kpis .stat small{font-size:9px;letter-spacing:.5px;text-transform:uppercase;color:#941346;font-weight:950}
+#resellerDashboard .reseller-kpis .stat strong{display:block;font:bold 27px Georgia,serif;color:#b51d61;margin-top:7px;white-space:nowrap}
+#resellerDashboard .reseller-kpis .stat p{font-size:9px;color:#a17b8e;margin:2px 0 0}
+#resellerDashboard .rd-icon{position:absolute;left:22px;top:31px;color:#e52b82;font-size:24px;z-index:1}
+#resellerDashboard .reseller-main-grid{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,.85fr);grid-template-rows:auto auto;gap:13px;align-items:stretch}
+#resellerDashboard .rd-panel{padding:16px 16px;border:1px solid #f3c3d8;border-radius:19px;background:linear-gradient(145deg,#fff 0%,#fffafd 100%);box-shadow:0 8px 24px rgba(120,25,67,.045);min-width:0}
+#resellerDashboard .rd-panel:nth-child(1){grid-column:1;grid-row:1}
+#resellerDashboard .rd-panel:nth-child(2){grid-column:2;grid-row:1}
+#resellerDashboard .rd-panel:nth-child(3){grid-column:1;grid-row:2}
+#resellerDashboard .rd-proof-panel{grid-column:2;grid-row:2;border:1.5px solid #ed4f98;background:linear-gradient(145deg,#fff 0%,#fff7fa 100%);position:relative;overflow:hidden}
+#resellerDashboard .rd-panel-head{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:13px;padding-bottom:1px}
+#resellerDashboard .rd-panel-head h3{font:bold 18px Georgia,serif;color:#97144b;margin:0}
+#resellerDashboard .rd-panel-head p{font-size:10px;color:#a17c90;margin:4px 0 0}
+#resellerDashboard .rd-count{font-size:9px;font-weight:900;color:#a51b59;background:#fff3f8;border:1px solid #f5c9db;border-radius:20px;padding:7px 10px;white-space:nowrap}
+#resellerDashboard .rd-stock-table{width:100%;border-collapse:collapse;font-size:10px}
+#resellerDashboard .rd-stock-table th{background:#ffeaf2;color:#9b4168;font-size:9px;letter-spacing:.5px;text-align:left;padding:10px}
+#resellerDashboard .rd-stock-table th:first-child{border-radius:8px 0 0 8px}
+#resellerDashboard .rd-stock-table th:last-child{border-radius:0 8px 8px 0}
+#resellerDashboard .rd-stock-table td{padding:12px 10px;border-bottom:1px solid #f5e2eb;color:#71314f}
+#resellerDashboard .rd-stock-table td b{color:#8c1648}
+#resellerDashboard .rd-status{display:inline-block;padding:5px 9px;border-radius:20px;font-size:9px;font-weight:900}
+#resellerDashboard .rd-status.paid{background:#e5f7ed;color:#138451}
+#resellerDashboard .rd-status.partial{background:#fff1d5;color:#a66b00}
+#resellerDashboard .rd-status.unpaid{background:#ffebee;color:#c44356}
+#resellerDashboard .rd-progress-label{display:flex;justify-content:space-between;color:#98758a;font-size:10px;margin:18px 0 8px}
+#resellerDashboard .rd-progress-label b{color:#b11a60}
+#resellerDashboard .rd-progress{height:11px;background:#f9e4ed;border-radius:20px;overflow:hidden}
+#resellerDashboard .rd-progress span{display:block;height:100%;background:linear-gradient(90deg,#f36da5,#c21d69);border-radius:20px}
+#resellerDashboard .rd-summary-lines{margin:14px 0}
+#resellerDashboard .rd-summary-lines>div{display:flex;justify-content:space-between;padding:11px 2px;border-bottom:1px solid #f4e5ec;font-size:11px;color:#85566d}
+#resellerDashboard .rd-summary-lines b{color:#702f4b}
+#resellerDashboard .rd-summary-lines .paid b{color:#15945c}
+#resellerDashboard .rd-summary-lines .due b{color:#d34b57}
+#resellerDashboard .rd-payment-hint{display:flex;align-items:center;gap:10px;padding:10px;margin-top:12px;border:1px solid #f5d5e2;border-radius:13px;background:#fff5f9}
+#resellerDashboard .rd-hint-icon{display:grid;place-items:center;width:32px;height:32px;border-radius:50%;background:#ffe3ed;color:#c12c70}
+#resellerDashboard .rd-payment-hint div{display:flex;flex-direction:column;gap:3px}
+#resellerDashboard .rd-payment-hint b{font-size:10px;color:#8e1748}
+#resellerDashboard .rd-payment-hint small{font-size:9px;color:#9d788b}
+#resellerDashboard .rd-proof-panel:after{content:"";position:absolute;right:0;top:0;border-top:42px solid #f4b4d0;border-left:42px solid transparent}
+#resellerDashboard #dashboardPayments .proof-card{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,.9fr);gap:12px;padding:14px;border:0;border-radius:14px;background:transparent;box-shadow:none}
+#resellerDashboard #dashboardPayments .proof-card h3{display:none!important}
+#resellerDashboard #dashboardPayments .proof-card .field{margin:0 0 9px}
+#resellerDashboard #dashboardPayments .proof-card label{font-size:9px;font-weight:900;color:#8b1748}
+#resellerDashboard #dashboardPayments .proof-card input,#resellerDashboard #dashboardPayments .proof-card select{min-height:39px;border:1px solid #f0b9d0;border-radius:10px;background:#fffafd;font-size:10px}
+#resellerDashboard #dashboardPayments .proof-card button{width:100%;min-height:41px;border-radius:12px;grid-column:1/-1;background:linear-gradient(100deg,#f2539a,#bf1e68);color:white;font-weight:900;box-shadow:0 7px 17px rgba(191,30,104,.18)}
+#resellerDashboard #dashboardPayments .proof-card small{font-size:9px}
+#resellerDashboard #dashboardPayments .proof-card .file-drop{min-height:125px;border:1.5px dashed #ef5598;border-radius:14px;background:#fff7fb}
+#resellerDashboard #dashboardPayments .proof-card .field:has(input[type=file]){grid-row:1/4}
+#resellerDashboard #dashboardPayments .proof-card .field:has(input[type=file]) input{height:auto;min-height:0;border:0;background:transparent}
+@media(max-width:1000px){#appView.shell{grid-template-columns:190px minmax(0,1fr)}#resellerDashboard .reseller-main-grid{grid-template-columns:minmax(0,1fr) minmax(0,.9fr)}}
+@media(max-width:700px){#appView.shell{display:flex;flex-direction:column;min-height:100vh}#appView>.top{order:0;min-height:94px;padding:10px 12px}#appView .portal-brand .brand{font-size:34px}#appView .portal-brand .sub{font-size:10px;letter-spacing:2px}#appView .portal-role{font-size:8px;padding:4px 12px}#appView>.tabs{order:1;position:relative;height:auto;min-height:0;flex-direction:row;overflow-x:auto;padding:8px;gap:6px}#appView .sidebar-brand,#appView .sidebar-label{display:none}#appView .tabs .tab{min-width:max-content;width:auto;min-height:40px;padding:9px 12px}#appView>main{order:2;padding:15px 10px 25px}#resellerDashboard .reseller-page-heading{align-items:flex-start;flex-direction:column}#resellerDashboard .rd-heading-actions{width:100%}#resellerDashboard .rd-heading-actions select{flex:1}#resellerDashboard .reseller-kpis{grid-template-columns:repeat(2,minmax(0,1fr))}#resellerDashboard .reseller-kpis .stat{padding:12px 8px 10px 44px;min-height:86px}#resellerDashboard .reseller-kpis .stat strong{font-size:21px}#resellerDashboard .rd-icon{left:11px;top:27px;font-size:19px}#resellerDashboard .reseller-main-grid{grid-template-columns:1fr;grid-template-rows:auto}#resellerDashboard .rd-panel:nth-child(n){grid-column:1;grid-row:auto}#resellerDashboard #dashboardPayments .proof-card{grid-template-columns:1fr}#resellerDashboard #dashboardPayments .proof-card .field:has(input[type=file]){grid-row:auto}}
+
 </style>
 </head>
 <body>
@@ -1064,7 +1151,7 @@ body{background:#fff8fb}
  </div>
 </div>
 <div id="appView" class="shell hidden">
- <header class="top"><div><div class="brand">Sexy Dust</div><div class="sub">INVENTORY MANAGEMENT</div></div><div class="topright"><span id="who" class="muted"></span><button id="changePassword" class="btn soft">Change password</button><button id="logout" class="btn outline">Log out</button></div></header>
+ <header class="top"><div class="portal-brand"><div class="brand">Sexy Dust♡</div><div class="sub">INVENTORY PORTAL</div><span class="portal-role">RESELLER ACCOUNT</span></div><div class="topright"><span id="who" class="muted"></span><button class="portal-profile" id="portalProfile" type="button"><span class="portal-avatar" id="portalAvatar">R</span><span><b id="portalName">Reseller</b><small>Reseller</small></span></button><button id="changePassword" class="btn soft">Change password</button><button id="logout" class="btn outline">Log out</button></div></header>
  <nav class="tabs">
   <div class="sidebar-brand"><div class="brand">Sexy Dust</div><div class="sub">♡ INVENTORY PORTAL</div></div><div class="sidebar-label">WORKSPACE</div>
   <button class="tab active" data-page="overview">Overview</button><button class="tab" data-page="inventory">Inventory</button><button class="tab" data-page="movements">Stock movements</button><button class="tab" data-page="user-report" id="userReportTab">Per-user report</button><button class="tab" data-page="pricelist" id="pricelistTab">Printable Pricelist</button><button class="tab hidden" data-page="costing" id="costingTab">Costing & Profit</button><button class="tab" data-page="activity">Activity log</button><button class="tab" data-page="users" id="usersTab">User access</button>
@@ -1076,7 +1163,7 @@ body{background:#fff8fb}
     <div class="grid"><div class="card"><h3>Low stock alerts</h3><div id="lowList" class="muted">No low stock items.</div></div><div class="card"><h3>Recent stock activity</h3><div id="recentList" class="muted">No stock movements yet.</div></div></div>
    </div>
    <div id="resellerDashboard" class="hidden reseller-home">
-    <div class="reseller-page-heading"><div><span class="user-report-kicker">♡ WELCOME TO YOUR PRIVATE PORTAL</span><h2>Hi, <em id="rdWelcomeName">Reseller</em>!</h2><p class="muted">Here is your stock and payment summary.</p></div></div>
+    <div class="reseller-page-heading"><div><h2>Welcome, <em id="rdWelcomeName">Reseller</em>! ♡</h2><p>Here’s your stocks, payments and account summary.</p></div><div class="rd-heading-actions"><select id="rdDateFilter" aria-label="Dashboard date range"><option value="all" selected>All Time</option><option value="week">This Week</option><option value="month">This Month</option></select><button class="btn soft" id="rdRefresh" type="button">↻ Refresh</button></div></div>
     <div class="stats dashboard-stats reseller-kpis">
      <div class="card stat"><span class="rd-icon">♧</span><small>Stocks received</small><strong id="rdStocks">0</strong><p>Total units released to you</p></div>
      <div class="card stat"><span class="rd-icon">₱</span><small>Total amount</small><strong id="rdTotal">₱0</strong><p>Value of your received stocks</p></div>
@@ -1087,7 +1174,7 @@ body{background:#fff8fb}
      <article class="card rd-panel"><div class="rd-panel-head"><div><h3>♡ My Received Stocks</h3><p>Products assigned to your account</p></div><span class="rd-count" id="rdProductCount">0 product types</span></div><div class="tablewrap"><table class="rd-stock-table"><thead><tr><th>PRODUCT</th><th>QTY RECEIVED</th><th>AMOUNT</th><th>PAYMENT</th></tr></thead><tbody id="rdReceivedRows"><tr><td colspan="4" class="empty">Loading…</td></tr></tbody></table></div></article>
      <article class="card rd-panel"><div class="rd-panel-head"><div><h3>♡ Payment Summary</h3><p>Your payment progress</p></div></div><div class="rd-progress-label"><span>Amount paid</span><b id="rdPaidPercent">0%</b></div><div class="rd-progress"><span id="rdPaidBar" style="width:0%"></span></div><div class="rd-summary-lines"><div><span>Total amount</span><b id="rdSummaryTotal">₱0.00</b></div><div class="paid"><span>Paid</span><b id="rdSummaryPaid">₱0.00</b></div><div class="due"><span>Balance</span><b id="rdSummaryDue">₱0.00</b></div></div><div class="rd-payment-hint"><span class="rd-hint-icon">♡</span><div><b>Payment due?</b><small>Your receipt upload is right below.</small></div></div></article>
      <article class="card rd-panel"><div class="rd-panel-head"><div><h3>▤ Recent Payments</h3><p>Payments recorded on your account</p></div><button class="btn soft" type="button" id="rdViewAllPayments">View all</button></div><div class="tablewrap"><table class="rd-stock-table"><thead><tr><th>DATE</th><th>PAYMENT FOR</th><th>AMOUNT</th><th>STATUS</th></tr></thead><tbody id="rdRecentPaymentRows"><tr><td colspan="4" class="empty">No payment records yet.</td></tr></tbody></table></div></article>
-     <article class="card rd-panel"><div class="rd-panel-head"><div><h3>♟ My Account</h3><p>Your reseller profile</p></div></div><div class="rd-profile"><div class="rd-avatar" id="rdAvatar">R</div><b id="rdProfileName">Reseller</b><small>Reseller Account</small></div><div class="rd-account-line"><span>Account status</span><b class="rd-active">Active</b></div><div class="rd-account-line"><span>Username</span><b id="rdUsername">—</b></div><button class="btn outline rd-wide" type="button" id="rdAccountSettings">Account Settings</button></article>
+     
      <article class="card rd-panel rd-proof-panel"><div class="rd-panel-head"><div><h3>♡ Submit Payment Proof</h3><p>Upload your payment receipt for verification</p></div><span class="rd-count">SECURE UPLOAD</span></div><div id="dashboardPayments"><div class="empty">Loading payment form…</div></div></article>
     </div>
    </div>
@@ -1334,7 +1421,7 @@ function renderDashboard(){
  }
 }
 function renderResellerDashboardDetails(){
- const mine=movements.filter(m=>m.movement_type==='stock_out'&&(m.created_by===currentUser.id||m.assigned_user_id===currentUser.id)).slice().sort((a,b)=>new Date(b.movement_date||b.created_at)-new Date(a.movement_date||a.created_at));
+ const range=$('rdDateFilter')?.value||'all';const now=new Date();const mine=movements.filter(m=>{if(m.movement_type!=='stock_out'||!(m.created_by===currentUser.id||m.assigned_user_id===currentUser.id))return false;const d=new Date(m.movement_date||m.created_at);if(range==='week'){const start=new Date(now);start.setHours(0,0,0,0);start.setDate(start.getDate()-((start.getDay()+6)%7));return d>=start}if(range==='month')return d.getFullYear()===now.getFullYear()&&d.getMonth()===now.getMonth();return true}).slice().sort((a,b)=>new Date(b.movement_date||b.created_at)-new Date(a.movement_date||a.created_at));
  const grouped={};mine.forEach(m=>{const n=m.inv_products?.name||'Product';if(!grouped[n])grouped[n]={qty:0,total:0,paid:0};grouped[n].qty+=Math.abs(Number(m.quantity)||0);grouped[n].total+=Number(m.payment_total)||0;grouped[n].paid+=Number(m.amount_paid)||0});
  const entries=Object.entries(grouped);$('rdProductCount').textContent=entries.length+' product types';
  $('rdReceivedRows').innerHTML=entries.length?entries.sort((a,b)=>a[0].localeCompare(b[0])).map(([n,x])=>{const d=Math.max(0,x.total-x.paid),st=d<=0?'paid':x.paid>0?'partial':'unpaid';return '<tr><td><b>'+esc(n)+'</b></td><td>'+x.qty+' pcs</td><td>'+peso(x.total)+'</td><td><span class="rd-status '+st+'">'+(st==='paid'?'Paid':st==='partial'?'Partial':'Unpaid')+'</span></td></tr>'}).join(''):'<tr><td colspan="4" class="empty">No stock has been assigned to your account yet.</td></tr>';
@@ -1342,10 +1429,10 @@ function renderResellerDashboardDetails(){
  $('rdSummaryTotal').textContent=peso(total);$('rdSummaryPaid').textContent=peso(paid);$('rdSummaryDue').textContent=peso(due);$('rdPaidPercent').textContent=pct.toFixed(1)+'%';$('rdPaidBar').style.width=pct+'%';
  const subs=paymentSubmissions.filter(x=>mine.some(m=>m.id===x.movement_id)).sort((a,b)=>new Date(b.submitted_at)-new Date(a.submitted_at));
  $('rdRecentPaymentRows').innerHTML=subs.length?subs.slice(0,5).map(x=>{const m=mine.find(z=>z.id===x.movement_id);return '<tr><td>'+esc(fmtDate(x.submitted_at))+'</td><td>'+esc(m?.inv_products?.name||'Stock-out')+'</td><td><b>'+peso(x.amount)+'</b></td><td><span class="rd-status '+(x.status==='approved'?'paid':x.status==='rejected'?'unpaid':'partial')+'">'+(x.status==='approved'?'Verified':x.status==='rejected'?'Rejected':'Pending')+'</span></td></tr>'}).join(''):'<tr><td colspan="4" class="empty">No payment proofs submitted yet.</td></tr>';
- const name=currentMember?.username||'Reseller';$('rdProfileName').textContent=name;$('rdWelcomeName').textContent=name;$('rdAvatar').textContent=name.trim().charAt(0).toUpperCase();$('rdUsername').textContent=currentMember?.username||currentMember?.email||'—';
+ const name=currentMember?.username||'Reseller';$('rdWelcomeName').textContent=name;$('portalName').textContent=name;$('portalAvatar').textContent=name.trim().charAt(0).toUpperCase();
  
  $('rdViewAllPayments').onclick=()=>document.querySelector('[data-page="payments"]')?.click();
- $('rdAccountSettings').onclick=()=> $('changePassword').click();
+ $('rdRefresh').onclick=()=>loadAll();$('rdDateFilter').onchange=()=>renderDashboard();$('portalProfile').onclick=()=> $('changePassword').click();
 }
 function renderOverview(){const active=products.filter(p=>p.active),low=active.filter(p=>p.stock<=p.reorder_level);$('sProducts').textContent=active.length;$('sUnits').textContent=active.reduce((s,p)=>s+Number(p.stock),0).toLocaleString();$('sLow').textContent=low.length;$('sValue').textContent=peso(active.reduce((s,p)=>s+Number(p.stock)*Number(p.selling_price||0),0));$('lowList').innerHTML=low.length?low.map(p=>'<div class="log"><b>'+esc(p.name)+'</b><div class="muted">'+p.stock+' '+esc(p.unit)+' remaining · alert at '+p.reorder_level+'</div></div>').join(''):'<div class="empty">No low stock items.</div>';$('recentList').innerHTML=movements.slice(0,6).map(m=>'<div class="log"><b>'+esc(m.inv_products?.name||'Product')+'</b><div class="muted">'+esc(userLabel(m.created_by_email))+' · '+fmtDate(m.created_at)+'</div><div>'+esc(m.movement_type.replace('_',' '))+' · '+m.stock_before+' → '+m.stock_after+'</div></div>').join('')||'<div class="empty">No stock movements yet.</div>'}
 function renderPriceList(){const active=products.filter(p=>p.active);const groups={};active.forEach(p=>{const c=p.category||'Other';(groups[c]??=[]).push(p)});const stamp=new Intl.DateTimeFormat('en-PH',{dateStyle:'long',timeStyle:'short',timeZone:'Asia/Manila'}).format(new Date());$('priceListContent').innerHTML='<div class="price-cover"><div class="price-brandline"><span>SEXY DUST</span><i>BEAUTY · WELLNESS · ESSENTIALS</i></div><div class="price-rule"></div><div class="price-eyebrow">OFFICIAL PRODUCT CATALOGUE</div><h1>Our Pricelist</h1><p class="price-intro">A curated list of our available products and current pricing.</p><div class="price-snapshot"><span class="snapshot-label">INVENTORY SNAPSHOT</span><strong>Stocks as of '+esc(stamp)+'</strong><small>Quantities shown are based on the live inventory record at the time this list was opened.</small></div><div class="price-key"><span><b>PER VIAL</b> Regular price</span><span><b>WITH SET</b> Regular price + ₱200 / vial</span></div></div>'+Object.keys(groups).sort().map((cat,index)=>'<section class="price-group"><div class="price-group-heading"><span class="price-group-number">'+String(index+1).padStart(2,'0')+'</span><h2>'+esc(cat)+'</h2></div><div class="tablewrap price-table-wrap"><table class="price-table"><thead><tr><th>PRODUCT</th><th>STOCK ON HAND</th><th>PER VIAL</th><th>WITH SET</th></tr></thead><tbody>'+groups[cat].sort((a,b)=>a.name.localeCompare(b.name)).map(p=>'<tr><td><b>'+esc(p.name)+'</b>'+(p.sku?'<small class="price-sku">'+esc(p.sku)+'</small>':'')+'</td><td><span class="price-stock '+(Number(p.stock)<=0?'out':Number(p.stock)<=Number(p.reorder_level||0)?'low':'')+'">'+Number(p.stock||0).toLocaleString('en-PH')+' '+esc(p.unit||'pcs')+'</span></td><td class="price-amount">'+peso(p.selling_price)+'</td><td class="price-amount price-set">'+peso(Number(p.selling_price||0)+200)+'</td></tr>').join('')+'</tbody></table></div></section>').join('')+'<div class="price-footer"><span>SEXY DUST</span><span>Thank you for choosing us.</span><small>Prices and stock quantities may change without prior notice.</small></div>'||'<div class="empty">No active products found.</div>'}
