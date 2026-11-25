@@ -1444,6 +1444,91 @@ body{background:#fff8fb}
 #adminDashboardProofs .proof-row{align-items:center;gap:12px}
 @media(max-width:560px){#resellerDashboard .rd-proof-history-amounts{gap:5px;padding:9px 7px}#resellerDashboard .rd-proof-history-amounts small{font-size:8px}#resellerDashboard .rd-proof-history-amounts strong{font-size:14px}#resellerDashboard .rd-proof-history-foot{align-items:flex-start}}
 
+
+/* Screenshot-matched submitted payment proofs — reseller dashboard */
+#resellerDashboard .rd-submitted-proof-panel{grid-column:1/-1;padding:clamp(12px,1.8vw,20px);background:linear-gradient(135deg,#fff8fc 0%,#fff 48%,#fff5fa 100%);border:1px solid #f4c9dc;border-radius:22px;box-shadow:0 10px 28px rgba(151,34,89,.06)}
+#resellerDashboard .rd-submitted-heading{display:flex;align-items:center;gap:14px;margin:0 0 16px}
+#resellerDashboard .rd-submitted-heading h2{margin:0;color:#8f1747;font:800 clamp(24px,3vw,38px) Georgia,serif;letter-spacing:-.6px}
+#resellerDashboard .rd-submitted-heading h2 span{color:#a71958;font-family:Arial,sans-serif}
+#resellerDashboard .rd-submitted-heading p{display:none}
+#resellerDashboard .rd-proof-customer{display:grid;grid-template-columns:minmax(190px,1.15fr) 2.3fr;align-items:center;gap:16px;padding:16px;border:1px solid #f4c9dc;border-radius:19px;background:rgba(255,255,255,.88);margin-bottom:17px}
+#resellerDashboard .rd-proof-customer-name{display:flex;align-items:center;gap:13px;min-width:0}
+#resellerDashboard .rd-proof-avatar{width:62px;height:62px;display:grid;place-items:center;flex:0 0 62px;border-radius:50%;background:#ffe6f1;border:1px solid #f6bfd6;color:#9e1550;font-size:28px}
+#resellerDashboard .rd-proof-customer-name>strong{display:block;color:#86133f;font:800 29px Georgia,serif;overflow-wrap:anywhere}
+#resellerDashboard .rd-proof-customer-name small{display:block;color:#805469;font-size:14px;font-weight:650}
+#resellerDashboard .rd-proof-customer-metrics{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:9px;border-left:1px solid #f1c9d9;padding-left:17px}
+#resellerDashboard .rd-proof-customer-metrics>div{min-width:0;padding:12px 10px;border-radius:14px;border:1px solid #f3c9dc;background:linear-gradient(135deg,#fff1f7,#ffe5f0)}
+#resellerDashboard .rd-proof-customer-metrics>div.paid{background:linear-gradient(135deg,#f0fff2,#ddf8df);border-color:#c4edc9}
+#resellerDashboard .rd-proof-customer-metrics>div.balance{background:linear-gradient(135deg,#fff0f8,#ffdeef);border-color:#f6c3dc}
+#resellerDashboard .rd-proof-customer-metrics small{display:block;font-size:10px;font-weight:850;color:#8b1d4b;white-space:nowrap}
+#resellerDashboard .rd-proof-customer-metrics b{display:block;margin-top:4px;font:800 clamp(17px,1.9vw,25px) Georgia,serif;color:#85123f;white-space:nowrap}
+#resellerDashboard .rd-proof-customer-metrics .paid b{color:#16802f}
+#resellerDashboard .rd-proof-customer-metrics .balance b{color:#d10c59}
+#resellerDashboard .rd-payment-cards{display:grid;gap:16px}
+#resellerDashboard .rd-product-proof-card{overflow:hidden;border:1px solid #f2c5d9;border-radius:20px;background:linear-gradient(135deg,#fff 0%,#fff9fc 100%);box-shadow:0 5px 18px rgba(145,35,83,.045)}
+#resellerDashboard .rd-product-proof-head{display:flex;align-items:center;gap:12px;margin:7px 9px 0;padding:10px 15px;border-radius:16px;background:linear-gradient(100deg,#ffe7f1,#fff0f7 52%,#ffe0ee)}
+#resellerDashboard .rd-product-box-icon{font:38px Georgia;color:#95164b;line-height:1}
+#resellerDashboard .rd-product-proof-head h3{margin:0;flex:1;min-width:0;color:#8b1244;font:800 clamp(20px,2.1vw,29px) Georgia,serif;overflow-wrap:anywhere}
+#resellerDashboard .rd-product-proof-status{flex:0 0 auto;padding:8px 16px;border-radius:99px;font-size:13px;font-weight:850;white-space:nowrap;background:#fff0d0;color:#91400c;border:1px solid #f4cf7d}
+#resellerDashboard .rd-product-proof-status.paid{background:#dcf8dc;color:#13702b;border-color:#b7e9b8}
+#resellerDashboard .rd-product-proof-body{display:grid;grid-template-columns:minmax(245px,.76fr) minmax(0,1.24fr);gap:18px;padding:13px 17px 17px}
+#resellerDashboard .rd-product-proof-totals{align-self:center;border:1px solid #f5c9dc;border-radius:16px;padding:8px 13px;background:linear-gradient(135deg,#fff3f8,#fffafd)}
+#resellerDashboard .rd-product-proof-totals>div{display:grid;grid-template-columns:29px minmax(0,1fr) auto;align-items:center;gap:8px;padding:10px 2px;border-bottom:1px solid #f4d8e4}
+#resellerDashboard .rd-product-proof-totals>div:last-child{border:0}
+#resellerDashboard .rd-product-proof-totals>div>span{font-size:22px;color:#c41460}
+#resellerDashboard .rd-product-proof-totals label{font-size:13px;color:#7d294e;font-weight:650}
+#resellerDashboard .rd-product-proof-totals b{font:800 20px Georgia,serif;color:#76123c;white-space:nowrap}
+#resellerDashboard .rd-product-proof-totals b.paid{color:#16802f}
+#resellerDashboard .rd-product-proof-totals b.balance{color:#d10c59}
+#resellerDashboard .rd-product-proof-history{min-width:0;border-left:2px solid #f2cddd;padding-left:18px}
+#resellerDashboard .rd-product-proof-history h4{margin:0 0 10px;color:#80133e;font:800 18px Georgia,serif}
+#resellerDashboard .rd-proof-history-list{display:grid;gap:8px}
+#resellerDashboard .rd-proof-history-item{position:relative;display:grid;grid-template-columns:34px minmax(0,1fr);gap:9px;align-items:center;padding:9px 11px;border:1px solid #f1c4d7;border-radius:16px;background:linear-gradient(120deg,#fff 0%,#fff8fb 100%)}
+#resellerDashboard .rd-proof-history-number{width:32px;height:32px;display:grid;place-items:center;border-radius:50%;background:linear-gradient(145deg,#f13b91,#dc1a79);color:#fff;font-weight:900;font-size:17px}
+#resellerDashboard .rd-proof-history-detail{display:grid;grid-template-columns:minmax(0,1fr) auto auto;align-items:center;gap:12px;min-width:0}
+#resellerDashboard .rd-proof-history-label{display:flex;flex-direction:column;align-items:flex-start;gap:3px;min-width:0}
+#resellerDashboard .rd-proof-history-label b{color:#7b1642;font-size:15px}
+#resellerDashboard .rd-proof-history-label small{color:#79566a;font-size:11px}
+#resellerDashboard .rd-proof-view-link{padding:0;border:0;background:transparent;color:#df1680;text-decoration:underline;font-size:12px;font-weight:750;cursor:pointer;text-align:left}
+#resellerDashboard .rd-proof-history-amount{font:800 clamp(17px,1.7vw,23px) Georgia,serif;color:#16802f;white-space:nowrap}
+#resellerDashboard .rd-proof-history-status{padding:8px 11px;border-radius:99px;background:#dcf8dc;color:#13702b;border:1px solid #bcebc0;font-size:11px;font-weight:850;white-space:nowrap}
+#resellerDashboard .rd-proof-history-status.pending{background:#fff0d0;color:#91400c;border-color:#f4cf7d}
+#resellerDashboard .rd-proof-history-status.rejected{background:#ffe2e9;color:#a21f45;border-color:#f0b6c6}
+#resellerDashboard .rd-proof-preview{grid-column:2/-1;margin:2px 0 5px}
+#resellerDashboard .rd-proof-preview a{font-size:11px;font-weight:800;color:#a21d58}
+#resellerDashboard .rd-proof-thumb{display:block;max-width:100%;max-height:250px;object-fit:contain;margin-top:8px;border:1px solid #f0dce6;border-radius:12px;background:#fff}
+#resellerDashboard .rd-proof-history-note{grid-column:2/-1;color:#805469;font-size:11px}
+#resellerDashboard .rd-proof-no-history{padding:14px;border:1px dashed #edc5d7;border-radius:13px;color:#98778a;font-size:12px}
+@media(max-width:760px){
+ #resellerDashboard .rd-proof-customer{grid-template-columns:1fr}
+ #resellerDashboard .rd-proof-customer-metrics{border-left:0;border-top:1px solid #f1c9d9;padding:12px 0 0}
+ #resellerDashboard .rd-product-proof-body{grid-template-columns:1fr}
+ #resellerDashboard .rd-product-proof-history{border-left:0;border-top:2px solid #f2cddd;padding:13px 0 0}
+}
+@media(max-width:520px){
+ #resellerDashboard .rd-submitted-heading h2{font-size:25px}
+ #resellerDashboard .rd-proof-customer{padding:11px}
+ #resellerDashboard .rd-proof-customer-name>strong{font-size:24px}
+ #resellerDashboard .rd-proof-avatar{width:49px;height:49px;flex-basis:49px}
+ #resellerDashboard .rd-proof-customer-metrics{gap:5px}
+ #resellerDashboard .rd-proof-customer-metrics>div{padding:9px 6px}
+ #resellerDashboard .rd-proof-customer-metrics small{font-size:8px}
+ #resellerDashboard .rd-proof-customer-metrics b{font-size:15px}
+ #resellerDashboard .rd-product-proof-head{gap:7px;padding:9px}
+ #resellerDashboard .rd-product-box-icon{font-size:28px}
+ #resellerDashboard .rd-product-proof-head h3{font-size:18px}
+ #resellerDashboard .rd-product-proof-status{padding:6px 8px;font-size:10px}
+ #resellerDashboard .rd-product-proof-body{padding:10px}
+ #resellerDashboard .rd-product-proof-totals{padding:6px 9px}
+ #resellerDashboard .rd-product-proof-totals label{font-size:11px}
+ #resellerDashboard .rd-product-proof-totals b{font-size:17px}
+ #resellerDashboard .rd-proof-history-item{grid-template-columns:28px minmax(0,1fr);padding:8px}
+ #resellerDashboard .rd-proof-history-number{width:27px;height:27px;font-size:14px}
+ #resellerDashboard .rd-proof-history-detail{grid-template-columns:minmax(0,1fr) auto;gap:5px}
+ #resellerDashboard .rd-proof-history-amount{font-size:17px}
+ #resellerDashboard .rd-proof-history-status{grid-column:1/-1;justify-self:start;padding:5px 9px;font-size:10px}
+}
+
 </style>
 </head>
 <body>
@@ -1480,7 +1565,7 @@ body{background:#fff8fb}
     <div class="reseller-main-grid">
      <article class="card rd-panel"><div class="rd-panel-head"><div><h3>♡ My Received Stocks</h3><p>Products assigned to your account</p></div><span class="rd-count" id="rdProductCount">0 product types</span></div><div class="tablewrap"><table class="rd-stock-table"><thead><tr><th>PRODUCT</th><th>QTY RECEIVED</th><th>AMOUNT</th><th>PAYMENT</th></tr></thead><tbody id="rdReceivedRows"><tr><td colspan="4" class="empty">Loading…</td></tr></tbody></table></div></article>
      <article class="card rd-panel"><div class="rd-panel-head"><div><h3>♡ Payment Summary</h3><p>Your payment progress</p></div></div><div class="rd-progress-label"><span>Amount paid</span><b id="rdPaidPercent">0%</b></div><div class="rd-progress"><span id="rdPaidBar" style="width:0%"></span></div><div class="rd-summary-lines"><div><span>Total amount</span><b id="rdSummaryTotal">₱0.00</b></div><div class="paid"><span>Paid</span><b id="rdSummaryPaid">₱0.00</b></div><div class="due"><span>Balance</span><b id="rdSummaryDue">₱0.00</b></div></div><div class="rd-payment-hint"><span class="rd-hint-icon">♡</span><div><b>Payment due?</b><small>Your receipt upload is right below.</small></div></div></article>
-     <article class="card rd-panel"><div class="rd-panel-head"><div><h3>▤ Recent Payments</h3><p>Payments recorded on your account</p></div><button class="btn soft" type="button" id="rdViewAllPayments">View all</button></div><div id="rdRecentPaymentRows" class="rd-payment-cards"><div class="empty">No payment records yet.</div></div></article>
+     <article class="card rd-panel rd-submitted-proof-panel"><div class="rd-submitted-heading"><h2><span>▤</span> Submitted Payment Proofs</h2><p>Your order totals and every submitted payment receipt</p></div><div id="rdProofCustomerSummary" class="rd-proof-customer-summary"></div><div id="rdRecentPaymentRows" class="rd-payment-cards"><div class="empty">No payment records yet.</div></div></article>
      
      <article class="card rd-panel rd-proof-panel"><div class="rd-panel-head"><div><h3>♡ Submit Payment Proof</h3><p>Upload your payment receipt for verification</p></div><span class="rd-count">SECURE UPLOAD</span></div><div id="dashboardPayments"><div class="empty">Loading payment form…</div></div></article>
     </div>
@@ -1747,30 +1832,35 @@ function renderResellerDashboardDetails(){
   return true
  }).slice().sort((a,b)=>new Date(b.movement_date||b.created_at)-new Date(a.movement_date||a.created_at));
  const grouped={};
- mine.forEach(m=>{const n=m.inv_products?.name||'Product';if(!grouped[n])grouped[n]={qty:0,total:0,paid:0};grouped[n].qty+=Math.abs(Number(m.quantity)||0);grouped[n].total+=Number(m.payment_total)||0;grouped[n].paid+=Number(m.amount_paid)||0});
+ mine.forEach(m=>{const name=m.inv_products?.name||'Product',key=m.product_id||name;if(!grouped[key])grouped[key]={name,qty:0,total:0,paid:0,movements:[]};const g=grouped[key];g.qty+=Math.abs(Number(m.quantity)||0);g.total+=Number(m.payment_total)||0;g.paid+=Number(m.amount_paid)||0;g.movements.push(m)});
  const entries=Object.entries(grouped);$('rdProductCount').textContent=entries.length+' product types';
- $('rdReceivedRows').innerHTML=entries.length?entries.sort((a,b)=>a[0].localeCompare(b[0])).map(([n,x])=>{const d=Math.max(0,x.total-x.paid),st=d<=0?'paid':x.paid>0?'partial':'unpaid';return '<tr><td><b>'+esc(n)+'</b></td><td>'+x.qty+' pcs</td><td>'+peso(x.total)+'</td><td><span class="rd-status '+st+'">'+(st==='paid'?'Paid':st==='partial'?'Partial':'Unpaid')+'</span></td></tr>'}).join(''):'<tr><td colspan="4" class="empty">No stock has been assigned to your account yet.</td></tr>';
+ $('rdReceivedRows').innerHTML=entries.length?entries.sort((a,b)=>a[1].name.localeCompare(b[1].name)).map(([key,x])=>{const d=Math.max(0,x.total-x.paid),st=d<=0?'paid':x.paid>0?'partial':'unpaid';return '<tr><td><b>'+esc(x.name)+'</b></td><td>'+x.qty+' pcs</td><td>'+peso(x.total)+'</td><td><span class="rd-status '+st+'">'+(st==='paid'?'Paid':st==='partial'?'Partial':'Unpaid')+'</span></td></tr>'}).join(''):'<tr><td colspan="4" class="empty">No stock has been assigned to your account yet.</td></tr>';
  const total=mine.reduce((a,m)=>a+Number(m.payment_total||0),0),paid=mine.reduce((a,m)=>a+Number(m.amount_paid||0),0),due=Math.max(0,total-paid),pct=total?Math.min(100,paid/total*100):0;
  $('rdSummaryTotal').textContent=peso(total);$('rdSummaryPaid').textContent=peso(paid);$('rdSummaryDue').textContent=peso(due);$('rdPaidPercent').textContent=pct.toFixed(1)+'%';$('rdPaidBar').style.width=pct+'%';
- const subs=paymentSubmissions.filter(x=>mine.some(m=>m.id===x.movement_id)).sort((a,b)=>new Date(b.submitted_at)-new Date(a.submitted_at));
- $('rdRecentPaymentRows').innerHTML=subs.length?subs.slice(0,5).map(x=>{
-  const m=mine.find(z=>z.id===x.movement_id),transactionTotal=Number(m?.payment_total||0),transactionPaid=Number(m?.amount_paid||0),balance=Math.max(0,transactionTotal-transactionPaid);
-  const state=x.status==='approved'?'approved':x.status==='rejected'?'rejected':'pending';
-  const stateLabel=state==='approved'?'VERIFIED':state==='rejected'?'REJECTED':'FOR REVIEW';
-  return '<article class="rd-proof-history-card '+state+'"><div class="rd-proof-history-top"><div class="rd-proof-history-date"><span class="rd-proof-history-icon">♡</span><span><b>'+esc(m?.inv_products?.name||'Stock-out')+'</b><small>'+esc(fmtDate(x.submitted_at))+'</small></span></div><span class="proof-status '+state+'">'+stateLabel+'</span></div><div class="rd-proof-history-amounts"><div><small>Submitted payment</small><strong>'+peso(x.amount)+'</strong></div><div><small>Transaction total</small><strong>'+peso(transactionTotal)+'</strong></div><div><small>Remaining balance</small><strong class="'+(balance>0?'due':'settled')+'">'+peso(balance)+'</strong></div></div><div class="rd-proof-history-foot"><span>Payment reference · '+esc((m?.movement_date||m?.created_at?.slice(0,10)||'—'))+'</span><button class="btn soft" type="button" data-rd-proof-view="'+x.id+'">View receipt ↗</button></div>'+(x.admin_note?'<p class="rd-proof-history-note">Admin note: '+esc(x.admin_note)+'</p>':'')+'<div class="rd-proof-preview" id="rd-proof-preview-'+x.id+'"></div></article>'
- }).join(''):'<div class="rd-proof-empty"><span>♡</span><b>No payment proofs yet</b><small>Your submitted receipts and verification updates will appear here.</small></div>';
+ const subs=paymentSubmissions.filter(x=>mine.some(m=>m.id===x.movement_id)).sort((a,b)=>new Date(a.submitted_at)-new Date(b.submitted_at));
+ const name=currentMember?.username||'Reseller';
+ $('rdProofCustomerSummary').innerHTML='<div class="rd-proof-customer"><span class="rd-proof-avatar">♟</span><div class="rd-proof-customer-name"><strong>'+esc(name)+'</strong><small>Total Orders: '+entries.length+' '+(entries.length===1?'Product':'Products')+'</small></div><div class="rd-proof-customer-metrics"><div class="order"><small>🛒 TOTAL ORDER</small><b>'+peso(total)+'</b></div><div class="paid"><small>▱ TOTAL PAID</small><b>'+peso(paid)+'</b></div><div class="balance"><small>▤ REMAINING BALANCE</small><b>'+peso(due)+'</b></div></div></div>';
+ $('rdRecentPaymentRows').innerHTML=entries.length?entries.sort((a,b)=>a[1].name.localeCompare(b[1].name)).map(([key,g])=>{
+  const balance=Math.max(0,g.total-g.paid),status=balance<=0&&g.total>0?'paid':g.paid>0?'partial':'unpaid';
+  const label=status==='paid'?'✓ Fully Paid':status==='partial'?'Partial Payment':'Unpaid';
+  const proofs=g.movements.flatMap(m=>subs.filter(x=>x.movement_id===m.id).map(x=>({proof:x,movement:m}))).sort((a,b)=>new Date(a.proof.submitted_at)-new Date(b.proof.submitted_at));
+  const history=proofs.length?proofs.map((item,i)=>{
+   const x=item.proof,m=item.movement,state=x.status==='approved'?'approved':x.status==='rejected'?'rejected':'pending',stateLabel=state==='approved'?'✓ Approved':state==='rejected'?'✕ Rejected':'◷ Pending Review';
+   const date=new Date(x.submitted_at),dateLabel=Number.isNaN(date.getTime())?esc(fmtDate(x.submitted_at)):esc(date.toLocaleString('en-PH',{month:'short',day:'numeric',year:'numeric',hour:'numeric',minute:'2-digit',timeZone:'Asia/Manila'}));
+   return '<div class="rd-proof-history-item"><span class="rd-proof-history-number">'+(i+1)+'</span><div class="rd-proof-history-detail"><div class="rd-proof-history-label"><b>Payment '+(i+1)+'</b><small>▢ '+dateLabel+'</small><button type="button" class="rd-proof-view-link" data-rd-proof-view="'+x.id+'">▧ &nbsp;View screenshot</button></div><strong class="rd-proof-history-amount">'+peso(x.amount)+'</strong><span class="rd-proof-history-status '+state+'">'+stateLabel+'</span></div><div class="rd-proof-preview" id="rd-proof-preview-'+x.id+'"></div>'+(x.admin_note?'<small class="rd-proof-history-note">Admin note: '+esc(x.admin_note)+'</small>':'')+'</div>'
+  }).join(''):'<div class="rd-proof-no-history">No payment proof submitted for this product yet.</div>';
+  return '<section class="rd-product-proof-card"><div class="rd-product-proof-head"><span class="rd-product-box-icon">◇</span><h3>'+esc(g.name)+'</h3><span class="rd-product-proof-status '+status+'">'+label+'</span></div><div class="rd-product-proof-body"><div class="rd-product-proof-totals"><div><span>🛒</span><label>Total Order</label><b>'+peso(g.total)+'</b></div><div><span>▱</span><label>Total Paid</label><b class="paid">'+peso(g.paid)+'</b></div><div><span>▤</span><label>Remaining Balance</label><b class="balance">'+peso(balance)+'</b></div></div><div class="rd-product-proof-history"><h4>▤ &nbsp;Payment History</h4><div class="rd-proof-history-list">'+history+'</div></div></div></section>'
+ }).join(''):'<div class="rd-proof-empty"><span>♡</span><b>No orders yet</b><small>Your submitted payment proofs and product payment summaries will appear here.</small></div>';
  $('rdRecentPaymentRows').querySelectorAll('[data-rd-proof-view]').forEach(b=>b.onclick=async()=>{
   const proof=paymentSubmissions.find(x=>x.id===b.dataset.rdProofView);if(!proof)return;
+  const target=$('rd-proof-preview-'+proof.id);if(target&&!target.classList.contains('hidden')&&target.innerHTML){target.classList.add('hidden');b.textContent='▧  View screenshot';return}
   b.disabled=true;b.textContent='Opening…';
   const {data,error}=await db.storage.from('sd-payment-proofs').createSignedUrl(proof.proof_path,300);
-  if(error){alert(error.message);b.disabled=false;b.textContent='View receipt ↗';return}
-  const target=$('rd-proof-preview-'+proof.id);
-  if(target)target.innerHTML='<a href="'+esc(data.signedUrl)+'" target="_blank" rel="noopener">Open full receipt ↗</a><img class="rd-proof-thumb" src="'+esc(data.signedUrl)+'" alt="Your submitted payment receipt">';
-  b.disabled=false;b.textContent='Hide / View receipt';
-  b.onclick=()=>{if(target)target.classList.toggle('hidden')};
+  if(error){alert(error.message);b.disabled=false;b.textContent='▧  View screenshot';return}
+  if(target){target.innerHTML='<a href="'+esc(data.signedUrl)+'" target="_blank" rel="noopener">Open full screenshot ↗</a><img class="rd-proof-thumb" src="'+esc(data.signedUrl)+'" alt="Submitted payment receipt">';target.classList.remove('hidden')}
+  b.disabled=false;b.textContent='Hide screenshot';
  });
- const name=currentMember?.username||'Reseller';$('rdWelcomeName').textContent=name;$('portalName').textContent=name;$('portalAvatar').textContent=name.trim().charAt(0).toUpperCase();
- $('rdViewAllPayments').onclick=()=>document.querySelector('[data-page="payments"]')?.click();
+ const portalName=currentMember?.username||'Reseller';$('rdWelcomeName').textContent=portalName;$('portalName').textContent=portalName;$('portalAvatar').textContent=portalName.trim().charAt(0).toUpperCase();
  $('rdRefresh').onclick=()=>loadAll();$('rdDateFilter').onchange=()=>renderDashboard();$('portalProfile').onclick=()=> $('changePassword').click();
 }
 function renderOverview(){const active=products.filter(p=>p.active),low=active.filter(p=>p.stock<=p.reorder_level);$('sProducts').textContent=active.length;$('sUnits').textContent=active.reduce((s,p)=>s+Number(p.stock),0).toLocaleString();$('sLow').textContent=low.length;$('sValue').textContent=peso(active.reduce((s,p)=>s+Number(p.stock)*Number(p.selling_price||0),0));$('lowList').innerHTML=low.length?low.map(p=>'<div class="log"><b>'+esc(p.name)+'</b><div class="muted">'+p.stock+' '+esc(p.unit)+' remaining · alert at '+p.reorder_level+'</div></div>').join(''):'<div class="empty">No low stock items.</div>';$('recentList').innerHTML=movements.slice(0,6).map(m=>'<div class="log"><b>'+esc(m.inv_products?.name||'Product')+'</b><div class="muted">'+esc(userLabel(m.created_by_email))+' · '+fmtDate(m.created_at)+'</div><div>'+esc(m.movement_type.replace('_',' '))+' · '+m.stock_before+' → '+m.stock_after+'</div></div>').join('')||'<div class="empty">No stock movements yet.</div>'}
