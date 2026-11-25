@@ -1542,6 +1542,9 @@ body{background:#fff8fb}
 .rd-stockout-history-date{font-size:11px;color:#806b75;margin-top:5px}
 .rd-stockout-history-item .history-note{margin-top:8px}
 .rd-no-stockout-note{color:#a34b6d;font-style:italic}
+
+#resellerDashboard .rd-proof-history-label>small{font-size:11px;line-height:1.5;color:#765468;font-weight:700}
+#resellerDashboard .rd-proof-history-approved-note{display:block;color:#267348;font-size:11px;font-weight:800;margin-top:5px;line-height:1.45}
 </style>
 </head>
 <body>
@@ -1861,12 +1864,12 @@ function renderResellerDashboardDetails(){
   const balance=Math.max(0,g.total-g.paid),status=balance<=0&&g.total>0?'paid':g.paid>0?'partial':'unpaid';
   const label=status==='paid'?'✓ Fully Paid':status==='partial'?'Partial Payment':'Unpaid';
   const proofEvents=g.movements.flatMap(m=>subs.filter(x=>x.movement_id===m.id).map(x=>({kind:'proof',proof:x,eventAt:x.reviewed_at||x.submitted_at,amount:Number(x.amount)||0})));
-  const manualEvents=resellerPaymentEvents.filter(e=>g.movements.some(m=>m.id===e.movement_id)).map(e=>({kind:'manual',eventAt:e.event_at,amount:Number(e.amount)||0,eventId:e.event_id}));
+  const manualEvents=resellerPaymentEvents.filter(e=>g.movements.some(m=>m.id===e.movement_id)).map(e=>({kind:'manual',eventAt:e.event_at,amount:Number(e.amount)||0,eventId:e.event_id,recordedBy:e.recorded_by||'Admin',recorderRole:e.recorder_role||'admin'}));
   const historyEvents=[...proofEvents,...manualEvents].sort((a,b)=>new Date(a.eventAt)-new Date(b.eventAt));
   const history=historyEvents.length?historyEvents.map((item,i)=>{
    const x=item.proof||{},state=item.kind==='manual'?'approved':x.status==='approved'?'approved':'pending',stateLabel=state==='approved'?'✓ Approved':'◷ Pending Review';
-   const date=new Date(item.eventAt),dateLabel=Number.isNaN(date.getTime())?esc(fmtDate(item.eventAt)):esc(date.toLocaleString('en-PH',{month:'short',day:'numeric',year:'numeric',hour:'numeric',minute:'2-digit',timeZone:'Asia/Manila'}));
-   const proofLink=item.kind==='proof'?'<button type="button" class="rd-proof-view-link" data-rd-proof-view="'+x.id+'">▧ &nbsp;View screenshot</button>':'<small class="rd-proof-history-approved-note">Payment approved without uploaded proof</small>';
+   const date=new Date(item.eventAt),dateLabel=Number.isNaN(date.getTime())?esc(fmtDate(item.eventAt)):esc(date.toLocaleString('en-PH',{month:'long',day:'numeric',year:'numeric',hour:'numeric',minute:'2-digit',timeZone:'Asia/Manila'}));
+   const proofLink=item.kind==='proof'?'<button type="button" class="rd-proof-view-link" data-rd-proof-view="'+x.id+'">▧ &nbsp;View screenshot</button>':'<small class="rd-proof-history-approved-note">Manually recorded by '+(item.recorderRole==='super_admin'?'Super Admin':item.recorderRole==='admin'?'Admin':'Staff')+': '+esc(item.recordedBy)+'</small>';
    const preview=item.kind==='proof'?'<div class="rd-proof-preview" id="rd-proof-preview-'+x.id+'"></div>':'';
    const note=item.kind==='proof'&&x.admin_note?'<small class="rd-proof-history-note">Admin note: '+esc(x.admin_note)+'</small>':'';
    return '<div class="rd-proof-history-item"><span class="rd-proof-history-number">'+(i+1)+'</span><div class="rd-proof-history-detail"><div class="rd-proof-history-label"><b>Payment '+(i+1)+'</b><small>▢ '+dateLabel+'</small>'+proofLink+'</div><strong class="rd-proof-history-amount">'+peso(item.amount)+'</strong><span class="rd-proof-history-status '+state+'">'+stateLabel+'</span></div>'+preview+note+'</div>'
