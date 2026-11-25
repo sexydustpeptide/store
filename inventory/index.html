@@ -2043,6 +2043,127 @@ body{
 #appView.hidden{display:none!important}
 #loginView:not(.hidden)~#appView{visibility:hidden!important;pointer-events:none!important}
 
+
+/* SEXY DUST 2026 — softer pastel pink + lavender UI refresh (CSS only) */
+:root{
+ --pink:#f9e8f1;--rose:#d99bb8;--wine:#795f78;--ivory:#fffaff;
+ --ink:#4b3c4b;--muted:#938397;--line:#f0e1ec;--lavender:#f0ebfa;
+ --shadow:0 12px 32px rgba(154,112,151,.09)
+}
+html{scroll-behavior:smooth}
+body{
+ background:
+  radial-gradient(ellipse at 4% 2%,rgba(251,225,239,.72),transparent 32%),
+  radial-gradient(ellipse at 98% 8%,rgba(237,229,250,.72),transparent 34%),
+  linear-gradient(135deg,#fffaff 0%,#fff8fc 55%,#fbf8ff 100%);
+ color:var(--ink)
+}
+#appView.shell{background:transparent}
+#appView>.tabs{
+ background:
+  radial-gradient(ellipse at 12% 0%,rgba(255,255,255,.98),transparent 38%),
+  linear-gradient(180deg,#fffafd 0%,#fff3f8 56%,#f4effc 100%);
+ border-right:1px solid #eedfeb;
+ box-shadow:7px 0 28px rgba(158,119,158,.075)
+}
+#appView>.tabs .sidebar-brand{border-bottom-color:#f0e3ee}
+#appView>.tabs .sidebar-label{color:#b18ba9}
+#appView>.tabs .tab{
+ color:#77647a;
+ border-color:transparent;
+ border-radius:14px;
+ background:rgba(255,255,255,.24);
+}
+#appView>.tabs .tab:before{color:#ce91b1}
+#appView>.tabs .tab:hover{
+ background:#fff;
+ border-color:#f1e2ed;
+ color:#765d79;
+ transform:translateX(2px);
+ box-shadow:0 5px 14px rgba(170,132,168,.08)
+}
+#appView>.tabs .tab.active{
+ background:linear-gradient(110deg,#fbe8f1 0%,#f0eafa 100%)!important;
+ color:#765674!important;
+ border:1px solid #ecd9e9!important;
+ box-shadow:0 5px 15px rgba(172,132,171,.10)!important
+}
+#appView>.tabs .tab.active:before{color:#c77da5}
+#appView>.top{
+ background:linear-gradient(100deg,rgba(255,250,253,.98),rgba(255,239,247,.92) 58%,rgba(243,238,251,.94));
+ border-bottom:1px solid #efe0ec;
+ box-shadow:0 5px 20px rgba(158,119,158,.055)
+}
+#appView .card,#appView .panel{
+ background:rgba(255,255,255,.94);
+ border:1px solid #f0e2ed;
+ border-radius:20px;
+ box-shadow:var(--shadow)
+}
+#appView h1,#appView h2,#appView h3,#appView h4{color:#795e7c}
+#appView .dashboard-welcome,#appView .reseller-page-heading{
+ background:linear-gradient(112deg,#fbeaf2 0%,#fffafd 52%,#f1edfa 100%)!important;
+ border-color:#eeddea!important;
+ box-shadow:0 13px 30px rgba(164,125,164,.075)!important
+}
+#appView .dashboard-welcome h2,#appView .reseller-page-heading h2{color:#765c7b!important}
+#appView .stat{
+ background:linear-gradient(145deg,#fff 0%,#fff6fa 100%)!important;
+ border-color:#f0dfeb!important;
+ box-shadow:0 7px 20px rgba(164,125,164,.07)!important
+}
+#appView .stat:nth-child(even){background:linear-gradient(145deg,#fff 0%,#f7f3fc 100%)!important}
+#appView .stat small{color:#9a829a}
+#appView .stat strong{color:#785d7b}
+#appView .rd-icon{background:linear-gradient(140deg,#fbe9f2,#f0eafb)!important;color:#c57fa8!important}
+#appView .btn{border-radius:13px}
+#appView .primary{
+ background:linear-gradient(115deg,#e6abc5,#cf91b5)!important;
+ color:#fff!important;
+ box-shadow:0 6px 16px rgba(196,133,169,.18)!important
+}
+#appView .soft{background:#fbf0f6!important;color:#876982!important;border:1px solid #f0deeb!important}
+#appView .outline{background:#fff!important;color:#806783!important;border:1px solid #e9d8e9!important}
+#appView .danger{background:#fff0f2!important;color:#ad6176!important;border:1px solid #f2d8df!important}
+#appView input:not([type=checkbox]):not([type=radio]),
+#appView select,#appView textarea{
+ background:#fffdfd;border-color:#eaddea;border-radius:12px;color:#514354
+}
+#appView input:focus,#appView select:focus,#appView textarea:focus{
+ outline:0;border-color:#d7a5c3;box-shadow:0 0 0 3px rgba(224,181,207,.2)
+}
+#appView .tablewrap{border:1px solid #f0e3ed;border-radius:15px;background:#fff}
+#appView table thead th{background:#fbf3f8;color:#947b91}
+#appView table tbody tr:hover{background:#fffafd}
+#appView .pill{background:#f8edf5;color:#846b85;border:1px solid #efdfed}
+#appView .pill.low{background:#fff0f2;color:#ad6278;border-color:#f3dce2}
+#appView .history-entry,#appView .user-report-card,#appView .proof-card{
+ border-color:#efe0ec!important;box-shadow:0 8px 22px rgba(164,125,164,.06)!important
+}
+#appView .history-payment,#appView .payment-box,#appView .move-preview,
+#appView .activity-stat,#appView .activity-detail,#appView .activity-change{
+ background:#fff8fc;border-color:#efdfeb
+}
+#appView .modalbox{background:#fffafd;border:1px solid #efdfeb;box-shadow:0 20px 55px rgba(96,68,96,.16)}
+#loginView{background:
+ radial-gradient(ellipse at 18% 18%,rgba(250,224,238,.85),transparent 40%),
+ radial-gradient(ellipse at 88% 78%,rgba(237,229,250,.8),transparent 42%),
+ linear-gradient(135deg,#fffafd,#fff6fa)!important}
+#loginView .card.login{border:1px solid #efdfeb;box-shadow:0 22px 60px rgba(157,116,156,.12)}
+#loginView .login h1{color:#795e7c}
+#loginView .field label{color:#927d94}
+#loginView .field input{border-color:#eaddea;background:#fffdfd}
+#loginView .btn.primary{background:linear-gradient(115deg,#e6abc5,#cf91b5)!important;box-shadow:0 7px 18px rgba(196,133,169,.18)!important}
+#appView button:focus-visible,#loginView button:focus-visible{outline:3px solid #e7c8df;outline-offset:2px}
+@media(max-width:900px){
+ #appView>.tabs{background:linear-gradient(180deg,#fffafd,#fff3f8 58%,#f4effc)}
+}
+@media(max-width:700px){
+ #appView>.tabs{border-right:1px solid #efdfeb}
+ #appView>.tabs .tab.active{background:linear-gradient(145deg,#fbe8f1,#f0eafa)!important}
+ #appView>.top{background:linear-gradient(100deg,#fffafd,#fff1f7 65%,#f4effb)}
+}
+
 </style>
 </head>
 <body>
