@@ -1666,6 +1666,49 @@ html,body{width:100%;max-width:100%;overflow-x:hidden}
  #appView .ur-payment-badge{grid-column:1!important;grid-row:auto!important;justify-self:start}
  #appView .portal-profile{max-width:92px!important}
 }
+
+/* MOBILE FIX v2: prevent reseller dashboard grid from collapsing/overflowing */
+@media(max-width:700px){
+ #resellerDashboard.reseller-home{display:block!important;width:100%!important;max-width:100%!important;min-width:0!important;overflow:visible!important}
+ #resellerDashboard .reseller-page-heading,
+ #resellerDashboard .reseller-kpis,
+ #resellerDashboard .reseller-main-grid{width:100%!important;max-width:100%!important;min-width:0!important}
+ #resellerDashboard .reseller-main-grid{
+   display:grid!important;
+   grid-template-columns:minmax(0,1fr)!important;
+   grid-auto-flow:row!important;
+   gap:12px!important;
+   align-items:stretch!important;
+ }
+ #resellerDashboard .reseller-main-grid>.rd-panel{
+   display:block!important;
+   width:100%!important;min-width:0!important;max-width:100%!important;
+   grid-column:1 / -1!important;grid-row:auto!important;
+   justify-self:stretch!important;align-self:stretch!important;
+   overflow:hidden!important;
+   padding:15px 13px!important;
+ }
+ #resellerDashboard .rd-panel-head{width:100%!important;min-width:0!important;flex-wrap:wrap!important;align-items:flex-start!important}
+ #resellerDashboard .rd-panel-head>div{min-width:0!important;max-width:100%!important}
+ #resellerDashboard .rd-panel-head h3{font-size:clamp(18px,5vw,23px)!important;line-height:1.2!important}
+ #resellerDashboard .rd-panel-head p{font-size:12px!important;line-height:1.5!important}
+ #resellerDashboard .rd-count{flex:0 0 auto!important}
+ #resellerDashboard .tablewrap{display:block!important;width:100%!important;max-width:100%!important;min-width:0!important;overflow-x:auto!important;overscroll-behavior-x:contain!important}
+ #resellerDashboard .rd-stock-table{width:100%!important;min-width:510px!important;table-layout:auto!important}
+ #resellerDashboard .rd-stock-table th,#resellerDashboard .rd-stock-table td{white-space:nowrap!important}
+ #resellerDashboard #dashboardPayments{width:100%!important;min-width:0!important;max-width:100%!important}
+ #resellerDashboard #dashboardPayments .proof-card,
+ #resellerDashboard #dashboardPayments form{width:100%!important;min-width:0!important;max-width:100%!important}
+ #resellerDashboard #dashboardPayments .proof-card{padding:13px!important;overflow:hidden!important}
+ #resellerDashboard #dashboardPayments .field{width:100%!important;min-width:0!important}
+ #resellerDashboard #dashboardPayments input,
+ #resellerDashboard #dashboardPayments select,
+ #resellerDashboard #dashboardPayments textarea{width:100%!important;min-width:0!important;max-width:100%!important}
+ #resellerDashboard .rd-stockout-history-toggle summary{display:flex!important;flex-wrap:wrap!important;gap:10px!important;align-items:center!important}
+ #resellerDashboard .rd-stockout-toggle-label{font-size:clamp(18px,5vw,23px)!important;line-height:1.2!important;overflow-wrap:anywhere!important}
+ #resellerDashboard .rd-stockout-history-panel{width:100%!important}
+ #resellerDashboard .reseller-kpis{grid-template-columns:repeat(2,minmax(0,1fr))!important}
+}
 </style>
 </head>
 <body>
