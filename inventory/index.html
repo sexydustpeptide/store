@@ -1545,6 +1545,35 @@ body{background:#fff8fb}
 
 #resellerDashboard .rd-proof-history-label>small{font-size:11px;line-height:1.5;color:#765468;font-weight:700}
 #resellerDashboard .rd-proof-history-approved-note{display:block;color:#267348;font-size:11px;font-weight:800;margin-top:5px;line-height:1.45}
+
+/* FIX: prevent reseller payment panels from overlapping in the dashboard grid */
+#resellerDashboard .reseller-main-grid>.rd-panel.rd-submitted-proof-panel{
+  grid-column:1 / -1 !important;
+  grid-row:3 !important;
+  position:relative;
+  z-index:1;
+  min-height:0;
+  height:auto;
+}
+#resellerDashboard .reseller-main-grid>.rd-panel.rd-proof-panel{
+  grid-column:2 !important;
+  grid-row:2 !important;
+  position:relative;
+  z-index:2;
+  min-height:0;
+  height:auto;
+}
+#resellerDashboard .reseller-main-grid>.rd-panel.rd-submitted-proof-panel .rd-payment-cards{
+  min-height:0;
+  height:auto;
+  align-content:start;
+}
+@media(max-width:680px){
+  #resellerDashboard .reseller-main-grid>.rd-panel{
+    grid-column:1 !important;
+    grid-row:auto !important;
+  }
+}
 </style>
 </head>
 <body>
