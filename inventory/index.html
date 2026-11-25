@@ -2705,6 +2705,13 @@ body{background:#fff8fc!important;color:var(--sd-text)!important}
 #appView #resellerDashboard .rd-proof-history-list{display:grid!important;gap:8px!important}
 @media(max-width:760px){#appView #resellerDashboard .rd-product-proof-body{grid-template-columns:minmax(0,1fr)!important}}
 
+
+/* ROLE VISIBILITY + LOGIN LOADING STATE FIX */
+#appView #resellerDashboard.hidden{display:none!important}
+#appView #inventoryOverview.hidden{display:none!important}
+#appView #adminDashboard.hidden{display:none!important}
+#usernameForm button[type="submit"]:disabled{opacity:.78;cursor:wait;filter:saturate(.8)}
+
 </style>
 </head>
 <body>
@@ -2846,9 +2853,48 @@ const fmtDate=s=>new Intl.DateTimeFormat('en-PH',{dateStyle:'medium',timeStyle:'
 function msg(id,text,error=false){$(id).textContent=text;$(id).style.color=error?'var(--red)':'var(--green)'}
 function esc(s){return String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
 function showLogin(text=''){ $('loginView').classList.remove('hidden');$('appView').classList.add('hidden');if(text){$('loginMsg').textContent=text;$('loginMsg').classList.remove('hidden')} }
-function showApp(){ $('loginView').classList.add('hidden');$('appView').classList.remove('hidden');$('appView').classList.toggle('reseller-mode',currentRole==='staff');$('inventoryOverview').classList.toggle('hidden',currentRole==='staff');$('resellerDashboard').classList.toggle('hidden',currentRole!=='staff');$('adminDashboard').classList.toggle('hidden',currentRole!=='super_admin');document.querySelector('[data-page="overview"]').textContent=currentRole==='staff'?'Your Dashboard':'Overview';setMovementMode(currentRole==='staff'?'stock_out':'stock_in');$('who').textContent=(currentMember?.username||currentUser.email.split('@')[0])+' · '+(currentRole==='staff'?'reseller':currentRole.replace('_',' '));$('usersTab').classList.toggle('hidden',currentRole!=='super_admin');$('costingTab').classList.toggle('hidden',currentRole!=='super_admin');$('userReportTab').classList.toggle('hidden',!['admin','super_admin','staff'].includes(currentRole));if($('paymentsTab'))$('paymentsTab').classList.toggle('hidden',!['admin','super_admin','staff'].includes(currentRole));if($('resellerDashboardTab'))$('resellerDashboardTab').classList.toggle('hidden',currentRole!=='super_admin');$('pricelistTab').classList.toggle('hidden',!['admin','super_admin','staff','viewer'].includes(currentRole));document.querySelector('[data-page="activity"]').classList.toggle('hidden',currentRole!=='super_admin');$('newProduct').classList.toggle('hidden',!['super_admin','admin'].includes(currentRole));$('movementForm').classList.toggle('hidden',currentRole==='viewer');$('manualUserStockCard').classList.toggle('hidden',!['admin','super_admin'].includes(currentRole));$('productEditor').classList.add('hidden');loadAll(); }
+function showApp(){
+ $('loginView').classList.add('hidden');$('appView').classList.remove('hidden');
+ const isStaff=currentRole==='staff',isSuper=currentRole==='super_admin',isAdmin=['admin','super_admin'].includes(currentRole);
+ $('appView').classList.toggle('reseller-mode',isStaff);
+ $('inventoryOverview').classList.toggle('hidden',isStaff);
+ $('resellerDashboard').classList.toggle('hidden',!isStaff);
+ $('resellerDashboard').style.setProperty('display',isStaff?'block':'none','important');
+ $('inventoryOverview').style.setProperty('display',isStaff?'none':'block','important');
+ $('adminDashboard').classList.toggle('hidden',!isSuper);
+ $('adminDashboard').style.setProperty('display',isSuper?'block':'none','important');
+ document.querySelector('[data-page="overview"]').textContent=isStaff?'My Dashboard':'Overview';
+ setMovementMode(isStaff?'stock_out':'stock_in');
+ const accountName=currentMember?.username||currentUser.email.split('@')[0];
+ const roleLabel=isSuper?'Super Admin':currentRole==='admin'?'Admin':isStaff?'Reseller':'Viewer';
+ $('who').textContent=accountName+' · '+roleLabel;
+ if($('portalName'))$('portalName').textContent=accountName;
+ if($('portalAvatar'))$('portalAvatar').textContent=accountName.trim().charAt(0).toUpperCase();
+ document.querySelector('.portal-role').textContent=roleLabel.toUpperCase()+' ACCOUNT';
+ const profileRole=document.querySelector('#portalProfile small');if(profileRole)profileRole.textContent=roleLabel;
+ $('usersTab').classList.toggle('hidden',!isSuper);$('costingTab').classList.toggle('hidden',!isSuper);
+ $('userReportTab').classList.toggle('hidden',!['admin','super_admin','staff'].includes(currentRole));
+ if($('paymentsTab'))$('paymentsTab').classList.toggle('hidden',!['admin','super_admin','staff'].includes(currentRole));
+ if($('resellerDashboardTab'))$('resellerDashboardTab').classList.toggle('hidden',!isSuper);
+ $('pricelistTab').classList.toggle('hidden',!['admin','super_admin','staff','viewer'].includes(currentRole));
+ document.querySelector('[data-page="activity"]').classList.toggle('hidden',!isSuper);
+ $('newProduct').classList.toggle('hidden',!isAdmin);$('movementForm').classList.toggle('hidden',currentRole==='viewer');
+ $('manualUserStockCard').classList.toggle('hidden',!isAdmin);$('productEditor').classList.add('hidden');loadAll();
+}
 async function checkAccess(){const {data:{user}}=await db.auth.getUser();if(!user){showLogin();return}const {data:u,error}=await db.from('inv_users').select('id,email,username,role,active,user_id,created_at').eq('user_id',user.id).maybeSingle();if(error||!u||!u.active){await db.auth.signOut();showLogin('This account is not active or has no inventory access. Ask the Super Admin.');return}currentUser=user;currentMember=u;currentRole=u.role;await db.rpc('inv_log_access',{p_action:'login_success'});showApp()}
-$('usernameForm').onsubmit=async e=>{e.preventDefault();const username=$('username').value.trim(),password=$('password').value;if(!username||!password){showLogin('Enter your username and password.');return}const {error}=await db.auth.signInWithPassword({email:authEmail(username),password});if(error){showLogin('Incorrect username or password, or the account is disabled.');return}await checkAccess()};
+$('usernameForm').onsubmit=async e=>{
+ e.preventDefault();const username=$('username').value.trim(),password=$('password').value,submit=e.currentTarget.querySelector('button[type="submit"]');
+ if(!username||!password){showLogin('Enter your username and password.');return}
+ if(submit?.disabled)return;
+ if(submit){submit.disabled=true;submit.dataset.originalText=submit.textContent;submit.textContent='LOGGING IN…';submit.setAttribute('aria-busy','true')}
+ $('loginMsg').classList.add('hidden');
+ try{
+  const {error}=await db.auth.signInWithPassword({email:authEmail(username),password});
+  if(error){showLogin('Incorrect username or password, or the account is disabled.');return}
+  await checkAccess();
+ }catch(err){showLogin('Unable to sign in right now. Please try again.');console.error('Login error:',err)}
+ finally{if(submit){submit.disabled=false;submit.textContent=submit.dataset.originalText||'LOG IN';submit.removeAttribute('aria-busy')}}
+};
 $('changePassword').onclick=async()=>{const next=prompt('Enter a new password (at least 10 characters):');if(!next)return;if(next.length<10){alert('Password must be at least 10 characters.');return}const {error}=await db.auth.updateUser({password:next});if(error)alert(error.message);else alert('Password updated. Use this password next time you log in.')};;
 $('logout').onclick=async()=>{await db.rpc('inv_log_access',{p_action:'logout'});await db.auth.signOut();currentUser=null;showLogin('You have been logged out.')};
 document.querySelectorAll('.tab').forEach(b=>b.onclick=()=>{document.querySelectorAll('.tab').forEach(x=>x.classList.toggle('active',x===b));document.querySelectorAll('main section').forEach(x=>x.classList.add('hidden'));$('page-'+b.dataset.page).classList.remove('hidden');if(b.dataset.page==='payments')loadPayments();if(b.dataset.page==='pricelist')renderPriceList();if(b.dataset.page==='costing'&&currentRole==='super_admin')loadCosting()});
