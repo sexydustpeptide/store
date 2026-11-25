@@ -2805,7 +2805,6 @@ body{background:#fff8fc!important;color:var(--sd-text)!important}
     </div>
     <div class="reseller-main-grid">
      <article class="card rd-panel"><div class="rd-panel-head"><div><h3>♡ My Received Stocks</h3><p>Products assigned to your account</p></div><span class="rd-count" id="rdProductCount">0 product types</span></div><div class="tablewrap"><table class="rd-stock-table"><thead><tr><th>PRODUCT</th><th>QTY RECEIVED</th><th>AMOUNT</th><th>PAYMENT</th></tr></thead><tbody id="rdReceivedRows"><tr><td colspan="4" class="empty">Loading…</td></tr></tbody></table></div><div class="rd-stockout-history-panel"><details class="rd-stockout-history-toggle"><summary><span class="rd-stockout-toggle-label">STOCK OUT HISTORY</span><span class="rd-count" id="rdStockOutCount">0 releases</span></summary><div id="rdStockOutHistory"><div class="empty">Loading stock-out history…</div></div></details></div></article>
-     <article class="card rd-panel rd-payment-progress-only"><div class="rd-panel-head"><div><h3>♡ Payment Progress</h3><p>Overall percentage paid</p></div></div><div class="rd-progress-label"><span>Amount paid</span><b id="rdPaidPercent">0%</b></div><div class="rd-progress"><span id="rdPaidBar" style="width:0%"></span></div></article>
      <article class="card rd-panel rd-submitted-proof-panel"><div class="rd-submitted-heading"><h2><span>▤</span> Submitted Payment Proofs</h2><p>Your order totals and every submitted payment receipt</p></div><div id="rdProofCustomerSummary" class="rd-proof-customer-summary"></div><div id="rdRecentPaymentRows" class="rd-payment-cards"><div class="empty">No payment records yet.</div></div></article>
      
      <article class="card rd-panel rd-proof-panel"><div class="rd-panel-head"><div><h3>♡ Submit Payment Proof</h3><p>Upload your payment receipt for verification</p></div><span class="rd-count">SECURE UPLOAD</span></div><div id="dashboardPayments"><div class="empty">Loading payment form…</div></div></article>
@@ -3137,7 +3136,7 @@ function renderResellerDashboardDetails(){
  }));
 
  const total=mine.reduce((a,m)=>a+Number(m.payment_total||0),0),paid=mine.reduce((a,m)=>a+Number(m.amount_paid||0),0),due=Math.max(0,total-paid),pct=total?Math.min(100,paid/total*100):0;
- $('rdPaidPercent').textContent=pct.toFixed(1)+'%';$('rdPaidBar').style.width=pct+'%';
+
  const subs=paymentSubmissions.filter(x=>mine.some(m=>m.id===x.movement_id)&&x.status!=='rejected').sort((a,b)=>new Date(a.submitted_at)-new Date(b.submitted_at));
  const name=currentMember?.username||'Reseller';
  $('rdProofCustomerSummary').innerHTML='<div class="rd-proof-customer"><span class="rd-proof-avatar">♟</span><div class="rd-proof-customer-name"><strong>'+esc(name)+'</strong><small>Total Orders: '+entries.length+' '+(entries.length===1?'Product':'Products')+'</small></div><div class="rd-proof-customer-metrics"><div class="order"><small>🛒 TOTAL ORDER</small><b>'+peso(total)+'</b></div><div class="paid"><small>▱ TOTAL PAID</small><b>'+peso(paid)+'</b></div><div class="balance"><small>▤ REMAINING BALANCE</small><b>'+peso(due)+'</b></div></div></div>';
