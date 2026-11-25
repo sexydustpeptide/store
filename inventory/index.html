@@ -1574,6 +1574,16 @@ body{background:#fff8fb}
     grid-row:auto !important;
   }
 }
+/* Collapsed stock-out history: keep dashboard compact until opened */
+#resellerDashboard .rd-stockout-history-panel{grid-column:1/-1!important;padding:13px 15px!important}
+#resellerDashboard .rd-stockout-history-toggle>summary{list-style:none;display:flex;align-items:center;justify-content:space-between;gap:14px;min-height:64px;padding:13px 18px;border:2px solid #e85b98;border-radius:16px;background:linear-gradient(100deg,#ffe0ed 0%,#fff0f6 55%,#ffd5e6 100%);color:#8f1747;cursor:pointer;box-shadow:0 7px 18px rgba(191,30,104,.10);user-select:none}
+#resellerDashboard .rd-stockout-history-toggle>summary::-webkit-details-marker{display:none}
+#resellerDashboard .rd-stockout-toggle-label{font:900 clamp(17px,2vw,23px) Georgia,serif;letter-spacing:.5px}
+#resellerDashboard .rd-stockout-toggle-label:after{content:"  ＋";font:900 22px Arial,sans-serif;margin-left:8px}
+#resellerDashboard .rd-stockout-history-toggle[open] .rd-stockout-toggle-label:after{content:"  −"}
+#resellerDashboard .rd-stockout-history-toggle>summary:hover{background:linear-gradient(100deg,#ffd4e5,#ffeaf2 55%,#ffc9df)}
+#resellerDashboard .rd-stockout-history-toggle>#rdStockOutHistory{padding:12px 5px 2px}
+@media(max-width:520px){#resellerDashboard .rd-stockout-history-panel{padding:10px!important}#resellerDashboard .rd-stockout-history-toggle>summary{min-height:58px;padding:11px 12px;gap:8px}#resellerDashboard .rd-stockout-toggle-label{font-size:15px;letter-spacing:0}#resellerDashboard .rd-stockout-history-toggle .rd-count{font-size:8px;padding:6px 8px}}
 </style>
 </head>
 <body>
@@ -1609,7 +1619,7 @@ body{background:#fff8fb}
     </div>
     <div class="reseller-main-grid">
      <article class="card rd-panel"><div class="rd-panel-head"><div><h3>♡ My Received Stocks</h3><p>Products assigned to your account</p></div><span class="rd-count" id="rdProductCount">0 product types</span></div><div class="tablewrap"><table class="rd-stock-table"><thead><tr><th>PRODUCT</th><th>QTY RECEIVED</th><th>AMOUNT</th><th>PAYMENT</th></tr></thead><tbody id="rdReceivedRows"><tr><td colspan="4" class="empty">Loading…</td></tr></tbody></table></div></article>
-     <article class="card rd-panel rd-stockout-history-panel"><div class="rd-panel-head"><div><h3>− My Stock Out History</h3><p>Every stock release recorded for your account, including date, time and notes</p></div><span class="rd-count" id="rdStockOutCount">0 releases</span></div><div id="rdStockOutHistory"><div class="empty">Loading stock-out history…</div></div></article>
+     <article class="card rd-panel rd-stockout-history-panel"><details class="rd-stockout-history-toggle"><summary><span class="rd-stockout-toggle-label">VIEW STOCK OUT HISTORY</span><span class="rd-count" id="rdStockOutCount">0 releases</span></summary><div id="rdStockOutHistory"><div class="empty">Loading stock-out history…</div></div></details></article>
      <article class="card rd-panel"><div class="rd-panel-head"><div><h3>♡ Payment Summary</h3><p>Your payment progress</p></div></div><div class="rd-progress-label"><span>Amount paid</span><b id="rdPaidPercent">0%</b></div><div class="rd-progress"><span id="rdPaidBar" style="width:0%"></span></div><div class="rd-summary-lines"><div><span>Total amount</span><b id="rdSummaryTotal">₱0.00</b></div><div class="paid"><span>Paid</span><b id="rdSummaryPaid">₱0.00</b></div><div class="due"><span>Balance</span><b id="rdSummaryDue">₱0.00</b></div></div><div class="rd-payment-hint"><span class="rd-hint-icon">♡</span><div><b>Payment due?</b><small>Your receipt upload is right below.</small></div></div></article>
      <article class="card rd-panel rd-submitted-proof-panel"><div class="rd-submitted-heading"><h2><span>▤</span> Submitted Payment Proofs</h2><p>Your order totals and every submitted payment receipt</p></div><div id="rdProofCustomerSummary" class="rd-proof-customer-summary"></div><div id="rdRecentPaymentRows" class="rd-payment-cards"><div class="empty">No payment records yet.</div></div></article>
      
