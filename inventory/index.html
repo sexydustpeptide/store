@@ -2043,6 +2043,126 @@ body{
 #appView.hidden{display:none!important}
 #loginView:not(.hidden)~#appView{visibility:hidden!important;pointer-events:none!important}
 
+
+/* SEXY DUST — COMPLETE PASTEL PINK / LAVENDER THEME OVERRIDE */
+:root{
+ --pink:#f8e8f1!important;--rose:#d99bb9!important;--wine:#795d7b!important;
+ --ivory:#fffaff!important;--ink:#4c3d4d!important;--muted:#958397!important;
+ --line:#eee0ed!important;--green:#548a72!important;--red:#c16b83!important;
+ --sd-wine:#795d7b!important;--sd-pink:#f8e8f1!important;--sd-rose:#d99bb9!important;
+}
+html{background:#fffaff}
+body{
+ color:#4c3d4d!important;
+ background:
+  radial-gradient(ellipse at 5% 0%,rgba(250,226,240,.8),transparent 34%),
+  radial-gradient(ellipse at 98% 4%,rgba(237,231,250,.8),transparent 32%),
+  linear-gradient(135deg,#fffaff 0%,#fff8fc 52%,#faf8ff 100%)!important;
+ font-family:Inter,"Segoe UI",Arial,sans-serif!important;
+}
+#loginView.shell{max-width:none!important;min-height:100vh;display:flex;align-items:center;justify-content:center;padding:28px!important}
+#loginView .login{
+ width:min(440px,100%);margin:0!important;padding:38px!important;
+ border:1px solid #efdfec!important;border-radius:28px!important;
+ background:rgba(255,255,255,.94)!important;
+ box-shadow:0 24px 70px rgba(153,111,151,.14)!important;
+}
+#loginView .login h1{color:#795d7b!important;font-family:Georgia,serif!important}
+#loginView .login>p,#loginView .field label{color:#927e94!important}
+#loginView .field input{border:1px solid #eaddea!important;border-radius:13px!important;background:#fffdfd!important}
+#loginView .field input:focus{border-color:#d5a4c1!important;box-shadow:0 0 0 3px rgba(217,155,185,.18)!important}
+#loginView .btn.primary{background:linear-gradient(115deg,#e8b3cb,#c994c1)!important;border-radius:13px!important;box-shadow:0 8px 20px rgba(195,137,177,.2)!important}
+#appView.shell{
+ max-width:none!important;min-height:100vh!important;
+ background:transparent!important;
+}
+#appView>.tabs{
+ background:linear-gradient(180deg,#fffafd 0%,#f9edf5 55%,#f1edfa 100%)!important;
+ border-right:1px solid #ecdeeb!important;
+ box-shadow:8px 0 30px rgba(147,111,149,.08)!important;
+ padding-top:25px!important;
+}
+#appView>.tabs:before{color:#866b87!important;text-shadow:none!important}
+#appView>.tabs:after{color:#b38eae!important}
+#appView .sidebar-brand{border-bottom:1px solid #eadbea!important}
+#appView .sidebar-brand .brand{color:#795d7b!important}
+#appView .sidebar-brand .sub{color:#a98da8!important}
+#appView .sidebar-label{color:#aa8da8!important}
+#appView>.tabs .tab,#appView .tabs .tab{
+ color:#76677b!important;background:transparent!important;border:1px solid transparent!important;
+ border-radius:13px!important;transition:background .18s ease,border-color .18s ease,transform .18s ease!important;
+}
+#appView>.tabs .tab:before{color:#c58eaf!important}
+#appView>.tabs .tab:hover,#appView .tabs .tab:hover{
+ color:#785c7c!important;background:#fff!important;border-color:#efdfed!important;
+ box-shadow:0 5px 16px rgba(154,116,154,.08)!important;transform:translateX(2px)
+}
+#appView>.tabs .tab.active,#appView .tabs .tab.active{
+ color:#765779!important;background:linear-gradient(105deg,#f9e7f0,#eee9f8)!important;
+ border:1px solid #ead8e9!important;box-shadow:0 5px 15px rgba(151,111,151,.1)!important
+}
+#appView>.tabs .tab.active:before{color:#bd7fa5!important}
+#appView>.top{
+ background:rgba(255,250,253,.94)!important;border-bottom:1px solid #eddfec!important;
+ box-shadow:0 5px 22px rgba(151,111,151,.06)!important;backdrop-filter:blur(14px)
+}
+#appView>.top .topright #who{color:#816b83!important}
+#appView>.top .portal-profile{border-color:#eedfeb!important;background:#fff!important;color:#705c75!important}
+#appView>.top .portal-avatar{background:linear-gradient(135deg,#f8e5ef,#eee9f8)!important;color:#805f82!important}
+#appView>main{background:transparent!important}
+#appView .card,#appView .panel,#appView .rd-panel{
+ background:rgba(255,255,255,.96)!important;border:1px solid #eee0ed!important;
+ border-radius:19px!important;box-shadow:0 8px 26px rgba(145,107,147,.075)!important;
+}
+#appView h1,#appView h2,#appView h3,#appView h4{color:#795d7b!important}
+#appView .dashboard-welcome,#appView .reseller-page-heading{
+ background:linear-gradient(115deg,#f9e9f1 0%,#fffafd 52%,#f0ecf9 100%)!important;
+ border:1px solid #eedfeb!important;border-radius:22px!important;
+ box-shadow:0 10px 28px rgba(151,111,151,.07)!important;
+}
+#appView .stats .stat,#appView .stat{
+ background:linear-gradient(145deg,#fff 0%,#fff7fb 100%)!important;
+ border:1px solid #efe0ed!important;border-radius:18px!important;
+ box-shadow:0 7px 22px rgba(151,111,151,.065)!important;
+}
+#appView .stat:nth-child(even){background:linear-gradient(145deg,#fff,#f8f5fc)!important}
+#appView .stat small{color:#98839a!important}
+#appView .stat strong{color:#795d7b!important}
+#appView .rd-icon{color:#bd82a8!important}
+#appView .btn{border-radius:12px!important;font-weight:700}
+#appView .btn.primary,#appView .primary{
+ color:#fff!important;background:linear-gradient(115deg,#e4abc5,#c991b8)!important;
+ border:1px solid #dba2bf!important;box-shadow:0 6px 17px rgba(191,132,170,.17)!important;
+}
+#appView .btn.soft,#appView .soft{background:#f9edf5!important;color:#866b87!important;border:1px solid #efdfed!important}
+#appView .btn.outline,#appView .outline{background:#fff!important;color:#806783!important;border:1px solid #e9d9e9!important}
+#appView .btn.danger,#appView .danger{background:#fff1f3!important;color:#b4667d!important;border:1px solid #f0d9e1!important}
+#appView input:not([type=checkbox]):not([type=radio]),#appView select,#appView textarea{
+ border:1px solid #eaddea!important;border-radius:11px!important;background:#fffdfd!important;color:#514354!important;
+}
+#appView input:focus,#appView select:focus,#appView textarea:focus{
+ outline:0!important;border-color:#d6a5c2!important;box-shadow:0 0 0 3px rgba(217,155,185,.17)!important;
+}
+#appView .tablewrap,#appView .table-wrap{border:1px solid #eee0ed!important;border-radius:15px!important;background:#fff!important}
+#appView table thead th{background:#faf3f8!important;color:#927b92!important}
+#appView table tbody tr:hover{background:#fffafd!important}
+#appView .pill,#appView .activity-tag,#appView .history-filter{background:#f8edf5!important;color:#866b87!important;border-color:#efdfed!important}
+#appView .history-filter.active{background:#ead8e9!important;color:#755778!important}
+#appView .payment-box,#appView .move-preview,#appView .activity-stat,#appView .activity-detail,#appView .activity-change{
+ background:#fff8fc!important;border-color:#efdfed!important;
+}
+#appView .modalbox{background:#fffafd!important;border:1px solid #efdfed!important;box-shadow:0 22px 60px rgba(85,57,88,.17)!important}
+#appView button:focus-visible,#loginView button:focus-visible{outline:3px solid #e7c8df!important;outline-offset:2px}
+@media(max-width:850px){
+ #appView>.tabs{background:linear-gradient(180deg,#fffafd,#f9edf5 55%,#f1edfa)!important}
+}
+@media(max-width:640px){
+ #appView>.tabs{border-top:1px solid #eadbea!important;border-right:0!important}
+ #appView>.tabs .tab.active{background:linear-gradient(105deg,#f9e7f0,#eee9f8)!important}
+ #appView>.top{background:rgba(255,250,253,.97)!important}
+ #loginView .login{padding:27px!important}
+}
+
 </style>
 </head>
 <body>
