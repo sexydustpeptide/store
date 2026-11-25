@@ -1602,6 +1602,70 @@ body{background:#fff8fb}
 #resellerDashboard .rd-stockout-payment-status.paid{background:#d9fbe6!important;color:#08743d!important;border:1px solid #8ce0ad!important;box-shadow:inset 0 0 0 1px rgba(8,116,61,.04);font-weight:950}
 #resellerDashboard .rd-stockout-payment-status.partial{background:#fff2cc!important;color:#8a5900!important;border:1px solid #f0d27b!important}
 #resellerDashboard .rd-stockout-payment-status.unpaid{background:#ffe5e9!important;color:#ad2147!important;border:1px solid #f1b8c6!important}
+
+/* FINAL MOBILE-FIRST RESPONSIVE OVERRIDES — keep desktop layout unchanged */
+html,body{width:100%;max-width:100%;overflow-x:hidden}
+#appView,#appView *{box-sizing:border-box}
+#appView{width:100%;max-width:100%;overflow-x:clip}
+#appView>main{min-width:0;width:100%;max-width:100%}
+#appView .card,#appView section,#appView article{min-width:0;max-width:100%}
+#appView img,#appView video{max-width:100%;height:auto}
+#appView input,#appView select,#appView textarea{max-width:100%;min-width:0}
+#appView .toolbar,#appView .actions,#appView .form-row,#appView .button-row{min-width:0;flex-wrap:wrap}
+#appView .table-wrap,#appView .tablewrap,.table-wrap,.tablewrap{width:100%;max-width:100%;overflow-x:auto!important;-webkit-overflow-scrolling:touch}
+#appView table{min-width:600px}
+#appView .grid,#appView .stats,#appView .dashboard-stats{min-width:0}
+#appView .modal,#appView .dialog,.sd-reseller-preview{max-width:calc(100vw - 20px)}
+@media(max-width:700px){
+ html,body{font-size:14px}
+ #appView.shell{display:flex!important;flex-direction:column!important;grid-template-columns:minmax(0,1fr)!important;grid-template-rows:auto!important;grid-template-areas:none!important;width:100%!important;min-width:0!important;overflow-x:clip!important}
+ #appView>.top{order:0!important;width:100%!important;min-width:0!important;max-width:100%!important;margin:0!important;gap:8px!important;flex-wrap:wrap!important}
+ #appView>.tabs{order:1!important;width:100%!important;min-width:0!important;max-width:100%!important;flex:0 0 auto!important;position:sticky!important;top:0!important;z-index:40!important;justify-content:flex-start!important;white-space:nowrap!important;overflow-x:auto!important;overflow-y:hidden!important;flex-wrap:nowrap!important}
+ #appView>main{order:2!important;width:100%!important;min-width:0!important;max-width:100%!important;padding:12px 10px 28px!important;margin:0!important}
+ #appView .stats,#appView .dashboard-stats{grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:8px!important}
+ #appView .stat{min-width:0!important;padding:12px!important}
+ #appView .stat strong{font-size:clamp(17px,5vw,23px)!important;overflow-wrap:anywhere}
+ #appView .dashboard-detail-grid,#appView .reseller-main-grid,#appView .movement-split,#appView .form-grid,#appView .two-column,#appView .admin-grid{grid-template-columns:minmax(0,1fr)!important}
+ #appView .reseller-main-grid>* ,#appView .dashboard-detail-grid>*{grid-column:1!important;grid-row:auto!important;min-width:0!important}
+ #appView .toolbar{display:flex!important;flex-direction:column!important;align-items:stretch!important;gap:8px!important}
+ #appView .toolbar>*{width:100%!important;max-width:100%!important}
+ #appView .toolbar input,#appView .toolbar select{width:100%!important;max-width:100%!important}
+ #appView .field{min-width:0!important}
+ #appView .field input,#appView .field select,#appView .field textarea{width:100%!important;min-width:0!important}
+ #appView .btn{max-width:100%;white-space:normal;overflow-wrap:anywhere}
+ #appView .user-report-list{grid-template-columns:minmax(0,1fr)!important}
+ #appView .user-report-card{width:100%!important;min-width:0!important}
+ #appView .user-report-payment-summary{grid-template-columns:repeat(3,minmax(0,1fr))!important;gap:5px!important;padding:9px!important}
+ #appView .user-report-payment-summary>div{min-width:0!important}
+ #appView .user-report-payment-summary b{font-size:clamp(12px,3.5vw,16px)!important;overflow-wrap:anywhere}
+ #appView .ur-payment-row{grid-template-columns:minmax(0,1fr) auto!important;gap:7px!important;min-width:0!important}
+ #appView .ur-payment-product{min-width:0!important;overflow-wrap:anywhere}
+ #appView .ur-payment-amount{grid-column:1!important;text-align:left!important}
+ #appView .ur-payment-badge{grid-column:2!important;grid-row:1/3!important;align-self:center}
+ #appView .rd-stockout-history-item{min-width:0!important;overflow-wrap:anywhere}
+ #appView .reseller-page-heading{width:100%;min-width:0}
+ #appView .rd-heading-actions{display:flex;flex-wrap:wrap;width:100%;min-width:0}
+ #appView .rd-heading-actions>*{min-width:0;max-width:100%}
+ #appView .rd-product-proof-head{flex-wrap:wrap;min-width:0}
+ #appView .rd-product-proof-status{margin-left:auto}
+ #appView .proof-card{min-width:0!important}
+ #appView .proof-actions>*{flex:1 1 auto}
+ #appView .history-flow{overflow-x:auto}
+ #appView .sd-reseller-preview-backdrop{align-items:flex-start!important;padding:8px!important}
+ #appView .sd-reseller-preview{width:100%!important;max-width:100%!important;max-height:calc(100dvh - 16px)!important;padding:13px!important}
+ #appView .sd-reseller-preview-stats{grid-template-columns:repeat(2,minmax(0,1fr))!important}
+}
+@media(max-width:390px){
+ #appView>main{padding-left:8px!important;padding-right:8px!important}
+ #appView .stats,#appView .dashboard-stats{gap:6px!important}
+ #appView .stat{padding:9px!important}
+ #appView .stat strong{font-size:18px!important}
+ #appView .user-report-payment-summary{grid-template-columns:1fr!important}
+ #appView .user-report-payment-summary>div{display:flex;justify-content:space-between;gap:8px}
+ #appView .ur-payment-row{grid-template-columns:minmax(0,1fr)!important}
+ #appView .ur-payment-badge{grid-column:1!important;grid-row:auto!important;justify-self:start}
+ #appView .portal-profile{max-width:92px!important}
+}
 </style>
 </head>
 <body>
