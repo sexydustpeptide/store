@@ -2657,6 +2657,44 @@ body{background:#fff8fc!important;color:var(--sd-text)!important}
  #appView #resellerDashboard .reseller-main-grid>.rd-panel:nth-child(n){grid-column:1!important;grid-row:auto!important}
 }
 
+
+/* KPI ICON DUPLICATION FIX — use the real .rd-icon only */
+#appView #resellerDashboard .dashboard-stats .stat::before,
+#resellerDashboard .dashboard-stats .stat::before{
+ content:none!important;
+ display:none!important;
+}
+#appView #resellerDashboard .dashboard-stats .stat,
+#resellerDashboard .dashboard-stats .stat{
+ padding:15px 18px!important;
+ min-height:100px!important;
+}
+#appView #resellerDashboard .dashboard-stats .stat .rd-icon,
+#resellerDashboard .dashboard-stats .stat .rd-icon{
+ grid-column:1!important;
+ grid-row:1 / span 3!important;
+ width:46px!important;height:46px!important;
+ border-radius:50%!important;
+ background:linear-gradient(145deg,#ffe5f0,#f7c7dc)!important;
+ border:1px solid #f0b8d0!important;
+ color:#a93470!important;
+ box-shadow:none!important;
+ font-size:22px!important;
+}
+#appView #resellerDashboard .dashboard-stats .stat:after,
+#resellerDashboard .dashboard-stats .stat:after{
+ right:-24px!important;top:-30px!important;bottom:auto!important;
+ width:76px!important;height:76px!important;
+ background:transparent!important;border:1px solid rgba(218,160,190,.22)!important;
+ box-shadow:none!important;pointer-events:none!important;
+}
+@media(max-width:620px){
+ #appView #resellerDashboard .dashboard-stats .stat,
+ #resellerDashboard .dashboard-stats .stat{padding:12px 10px!important;min-height:88px!important}
+ #appView #resellerDashboard .dashboard-stats .stat .rd-icon,
+ #resellerDashboard .dashboard-stats .stat .rd-icon{width:36px!important;height:36px!important;font-size:18px!important}
+}
+
 </style>
 </head>
 <body>
