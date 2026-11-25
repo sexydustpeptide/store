@@ -2695,6 +2695,16 @@ body{background:#fff8fc!important;color:var(--sd-text)!important}
  #resellerDashboard .dashboard-stats .stat .rd-icon{width:36px!important;height:36px!important;font-size:18px!important}
 }
 
+
+/* Restore visible per-product proof history cards */
+#appView #resellerDashboard .rd-submitted-proof-panel{display:block!important;min-height:0!important;height:auto!important;overflow:visible!important}
+#appView #resellerDashboard #rdRecentPaymentRows{display:grid!important;grid-template-columns:minmax(0,1fr)!important;gap:14px!important;width:100%!important;min-height:80px!important;height:auto!important;overflow:visible!important;visibility:visible!important;opacity:1!important}
+#appView #resellerDashboard #rdRecentPaymentRows>.rd-product-proof-card,
+#appView #resellerDashboard #rdRecentPaymentRows>.rd-proof-empty{display:block!important;position:relative!important;visibility:visible!important;opacity:1!important;width:100%!important;height:auto!important;min-height:120px!important;overflow:visible!important}
+#appView #resellerDashboard .rd-product-proof-body{display:grid!important;grid-template-columns:minmax(220px,.7fr) minmax(0,1.3fr)!important}
+#appView #resellerDashboard .rd-proof-history-list{display:grid!important;gap:8px!important}
+@media(max-width:760px){#appView #resellerDashboard .rd-product-proof-body{grid-template-columns:minmax(0,1fr)!important}}
+
 </style>
 </head>
 <body>
@@ -3013,22 +3023,27 @@ function renderResellerDashboardDetails(){
  const subs=paymentSubmissions.filter(x=>mine.some(m=>m.id===x.movement_id)&&x.status!=='rejected').sort((a,b)=>new Date(a.submitted_at)-new Date(b.submitted_at));
  const name=currentMember?.username||'Reseller';
  $('rdProofCustomerSummary').innerHTML='<div class="rd-proof-customer"><span class="rd-proof-avatar">♟</span><div class="rd-proof-customer-name"><strong>'+esc(name)+'</strong><small>Total Orders: '+entries.length+' '+(entries.length===1?'Product':'Products')+'</small></div><div class="rd-proof-customer-metrics"><div class="order"><small>🛒 TOTAL ORDER</small><b>'+peso(total)+'</b></div><div class="paid"><small>▱ TOTAL PAID</small><b>'+peso(paid)+'</b></div><div class="balance"><small>▤ REMAINING BALANCE</small><b>'+peso(due)+'</b></div></div></div>';
- $('rdRecentPaymentRows').innerHTML=entries.length?entries.sort((a,b)=>a[1].name.localeCompare(b[1].name)).map(([key,g])=>{
-  const balance=Math.max(0,g.total-g.paid),status=balance<=0&&g.total>0?'paid':g.paid>0?'partial':'unpaid';
+ const proofCards=entries.slice().sort((a,b)=>a[1].name.localeCompare(b[1].name)).map(([key,g])=>{
+  const balance=Math.max(0,Number(g.total||0)-Number(g.paid||0));
+  const status=balance<=0&&Number(g.total||0)>0?'paid':Number(g.paid||0)>0?'partial':'unpaid';
   const label=status==='paid'?'✓ Fully Paid':status==='partial'?'Partial Payment':'Unpaid';
-  const proofEvents=g.movements.flatMap(m=>subs.filter(x=>x.movement_id===m.id).map(x=>({kind:'proof',proof:x,eventAt:x.reviewed_at||x.submitted_at,amount:Number(x.amount)||0})));
-  const manualEvents=resellerPaymentEvents.filter(e=>g.movements.some(m=>m.id===e.movement_id)).map(e=>({kind:'manual',eventAt:e.event_at,amount:Number(e.amount)||0,eventId:e.event_id,recordedBy:e.recorded_by||'Admin',recorderRole:e.recorder_role||'admin'}));
-  const historyEvents=[...proofEvents,...manualEvents].sort((a,b)=>new Date(a.eventAt)-new Date(b.eventAt));
-  const history=historyEvents.length?historyEvents.map((item,i)=>{
-   const x=item.proof||{},state=item.kind==='manual'?'approved':x.status==='approved'?'approved':'pending',stateLabel=state==='approved'?'✓ Approved':'◷ Pending Review';
-   const date=new Date(item.eventAt),dateLabel=Number.isNaN(date.getTime())?esc(fmtDate(item.eventAt)):esc(date.toLocaleString('en-PH',{month:'long',day:'numeric',year:'numeric',hour:'numeric',minute:'2-digit',timeZone:'Asia/Manila'})),submittedLabel=item.kind==='proof'&&x.reviewed_at&&x.submitted_at?esc(new Date(x.submitted_at).toLocaleString('en-PH',{month:'short',day:'numeric',year:'numeric',hour:'numeric',minute:'2-digit',timeZone:'Asia/Manila'})):'';
-   const proofLink=item.kind==='proof'?'<button type="button" class="rd-proof-view-link" data-rd-proof-view="'+x.id+'">▧ &nbsp;View screenshot</button>':'<small class="rd-proof-history-approved-note">by sexydustpeptide</small>';
-   const preview=item.kind==='proof'?'<div class="rd-proof-preview" id="rd-proof-preview-'+x.id+'"></div>':'';
-   const note=item.kind==='proof'&&x.admin_note?'<small class="rd-proof-history-note">Admin note: '+esc(x.admin_note)+'</small>':'';
-   return '<div class="rd-proof-history-item"><span class="rd-proof-history-number">'+(i+1)+'</span><div class="rd-proof-history-detail"><div class="rd-proof-history-label"><b>'+(item.kind==='manual'?'Manual payment':'Payment '+(i+1))+'</b><small>▢ '+(item.kind==='proof'&&x.status==='approved'?'Approved':'Recorded')+' · '+dateLabel+'</small>'+(submittedLabel?'<small>Submitted · '+submittedLabel+'</small>':'')+proofLink+'</div><strong class="rd-proof-history-amount">'+peso(item.amount)+'</strong><span class="rd-proof-history-status '+state+'">'+stateLabel+'</span></div>'+preview+note+'</div>'
-  }).join(''):'<div class="rd-proof-no-history">No payment history yet.</div>';
-  return '<section class="rd-product-proof-card"><div class="rd-product-proof-head"><span class="rd-product-box-icon">◇</span><h3>'+esc(g.name)+'</h3><span class="rd-product-proof-status '+status+'">'+label+'</span></div><div class="rd-product-proof-body"><div class="rd-product-proof-totals"><div><span>🛒</span><label>Total Order</label><b>'+peso(g.total)+'</b></div><div><span>▱</span><label>Total Paid</label><b class="paid">'+peso(g.paid)+'</b></div><div><span>▤</span><label>Remaining Balance</label><b class="balance">'+peso(balance)+'</b></div></div><div class="rd-product-proof-history"><h4>▤ &nbsp;Payment History</h4><div class="rd-proof-history-list">'+history+'</div></div></div></section>'
- }).join(''):'<div class="rd-proof-empty"><span>♡</span><b>No orders yet</b><small>Your submitted payment proofs and product payment summaries will appear here.</small></div>';
+  const events=[];
+  (g.movements||[]).forEach(m=>{
+   (subs||[]).filter(x=>x.movement_id===m.id).forEach(x=>events.push({kind:'proof',proof:x,eventAt:x.reviewed_at||x.submitted_at,amount:Number(x.amount)||0}));
+   (Array.isArray(resellerPaymentEvents)?resellerPaymentEvents:[]).filter(e=>e.movement_id===m.id).forEach(e=>events.push({kind:'manual',eventAt:e.event_at,amount:Number(e.amount)||0,recordedBy:e.recorded_by||'Admin'}));
+  });
+  events.sort((a,b)=>new Date(a.eventAt||0)-new Date(b.eventAt||0));
+  const history=events.length?events.map((item,i)=>{
+   const x=item.proof||{};
+   const approved=item.kind==='manual'||x.status==='approved';
+   const date=new Date(item.eventAt||0);
+   const dateLabel=Number.isNaN(date.getTime())?'Date unavailable':date.toLocaleString('en-PH',{month:'short',day:'numeric',year:'numeric',hour:'numeric',minute:'2-digit',timeZone:'Asia/Manila'});
+   const proofAction=item.kind==='proof'?'<button type="button" class="rd-proof-view-link" data-rd-proof-view="'+esc(x.id)+'">▧ View screenshot</button>':'<small class="rd-proof-history-approved-note">Recorded by '+esc(item.recordedBy||'Admin')+'</small>';
+   return '<div class="rd-proof-history-item"><span class="rd-proof-history-number">'+(i+1)+'</span><div class="rd-proof-history-detail"><div class="rd-proof-history-label"><b>'+(item.kind==='manual'?'Manual payment':'Payment '+(i+1))+'</b><small>▢ '+(approved?'Approved':'Pending review')+' · '+esc(dateLabel)+'</small>'+proofAction+'</div><strong class="rd-proof-history-amount">'+peso(item.amount)+'</strong><span class="rd-proof-history-status '+(approved?'approved':'pending')+'">'+(approved?'✓ Approved':'◷ Pending Review')+'</span></div><div class="rd-proof-preview" id="rd-proof-preview-'+(item.kind==='proof'?esc(x.id):'')+'"></div></div>';
+  }).join(''):'<div class="rd-proof-no-history">No payment history recorded for this product yet.</div>';
+  return '<section class="rd-product-proof-card"><div class="rd-product-proof-head"><span class="rd-product-box-icon">◇</span><h3>'+esc(g.name)+'</h3><span class="rd-product-proof-status '+status+'">'+label+'</span></div><div class="rd-product-proof-body"><div class="rd-product-proof-totals"><div><span>🛒</span><label>Total Order</label><b>'+peso(g.total)+'</b></div><div><span>▱</span><label>Total Paid</label><b class="paid">'+peso(g.paid)+'</b></div><div><span>▤</span><label>Remaining Balance</label><b class="balance">'+peso(balance)+'</b></div></div><div class="rd-product-proof-history"><h4>▤ Payment History</h4><div class="rd-proof-history-list">'+history+'</div></div></div></section>';
+ }).join('');
+ $('rdRecentPaymentRows').innerHTML=proofCards||'<div class="rd-proof-empty"><span>♡</span><b>No orders yet</b><small>Your submitted payment proofs and product payment summaries will appear here.</small></div>';
  $('rdRecentPaymentRows').querySelectorAll('[data-rd-proof-view]').forEach(b=>b.onclick=async()=>{
   const proof=paymentSubmissions.find(x=>x.id===b.dataset.rdProofView);if(!proof)return;
   const target=$('rd-proof-preview-'+proof.id);if(target&&!target.classList.contains('hidden')&&target.innerHTML){target.classList.add('hidden');b.textContent='▧  View screenshot';return}
