@@ -1890,6 +1890,136 @@ html,body{width:100%;max-width:100%;overflow-x:hidden}
  .sd-full-dashboard-preview .rd-product-proof-head h3{font-size:18px!important}
  .sd-full-dashboard-preview .rd-product-proof-status{font-size:10px!important;padding:6px 8px!important}
 }
+
+/* APPROVED VISUAL: pastel pink dominant, soft lavender accents */
+:root{
+ --pink:#f6c5dc;--rose:#e85b9f;--wine:#6e1b52;--ivory:#fff8fc;--ink:#43233c;
+ --muted:#9a7d94;--line:#f2d6e5;--green:#37835c;--red:#c64b75;
+ --sd-pink:#f7c9df;--sd-hot:#e95a9f;--sd-lav:#d9c2f1;--sd-lavpale:#f3ebfc;
+}
+html{background:#fff6fb}
+body{
+ min-height:100vh;color:#45243e;
+ background:
+  radial-gradient(ellipse at 84% -8%,rgba(218,193,244,.72),transparent 30%),
+  radial-gradient(ellipse at 5% 80%,rgba(255,205,228,.82),transparent 32%),
+  linear-gradient(135deg,#fff9fc 0%,#fff0f7 48%,#f8f1ff 100%);
+ font-family:"Avenir Next",Avenir,"Segoe UI",Arial,sans-serif;
+}
+#loginView.shell{max-width:none;min-height:100vh;margin:0;padding:7vh 20px;display:grid;place-items:center;position:relative;overflow:hidden}
+#loginView:before,#loginView:after{content:"";position:fixed;pointer-events:none;z-index:0;border-radius:50%;filter:blur(1px)}
+#loginView:before{width:540px;height:230px;left:-110px;bottom:-90px;border:2px solid rgba(232,91,159,.18);box-shadow:0 -18px 0 -16px rgba(217,194,241,.65),0 -40px 0 -38px rgba(232,91,159,.35);transform:rotate(-13deg)}
+#loginView:after{width:600px;height:240px;right:-160px;top:-120px;border:2px solid rgba(217,194,241,.55);box-shadow:0 22px 0 -20px rgba(232,91,159,.4),0 44px 0 -42px rgba(217,194,241,.7)}
+#loginView .login{position:relative;z-index:1;width:min(460px,100%);max-width:460px;margin:0;padding:38px 36px 34px;border:1px solid #f0c9df;border-radius:30px;background:rgba(255,255,255,.88);box-shadow:0 25px 75px rgba(169,86,142,.16);backdrop-filter:blur(16px)}
+#loginView .login:before{content:"♡";position:absolute;right:27px;top:20px;color:#eaa1c6;font:34px Georgia}
+#loginView .login-logo{display:block;width:min(190px,60%);max-height:110px;object-fit:contain;margin:0 auto 18px}
+#loginView .login h1{font:italic 36px Georgia;color:#711b56;text-align:center;margin:6px 0}
+#loginView .login>p{text-align:center;color:#9b7d94;line-height:1.7}
+#loginView .field{margin:16px 0}
+#loginView .field label{color:#8e6281;font-size:11px;letter-spacing:.5px}
+#loginView .field input{border:1px solid #efd3e3;border-radius:13px;padding:13px 14px;background:#fffaff}
+#loginView .field input:focus{outline:0;border-color:#e77bad;box-shadow:0 0 0 4px #fce6f1}
+#loginView .btn.primary{background:linear-gradient(100deg,#f18cbd,#df4d99);border-radius:13px;letter-spacing:1px;padding:14px;box-shadow:0 8px 20px #df6da733}
+#appView.shell{max-width:none;width:100%;min-height:100vh;margin:0;padding:0 28px 34px 292px;display:block;position:relative}
+#appView:not(.hidden){display:block}
+#appView>.tabs{
+ position:fixed;z-index:40;left:0;top:0;bottom:0;width:268px;margin:0;padding:205px 14px 22px;
+ display:flex;flex-direction:column;align-items:stretch;gap:7px;overflow-y:auto;
+ border:0;border-right:1px solid #f0d1e4;border-radius:0;
+ background:
+  radial-gradient(ellipse at 5% 0%,rgba(255,255,255,.96),transparent 34%),
+  radial-gradient(ellipse at 100% 95%,rgba(224,197,245,.62),transparent 32%),
+  linear-gradient(180deg,#fff8fc 0%,#ffedf6 62%,#f6efff 100%);
+ box-shadow:8px 0 30px rgba(157,76,130,.09)
+}
+#appView>.tabs .sidebar-brand{display:flex!important;position:absolute;top:23px;left:22px;right:22px;height:145px;align-items:center;justify-content:center;border-bottom:1px solid #f0d7e7}
+#appView>.tabs .sidebar-logo{display:block!important;width:185px;height:125px;max-width:100%;object-fit:contain}
+#appView>.tabs .sidebar-label{position:absolute;top:178px;left:28px;color:#c07da5;font-size:9px;font-weight:900;letter-spacing:2.2px}
+#appView>.tabs .tab{
+ width:100%;min-height:45px;text-align:left;white-space:normal;padding:11px 13px;
+ border:1px solid transparent;border-radius:13px;background:transparent;color:#69445f;
+ font-size:13px;font-weight:700;transition:all .18s ease;box-shadow:none
+}
+#appView>.tabs .tab:before{display:inline-flex;width:27px;height:27px;margin-right:10px;align-items:center;justify-content:center;color:#d34d98;font-size:19px;text-align:center;vertical-align:middle}
+#appView>.tabs .tab[data-page="overview"]:before{content:"⌂"}
+#appView>.tabs .tab[data-page="inventory"]:before{content:"◇"}
+#appView>.tabs .tab[data-page="movements"]:before{content:"⇄"}
+#appView>.tabs .tab[data-page="user-report"]:before{content:"▤"}
+#appView>.tabs .tab[data-page="reseller-dashboard"]:before{content:"♙"}
+#appView>.tabs .tab[data-page="pricelist"]:before{content:"▧"}
+#appView>.tabs .tab[data-page="costing"]:before{content:"＄"}
+#appView>.tabs .tab[data-page="activity"]:before{content:"◷"}
+#appView>.tabs .tab[data-page="users"]:before{content:"♧"}
+#appView>.tabs .tab:hover{background:#fff;border-color:#f2d7e7;transform:translateX(2px);box-shadow:0 5px 14px rgba(196,96,153,.08)}
+#appView>.tabs .tab.active{background:linear-gradient(100deg,#f18cbd,#df4c9d);color:#fff;border-color:rgba(255,255,255,.75);box-shadow:0 8px 19px rgba(213,73,146,.2)}
+#appView>.tabs .tab.active:before{color:#fff}
+#appView>.top{
+ position:relative;min-height:86px;margin:0 -28px 24px -292px;padding:13px 30px 13px 318px;
+ background:linear-gradient(100deg,rgba(255,248,252,.97),rgba(255,226,240,.9) 65%,rgba(243,232,253,.92));
+ border-bottom:1px solid #f0d1e2;box-shadow:0 5px 22px rgba(177,83,139,.06)
+}
+#appView>.top:before{content:"";position:absolute;inset:0;pointer-events:none;background:linear-gradient(115deg,transparent 18%,rgba(255,255,255,.7) 45%,transparent 70%)}
+#appView>.top>div:first-child{display:none}
+#appView>.top .topright{margin-left:auto}
+#who{font-weight:750;color:#78345f;font-size:12px}
+#appView .card{border:1px solid #f1d8e7;border-radius:19px;background:rgba(255,255,255,.94);box-shadow:0 8px 24px rgba(175,86,139,.075)}
+#appView h2,#appView h3,#appView h4{color:#741b59}
+#appView .btn{border-radius:12px;font-weight:750;transition:transform .18s,box-shadow .18s}
+#appView .btn:hover{transform:translateY(-1px);box-shadow:0 7px 17px rgba(203,83,145,.16)}
+#appView .primary{background:linear-gradient(100deg,#f18cbd,#df4d99);color:#fff;box-shadow:0 6px 15px rgba(223,77,153,.18)}
+#appView .soft{background:#fff0f7;color:#85345f;border:1px solid #f1cfe1}
+#appView .outline{background:#fff;color:#873c6c;border:1px solid #eebed8}
+#appView .dashboard-welcome,#appView .reseller-page-heading{
+ position:relative;isolation:isolate;overflow:hidden;border:1px solid #f1c9de!important;border-radius:24px!important;
+ background:radial-gradient(circle at 84% 15%,rgba(255,255,255,.95),transparent 20%),linear-gradient(110deg,#ffe0ed 0%,#fff8fc 53%,#f2e8fc 100%)!important;
+ box-shadow:0 14px 35px rgba(195,94,151,.09)!important
+}
+#appView .dashboard-welcome:after,#appView .reseller-page-heading:after{content:"✧  ♡";position:absolute;z-index:-1;right:4%;bottom:-25px;color:rgba(214,119,175,.19);font:82px Georgia;letter-spacing:8px;pointer-events:none}
+#appView .dashboard-welcome h2,#appView .reseller-page-heading h2{color:#721a56!important}
+#appView .stats{gap:13px}
+#appView .stat{border-radius:17px!important;border:1px solid #f2d4e5!important;background:linear-gradient(145deg,#fff,#fff0f7)!important;box-shadow:0 7px 20px rgba(196,96,153,.075)!important}
+#appView .stat:nth-child(even){background:linear-gradient(145deg,#fff,#f5edff)!important}
+#appView .stat small{color:#9d718f;font-weight:800;letter-spacing:.4px}
+#appView .stat strong{color:#761d59}
+#appView .rd-icon{background:linear-gradient(140deg,#ffe2ef,#eeddfb)!important;color:#d64e9c!important;border-radius:14px!important}
+#appView .tablewrap{border-radius:13px}
+#appView table thead th{background:#fff0f7;color:#9b5e86}
+#appView table tbody tr:hover{background:#fff8fc}
+#appView input:not([type=checkbox]):not([type=radio]),#appView select,#appView textarea{border-color:#eed4e4;border-radius:11px}
+#appView input:focus,#appView select:focus,#appView textarea:focus{outline:0;border-color:#e78cba;box-shadow:0 0 0 3px #fce8f2}
+#appView .proof-card,#appView .user-report-card{border:1px solid #f0d8e7!important;background:linear-gradient(145deg,#fff,#fff8fc)!important;box-shadow:0 7px 20px rgba(175,86,139,.06)!important}
+#appView .payment-box,#appView .move-preview,#appView .activity-stat,#appView .activity-detail,#appView .activity-change{background:#fff4fa;border-color:#f0d8e7;border-radius:15px}
+#appView .tab:focus-visible,#appView button:focus-visible{outline:3px solid #e9b7d6;outline-offset:2px}
+@media(max-width:900px){
+ #appView.shell{padding-left:248px;padding-right:18px}
+ #appView>.tabs{width:228px}
+ #appView>.top{margin-left:-248px;padding-left:266px}
+ #appView>.tabs .sidebar-logo{width:160px}
+}
+@media(max-width:700px){
+ #appView.shell{padding:0 12px 24px 82px}
+ #appView>.tabs{width:68px;padding:150px 7px 14px;gap:6px}
+ #appView>.tabs .sidebar-brand{top:12px;left:5px;right:5px;height:118px}
+ #appView>.tabs .sidebar-logo{width:60px;height:100px;object-fit:contain}
+ #appView>.tabs .sidebar-label{display:none}
+ #appView>.tabs .tab{font-size:0;min-height:44px;padding:8px 3px;text-align:center}
+ #appView>.tabs .tab:before{width:100%;height:26px;margin:0;font-size:20px}
+ #appView>.top{margin:0 -12px 18px -82px;padding:12px 12px 12px 94px;min-height:72px}
+ #appView>.top .topright{gap:5px}
+ #who{font-size:9px}
+ #appView>.top .btn{font-size:10px;padding:8px 9px}
+ #appView .dashboard-welcome{padding:22px 18px;min-height:145px}
+ #appView .stats{grid-template-columns:repeat(2,minmax(0,1fr))}
+}
+@media(max-width:420px){
+ #appView.shell{padding-left:72px;padding-right:8px}
+ #appView>.tabs{width:60px}
+ #appView>.top{margin-left:-72px;padding-left:80px}
+ #appView>.tabs .sidebar-logo{width:52px}
+ #appView .card{padding:13px}
+ #appView .stats{gap:8px}
+}
+
 </style>
 </head>
 <body>
