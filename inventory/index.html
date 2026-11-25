@@ -1411,6 +1411,39 @@ body{background:#fff8fb}
  #appView.reseller-mode>.tabs .tab[data-page="user-report"]{display:inline-flex!important;min-width:max-content!important}
 }
 
+
+/* Premium reseller dashboard payment-proof history */
+#resellerDashboard .rd-payment-cards{display:grid;gap:11px}
+#resellerDashboard .rd-proof-history-card{min-width:0;padding:14px 15px;border:1px solid #f0c7d8;border-radius:17px;background:linear-gradient(145deg,#fff 0%,#fff7fa 100%);box-shadow:0 6px 17px rgba(128,34,76,.045)}
+#resellerDashboard .rd-proof-history-card.approved{border-left:5px solid #5aab7c}
+#resellerDashboard .rd-proof-history-card.pending{border-left:5px solid #d6a044}
+#resellerDashboard .rd-proof-history-card.rejected{border-left:5px solid #ce6680}
+#resellerDashboard .rd-proof-history-top{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap}
+#resellerDashboard .rd-proof-history-date{display:flex;align-items:center;gap:9px;min-width:0}
+#resellerDashboard .rd-proof-history-icon{display:grid;place-items:center;width:34px;height:34px;flex:0 0 34px;border-radius:50%;background:#ffe5ef;color:#b51d61;font:20px Georgia}
+#resellerDashboard .rd-proof-history-date>span:last-child{display:flex;flex-direction:column;gap:3px;min-width:0}
+#resellerDashboard .rd-proof-history-date b{font:700 14px Georgia,serif;color:#74163f;overflow-wrap:anywhere}
+#resellerDashboard .rd-proof-history-date small{font-size:10px;color:#9b788a}
+#resellerDashboard .rd-proof-history-amounts{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;margin-top:13px;padding:11px 10px;border:1px solid #f4dce6;border-radius:13px;background:#fffafd}
+#resellerDashboard .rd-proof-history-amounts>div{display:flex;flex-direction:column;gap:4px;min-width:0}
+#resellerDashboard .rd-proof-history-amounts small{font-size:9px;line-height:1.3;color:#987181}
+#resellerDashboard .rd-proof-history-amounts strong{font:700 17px Georgia,serif;color:#762345;overflow-wrap:anywhere}
+#resellerDashboard .rd-proof-history-amounts strong.due{color:#bd345d}
+#resellerDashboard .rd-proof-history-amounts strong.settled{color:#278253}
+#resellerDashboard .rd-proof-history-foot{display:flex;align-items:center;justify-content:space-between;gap:8px;flex-wrap:wrap;margin-top:11px;color:#9a7889;font-size:10px}
+#resellerDashboard .rd-proof-history-foot .btn{font-size:10px;padding:7px 11px;min-height:32px}
+#resellerDashboard .rd-proof-history-note{margin:10px 0 0;padding:8px 10px;border-radius:10px;background:#fff0f6;color:#7d3b58;font-size:10px}
+#resellerDashboard .rd-proof-preview{margin-top:10px}
+#resellerDashboard .rd-proof-preview a{font-size:11px;font-weight:800;color:#a21d58}
+#resellerDashboard .rd-proof-thumb{display:block;max-width:100%;max-height:260px;object-fit:contain;margin-top:8px;border:1px solid #f0dce6;border-radius:12px;background:#fff}
+#resellerDashboard .rd-proof-empty{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;min-height:150px;padding:20px;text-align:center;border:1px dashed #e8b6ca;border-radius:16px;background:linear-gradient(145deg,#fff7fa,#fff)}
+#resellerDashboard .rd-proof-empty span{font:32px Georgia;color:#d56a96}
+#resellerDashboard .rd-proof-empty b{font:700 15px Georgia;color:#81254e}
+#resellerDashboard .rd-proof-empty small{font-size:10px;color:#9a7889}
+#adminDashboardProofs .proof-card{padding:18px;border:1px solid #efc6d7;border-radius:18px;background:linear-gradient(145deg,#fff,#fff7fa);box-shadow:0 7px 20px rgba(128,34,76,.05)}
+#adminDashboardProofs .proof-row{align-items:center;gap:12px}
+@media(max-width:560px){#resellerDashboard .rd-proof-history-amounts{gap:5px;padding:9px 7px}#resellerDashboard .rd-proof-history-amounts small{font-size:8px}#resellerDashboard .rd-proof-history-amounts strong{font-size:14px}#resellerDashboard .rd-proof-history-foot{align-items:flex-start}}
+
 </style>
 </head>
 <body>
@@ -1447,7 +1480,7 @@ body{background:#fff8fb}
     <div class="reseller-main-grid">
      <article class="card rd-panel"><div class="rd-panel-head"><div><h3>♡ My Received Stocks</h3><p>Products assigned to your account</p></div><span class="rd-count" id="rdProductCount">0 product types</span></div><div class="tablewrap"><table class="rd-stock-table"><thead><tr><th>PRODUCT</th><th>QTY RECEIVED</th><th>AMOUNT</th><th>PAYMENT</th></tr></thead><tbody id="rdReceivedRows"><tr><td colspan="4" class="empty">Loading…</td></tr></tbody></table></div></article>
      <article class="card rd-panel"><div class="rd-panel-head"><div><h3>♡ Payment Summary</h3><p>Your payment progress</p></div></div><div class="rd-progress-label"><span>Amount paid</span><b id="rdPaidPercent">0%</b></div><div class="rd-progress"><span id="rdPaidBar" style="width:0%"></span></div><div class="rd-summary-lines"><div><span>Total amount</span><b id="rdSummaryTotal">₱0.00</b></div><div class="paid"><span>Paid</span><b id="rdSummaryPaid">₱0.00</b></div><div class="due"><span>Balance</span><b id="rdSummaryDue">₱0.00</b></div></div><div class="rd-payment-hint"><span class="rd-hint-icon">♡</span><div><b>Payment due?</b><small>Your receipt upload is right below.</small></div></div></article>
-     <article class="card rd-panel"><div class="rd-panel-head"><div><h3>▤ Recent Payments</h3><p>Payments recorded on your account</p></div><button class="btn soft" type="button" id="rdViewAllPayments">View all</button></div><div class="tablewrap"><table class="rd-stock-table"><thead><tr><th>DATE</th><th>PAYMENT FOR</th><th>AMOUNT</th><th>STATUS</th></tr></thead><tbody id="rdRecentPaymentRows"><tr><td colspan="4" class="empty">No payment records yet.</td></tr></tbody></table></div></article>
+     <article class="card rd-panel"><div class="rd-panel-head"><div><h3>▤ Recent Payments</h3><p>Payments recorded on your account</p></div><button class="btn soft" type="button" id="rdViewAllPayments">View all</button></div><div id="rdRecentPaymentRows" class="rd-payment-cards"><div class="empty">No payment records yet.</div></div></article>
      
      <article class="card rd-panel rd-proof-panel"><div class="rd-panel-head"><div><h3>♡ Submit Payment Proof</h3><p>Upload your payment receipt for verification</p></div><span class="rd-count">SECURE UPLOAD</span></div><div id="dashboardPayments"><div class="empty">Loading payment form…</div></div></article>
     </div>
@@ -1705,16 +1738,38 @@ function renderDashboard(){
  }
 }
 function renderResellerDashboardDetails(){
- const range=$('rdDateFilter')?.value||'all';const now=new Date();const mine=movements.filter(m=>{if(m.movement_type!=='stock_out'||!(m.created_by===currentUser.id||m.assigned_user_id===currentUser.id))return false;const d=new Date(m.movement_date||m.created_at);if(range==='week'){const start=new Date(now);start.setHours(0,0,0,0);start.setDate(start.getDate()-((start.getDay()+6)%7));return d>=start}if(range==='month')return d.getFullYear()===now.getFullYear()&&d.getMonth()===now.getMonth();return true}).slice().sort((a,b)=>new Date(b.movement_date||b.created_at)-new Date(a.movement_date||a.created_at));
- const grouped={};mine.forEach(m=>{const n=m.inv_products?.name||'Product';if(!grouped[n])grouped[n]={qty:0,total:0,paid:0};grouped[n].qty+=Math.abs(Number(m.quantity)||0);grouped[n].total+=Number(m.payment_total)||0;grouped[n].paid+=Number(m.amount_paid)||0});
+ const range=$('rdDateFilter')?.value||'all',now=new Date();
+ const mine=movements.filter(m=>{
+  if(m.movement_type!=='stock_out'||!(m.created_by===currentUser.id||m.assigned_user_id===currentUser.id))return false;
+  const d=new Date(m.movement_date||m.created_at);
+  if(range==='week'){const start=new Date(now);start.setHours(0,0,0,0);start.setDate(start.getDate()-((start.getDay()+6)%7));return d>=start}
+  if(range==='month')return d.getFullYear()===now.getFullYear()&&d.getMonth()===now.getMonth();
+  return true
+ }).slice().sort((a,b)=>new Date(b.movement_date||b.created_at)-new Date(a.movement_date||a.created_at));
+ const grouped={};
+ mine.forEach(m=>{const n=m.inv_products?.name||'Product';if(!grouped[n])grouped[n]={qty:0,total:0,paid:0};grouped[n].qty+=Math.abs(Number(m.quantity)||0);grouped[n].total+=Number(m.payment_total)||0;grouped[n].paid+=Number(m.amount_paid)||0});
  const entries=Object.entries(grouped);$('rdProductCount').textContent=entries.length+' product types';
  $('rdReceivedRows').innerHTML=entries.length?entries.sort((a,b)=>a[0].localeCompare(b[0])).map(([n,x])=>{const d=Math.max(0,x.total-x.paid),st=d<=0?'paid':x.paid>0?'partial':'unpaid';return '<tr><td><b>'+esc(n)+'</b></td><td>'+x.qty+' pcs</td><td>'+peso(x.total)+'</td><td><span class="rd-status '+st+'">'+(st==='paid'?'Paid':st==='partial'?'Partial':'Unpaid')+'</span></td></tr>'}).join(''):'<tr><td colspan="4" class="empty">No stock has been assigned to your account yet.</td></tr>';
  const total=mine.reduce((a,m)=>a+Number(m.payment_total||0),0),paid=mine.reduce((a,m)=>a+Number(m.amount_paid||0),0),due=Math.max(0,total-paid),pct=total?Math.min(100,paid/total*100):0;
  $('rdSummaryTotal').textContent=peso(total);$('rdSummaryPaid').textContent=peso(paid);$('rdSummaryDue').textContent=peso(due);$('rdPaidPercent').textContent=pct.toFixed(1)+'%';$('rdPaidBar').style.width=pct+'%';
  const subs=paymentSubmissions.filter(x=>mine.some(m=>m.id===x.movement_id)).sort((a,b)=>new Date(b.submitted_at)-new Date(a.submitted_at));
- $('rdRecentPaymentRows').innerHTML=subs.length?subs.slice(0,5).map(x=>{const m=mine.find(z=>z.id===x.movement_id);return '<tr><td>'+esc(fmtDate(x.submitted_at))+'</td><td>'+esc(m?.inv_products?.name||'Stock-out')+'</td><td><b>'+peso(x.amount)+'</b></td><td><span class="rd-status '+(x.status==='approved'?'paid':x.status==='rejected'?'unpaid':'partial')+'">'+(x.status==='approved'?'Verified':x.status==='rejected'?'Rejected':'Pending')+'</span></td></tr>'}).join(''):'<tr><td colspan="4" class="empty">No payment proofs submitted yet.</td></tr>';
+ $('rdRecentPaymentRows').innerHTML=subs.length?subs.slice(0,5).map(x=>{
+  const m=mine.find(z=>z.id===x.movement_id),transactionTotal=Number(m?.payment_total||0),transactionPaid=Number(m?.amount_paid||0),balance=Math.max(0,transactionTotal-transactionPaid);
+  const state=x.status==='approved'?'approved':x.status==='rejected'?'rejected':'pending';
+  const stateLabel=state==='approved'?'VERIFIED':state==='rejected'?'REJECTED':'FOR REVIEW';
+  return '<article class="rd-proof-history-card '+state+'"><div class="rd-proof-history-top"><div class="rd-proof-history-date"><span class="rd-proof-history-icon">♡</span><span><b>'+esc(m?.inv_products?.name||'Stock-out')+'</b><small>'+esc(fmtDate(x.submitted_at))+'</small></span></div><span class="proof-status '+state+'">'+stateLabel+'</span></div><div class="rd-proof-history-amounts"><div><small>Submitted payment</small><strong>'+peso(x.amount)+'</strong></div><div><small>Transaction total</small><strong>'+peso(transactionTotal)+'</strong></div><div><small>Remaining balance</small><strong class="'+(balance>0?'due':'settled')+'">'+peso(balance)+'</strong></div></div><div class="rd-proof-history-foot"><span>Payment reference · '+esc((m?.movement_date||m?.created_at?.slice(0,10)||'—'))+'</span><button class="btn soft" type="button" data-rd-proof-view="'+x.id+'">View receipt ↗</button></div>'+(x.admin_note?'<p class="rd-proof-history-note">Admin note: '+esc(x.admin_note)+'</p>':'')+'<div class="rd-proof-preview" id="rd-proof-preview-'+x.id+'"></div></article>'
+ }).join(''):'<div class="rd-proof-empty"><span>♡</span><b>No payment proofs yet</b><small>Your submitted receipts and verification updates will appear here.</small></div>';
+ $('rdRecentPaymentRows').querySelectorAll('[data-rd-proof-view]').forEach(b=>b.onclick=async()=>{
+  const proof=paymentSubmissions.find(x=>x.id===b.dataset.rdProofView);if(!proof)return;
+  b.disabled=true;b.textContent='Opening…';
+  const {data,error}=await db.storage.from('sd-payment-proofs').createSignedUrl(proof.proof_path,300);
+  if(error){alert(error.message);b.disabled=false;b.textContent='View receipt ↗';return}
+  const target=$('rd-proof-preview-'+proof.id);
+  if(target)target.innerHTML='<a href="'+esc(data.signedUrl)+'" target="_blank" rel="noopener">Open full receipt ↗</a><img class="rd-proof-thumb" src="'+esc(data.signedUrl)+'" alt="Your submitted payment receipt">';
+  b.disabled=false;b.textContent='Hide / View receipt';
+  b.onclick=()=>{if(target)target.classList.toggle('hidden')};
+ });
  const name=currentMember?.username||'Reseller';$('rdWelcomeName').textContent=name;$('portalName').textContent=name;$('portalAvatar').textContent=name.trim().charAt(0).toUpperCase();
- 
  $('rdViewAllPayments').onclick=()=>document.querySelector('[data-page="payments"]')?.click();
  $('rdRefresh').onclick=()=>loadAll();$('rdDateFilter').onchange=()=>renderDashboard();$('portalProfile').onclick=()=> $('changePassword').click();
 }
