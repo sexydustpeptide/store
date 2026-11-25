@@ -1952,7 +1952,7 @@ async function loadResellerNameDirectory(){
  resellerNameById={};(names||[]).forEach(u=>{if(u.user_id&&u.username)resellerNameById[u.user_id]=u.username});
  if(reportError){console.error('Unable to load shared reseller report:',reportError);sharedReportMovements=[]}
  else{sharedReportMovements=(report||[]).map(m=>({...m,id:m.movement_id,assigned_user_id:m.reseller_user_id,inv_products:{name:m.product_name},reseller_name:m.reseller_name,quantity:-Math.abs(Number(m.quantity)||0)}))}
- renderUserReport();renderResellerDashboardDirectory()
+ renderResellerDashboardDirectory();renderUserReport()
 }
 async function loadAll(){await loadProducts();await loadMovements();await loadResellerNameDirectory();if(['admin','super_admin'].includes(currentRole))await loadManualStockOutUsers();if(currentRole==='super_admin')await Promise.all([loadActivities(),loadUsers(),loadCosting()]);await loadPayments();renderOverview();renderDashboard()}
 async function loadCosting(){
@@ -2203,7 +2203,7 @@ function renderResellerDashboardDirectory(){
  const names=[...new Set(sharedReportMovements.map(m=>String(m.reseller_name||resellerNameById[m.assigned_user_id]||'').trim()).filter(Boolean))].sort((a,b)=>a.localeCompare(b));
  const q=($('resellerDashboardSearch')?.value||'').trim().toLowerCase();
  host.innerHTML=names.filter(n=>n.toLowerCase().includes(q)).map(n=>'<article class="user-report-card"><div class="user-report-head"><div><span class="user-report-kicker">RESELLER DASHBOARD</span><h3>'+esc(n)+'</h3></div><div class="user-report-total"><strong>'+sharedReportMovements.filter(m=>String(m.reseller_name||resellerNameById[m.assigned_user_id]||'').toLowerCase()===n.toLowerCase()).length+'</strong><small>stock records</small></div></div><button type="button" class="btn primary" style="width:100%;margin-top:12px" data-view-reseller-dashboard="'+esc(n)+'">▦ &nbsp; OPEN RESELLER DASHBOARD</button></article>').join('')||'<div class="empty">No reseller accounts found.</div>';
- host.querySelectorAll('[data-view-reseller-dashboard]').forEach(b=>b.onclick=()=>openResellerDashboardPreview(b.dataset.viewResellerDashboard));
+ 
 }
 
 function renderUserReport(){
