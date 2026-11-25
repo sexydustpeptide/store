@@ -2720,7 +2720,7 @@ body{background:#fff8fc!important;color:var(--sd-text)!important}
   <img class="sd-logo login-logo" src="https://raw.githubusercontent.com/sexydustpeptide/store/main/sexy-dust-logo.png" alt="Sexy Dust logo">
   <h1>Welcome back</h1><p class="muted">Use the username and password provided by the Sexy Dust Admin.</p>
   <div id="loginMsg" class="notice hidden"></div>
-  <form id="usernameForm"><div class="field"><label>Username</label><input id="username" type="text" required placeholder="Enter your username" autocomplete="username"></div><div class="field"><label>Password</label><input id="password" type="password" required placeholder="Your password" autocomplete="current-password"></div><button class="btn primary" style="width:100%">LOG IN</button></form>
+  <form id="usernameForm"><div class="field"><label>Username</label><input id="username" type="text" required placeholder="Enter your username" autocomplete="username"></div><div class="field"><label>Password</label><input id="password" type="password" required placeholder="Your password" autocomplete="current-password"></div><button type="submit" class="btn primary" style="width:100%">LOG IN</button></form>
 
   
  </div>
@@ -2883,7 +2883,7 @@ function showApp(){
 }
 async function checkAccess(){const {data:{user}}=await db.auth.getUser();if(!user){showLogin();return}const {data:u,error}=await db.from('inv_users').select('id,email,username,role,active,user_id,created_at').eq('user_id',user.id).maybeSingle();if(error||!u||!u.active){await db.auth.signOut();showLogin('This account is not active or has no inventory access. Ask the Super Admin.');return}currentUser=user;currentMember=u;currentRole=u.role;await db.rpc('inv_log_access',{p_action:'login_success'});showApp()}
 $('usernameForm').onsubmit=async e=>{
- e.preventDefault();const username=$('username').value.trim(),password=$('password').value,submit=e.currentTarget.querySelector('button[type="submit"]');
+ e.preventDefault();const username=$('username').value.trim(),password=$('password').value,submit=e.currentTarget.querySelector('button[type="submit"]')||e.currentTarget.querySelector('button');
  if(!username||!password){showLogin('Enter your username and password.');return}
  if(submit?.disabled)return;
  if(submit){submit.disabled=true;submit.dataset.originalText=submit.textContent;submit.textContent='LOGGING IN…';submit.setAttribute('aria-busy','true')}
