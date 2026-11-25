@@ -2733,6 +2733,43 @@ body{background:#fff8fc!important;color:var(--sd-text)!important}
 #appView #resellerDashboard .rd-payment-progress-only{align-self:start}
 #appView #resellerDashboard .rd-payment-progress-only .rd-progress{margin-top:12px}
 
+
+/* FIX: vial progress must not inherit the 3-column totals-row grid */
+#appView #resellerDashboard .rd-product-proof-totals>.rd-vial-progress{
+ display:block!important;grid-column:1/-1!important;width:100%!important;min-width:0!important;
+ box-sizing:border-box!important;padding:12px 2px 3px!important;margin:4px 0 0!important;
+ border:0!important;border-top:1px solid #f2d4e1!important;
+}
+#appView #resellerDashboard .rd-product-proof-totals>.rd-vial-progress .rd-vial-progress-label{
+ display:flex!important;flex-direction:row!important;justify-content:space-between!important;
+ align-items:center!important;gap:10px!important;width:100%!important;min-width:0!important;
+}
+#appView #resellerDashboard .rd-product-proof-totals>.rd-vial-progress .rd-vial-progress-label span{
+ display:block!important;flex:1 1 auto!important;min-width:0!important;font-size:12px!important;
+ white-space:normal!important;line-height:1.3!important;
+}
+#appView #resellerDashboard .rd-product-proof-totals>.rd-vial-progress .rd-vial-progress-label b{
+ display:block!important;flex:0 0 auto!important;white-space:nowrap!important;font-size:13px!important;
+}
+#appView #resellerDashboard .rd-product-proof-totals>.rd-vial-progress .rd-vial-progress-track{
+ display:block!important;position:relative!important;width:100%!important;height:9px!important;
+ margin:8px 0 0!important;padding:0!important;border:0!important;border-radius:99px!important;
+ background:#f8dfeb!important;overflow:hidden!important;box-sizing:border-box!important;
+}
+#appView #resellerDashboard .rd-product-proof-totals>.rd-vial-progress .rd-vial-progress-track span{
+ display:block!important;height:100%!important;max-width:100%!important;border-radius:99px!important;
+}
+#appView #resellerDashboard .rd-product-proof-totals>.rd-vial-progress small{
+ display:block!important;width:100%!important;margin:6px 0 0!important;
+ font-size:10px!important;line-height:1.4!important;color:#9b8191!important;
+ white-space:normal!important;
+}
+@media(max-width:620px){
+ #appView #resellerDashboard .rd-product-proof-totals>.rd-vial-progress{padding-top:10px!important}
+ #appView #resellerDashboard .rd-product-proof-totals>.rd-vial-progress .rd-vial-progress-label span{font-size:11px!important}
+ #appView #resellerDashboard .rd-product-proof-totals>.rd-vial-progress .rd-vial-progress-label b{font-size:12px!important}
+}
+
 </style>
 </head>
 <body>
