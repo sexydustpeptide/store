@@ -1836,6 +1836,60 @@ html,body{width:100%;max-width:100%;overflow-x:hidden}
  .sd-full-dashboard-preview .reseller-page-heading{align-items:flex-start;flex-direction:column;padding:15px}
 }
 
+
+/* SUPER ADMIN reseller preview: match reseller Submitted Payment Proofs cards */
+.sd-full-dashboard-preview .rd-submitted-proof-panel{grid-column:1/-1!important;padding:clamp(12px,1.8vw,20px)!important;background:linear-gradient(135deg,#fff8fc 0%,#fff 48%,#fff5fa 100%)!important;border:1px solid #f4c9dc!important;border-radius:22px!important}
+.sd-full-dashboard-preview .rd-submitted-heading{display:flex;align-items:center;gap:14px;margin:0 0 16px}
+.sd-full-dashboard-preview .rd-submitted-heading h2{margin:0;color:#8f1747;font:800 clamp(24px,3vw,38px) Georgia,serif;letter-spacing:-.6px}
+.sd-full-dashboard-preview .rd-submitted-heading h2 span{color:#a71958;font-family:Arial,sans-serif}
+.sd-full-dashboard-preview .rd-submitted-heading p{display:none}
+.sd-full-dashboard-preview .rd-proof-customer{display:grid;grid-template-columns:minmax(190px,1.15fr) 2.3fr;align-items:center;gap:16px;padding:16px;border:1px solid #f4c9dc;border-radius:19px;background:rgba(255,255,255,.88);margin-bottom:17px}
+.sd-full-dashboard-preview .rd-proof-customer-name{display:flex;align-items:center;gap:13px;min-width:0}
+.sd-full-dashboard-preview .rd-proof-avatar{width:62px;height:62px;display:grid;place-items:center;flex:0 0 62px;border-radius:50%;background:#ffe6f1;border:1px solid #f6bfd6;color:#9e1550;font-size:28px}
+.sd-full-dashboard-preview .rd-proof-customer-name>strong{display:block;color:#86133f;font:800 29px Georgia,serif;overflow-wrap:anywhere}
+.sd-full-dashboard-preview .rd-proof-customer-name small{display:block;color:#805469;font-size:14px;font-weight:650}
+.sd-full-dashboard-preview .rd-proof-customer-metrics{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:9px;border-left:1px solid #f1c9d9;padding-left:17px}
+.sd-full-dashboard-preview .rd-proof-customer-metrics>div{min-width:0;padding:12px 10px;border-radius:14px;border:1px solid #f3c9dc;background:linear-gradient(135deg,#fff1f7,#ffe5f0)}
+.sd-full-dashboard-preview .rd-proof-customer-metrics>div.paid{background:linear-gradient(135deg,#f0fff2,#ddf8df);border-color:#c4edc9}
+.sd-full-dashboard-preview .rd-proof-customer-metrics>div.balance{background:linear-gradient(135deg,#fff0f8,#ffdeef);border-color:#f6c3dc}
+.sd-full-dashboard-preview .rd-proof-customer-metrics small{display:block;font-size:10px;font-weight:850;color:#8b1d4b;white-space:nowrap}
+.sd-full-dashboard-preview .rd-proof-customer-metrics b{display:block;margin-top:4px;font:800 clamp(17px,1.9vw,25px) Georgia,serif;color:#85123f;white-space:nowrap}
+.sd-full-dashboard-preview .rd-proof-customer-metrics .paid b{color:#16802f}
+.sd-full-dashboard-preview .rd-proof-customer-metrics .balance b{color:#d10c59}
+.sd-full-dashboard-preview .rd-payment-cards{display:grid!important;grid-template-columns:minmax(0,1fr)!important;gap:16px!important}
+.sd-full-dashboard-preview .rd-product-proof-card{display:block;min-width:0;overflow:hidden;border:1px solid #f2c5d9;border-radius:20px;background:linear-gradient(135deg,#fff 0%,#fff9fc 100%);box-shadow:0 5px 18px rgba(145,35,83,.045)}
+.sd-full-dashboard-preview .rd-product-proof-head{display:flex;align-items:center;gap:12px;margin:7px 9px 0;padding:10px 15px;border-radius:16px;background:linear-gradient(100deg,#ffe7f1,#fff0f7 52%,#ffe0ee)}
+.sd-full-dashboard-preview .rd-product-box-icon{font:38px Georgia;color:#95164b;line-height:1}
+.sd-full-dashboard-preview .rd-product-proof-head h3{margin:0;flex:1;min-width:0;color:#8b1244;font:800 clamp(20px,2.1vw,29px) Georgia,serif;overflow-wrap:anywhere}
+.sd-full-dashboard-preview .rd-product-proof-status{flex:0 0 auto;padding:8px 16px;border-radius:99px;font-size:13px;font-weight:850;white-space:nowrap;background:#fff0d0;color:#91400c;border:1px solid #f4cf7d}
+.sd-full-dashboard-preview .rd-product-proof-status.paid{background:#dcf8dc;color:#13702b;border-color:#b7e9b8}
+.sd-full-dashboard-preview .rd-product-proof-status.partial{background:#fff3d9;color:#a86b00;border-color:#f4cf7d}
+.sd-full-dashboard-preview .rd-product-proof-body{display:grid;grid-template-columns:minmax(245px,.76fr) minmax(0,1.24fr);gap:18px;padding:13px 17px 17px}
+.sd-full-dashboard-preview .rd-product-proof-totals{align-self:center;border:1px solid #f5c9dc;border-radius:16px;padding:8px 13px;background:linear-gradient(135deg,#fff3f8,#fffafd)}
+.sd-full-dashboard-preview .rd-product-proof-totals>div{display:grid;grid-template-columns:29px minmax(0,1fr) auto;align-items:center;gap:8px;padding:10px 2px;border-bottom:1px solid #f4d8e4}
+.sd-full-dashboard-preview .rd-product-proof-totals>div:last-child{border:0}
+.sd-full-dashboard-preview .rd-product-proof-totals>div>span{font-size:22px;color:#c41460}
+.sd-full-dashboard-preview .rd-product-proof-totals label{font-size:13px;color:#7d294e;font-weight:650}
+.sd-full-dashboard-preview .rd-product-proof-totals b{font:800 20px Georgia,serif;color:#76123c;white-space:nowrap}
+.sd-full-dashboard-preview .rd-product-proof-totals b.paid{color:#16802f}
+.sd-full-dashboard-preview .rd-product-proof-totals b.balance{color:#d10c59}
+.sd-full-dashboard-preview .rd-product-proof-history{min-width:0;border-left:2px solid #f2cddd;padding-left:18px}
+.sd-full-dashboard-preview .rd-product-proof-history h4{margin:0 0 10px;color:#80133e;font:800 18px Georgia,serif}
+.sd-full-dashboard-preview .rd-proof-history-list{display:grid;gap:8px}
+.sd-full-dashboard-preview .rd-proof-no-history{padding:14px;border:1px dashed #edc5d7;border-radius:13px;color:#98778a;font-size:12px}
+@media(max-width:760px){
+ .sd-full-dashboard-preview .rd-proof-customer{grid-template-columns:minmax(0,1fr)!important;padding:11px!important}
+ .sd-full-dashboard-preview .rd-proof-customer-metrics{grid-template-columns:repeat(3,minmax(0,1fr))!important;border-left:0!important;border-top:1px solid #f1c9d9;padding:12px 0 0!important;gap:5px!important}
+ .sd-full-dashboard-preview .rd-proof-customer-metrics>div{padding:9px 6px!important}
+ .sd-full-dashboard-preview .rd-proof-customer-metrics small{font-size:8px!important}
+ .sd-full-dashboard-preview .rd-proof-customer-metrics b{font-size:15px!important}
+ .sd-full-dashboard-preview .rd-product-proof-body{grid-template-columns:minmax(0,1fr)!important;gap:12px!important;padding:10px!important}
+ .sd-full-dashboard-preview .rd-product-proof-history{border-left:0!important;border-top:2px solid #f2cddd;padding:13px 0 0!important}
+ .sd-full-dashboard-preview .rd-product-proof-totals b{font-size:17px!important}
+ .sd-full-dashboard-preview .rd-product-proof-head{flex-wrap:wrap!important}
+ .sd-full-dashboard-preview .rd-product-proof-head h3{font-size:18px!important}
+ .sd-full-dashboard-preview .rd-product-proof-status{font-size:10px!important;padding:6px 8px!important}
+}
 </style>
 </head>
 <body>
