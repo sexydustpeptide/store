@@ -1709,6 +1709,46 @@ html,body{width:100%;max-width:100%;overflow-x:hidden}
  #resellerDashboard .rd-stockout-history-panel{width:100%!important}
  #resellerDashboard .reseller-kpis{grid-template-columns:repeat(2,minmax(0,1fr))!important}
 }
+
+/* MOBILE / TABLET OVERRIDE — placed last to beat fixed desktop grid rules */
+@media screen and (max-width:1100px){
+ #appView.shell,#appView:not(.hidden){
+   display:flex!important;flex-direction:column!important;
+   grid-template-columns:minmax(0,1fr)!important;
+   grid-template-rows:auto!important;grid-template-areas:none!important;
+   width:100%!important;max-width:100%!important;min-width:0!important;
+   overflow-x:hidden!important;
+ }
+ #appView>.top{order:0!important;grid-area:auto!important;width:100%!important;min-width:0!important;height:auto!important;min-height:82px!important}
+ #appView>.tabs{order:1!important;grid-area:auto!important;position:relative!important;top:auto!important;left:auto!important;bottom:auto!important;width:100%!important;min-width:0!important;height:auto!important;min-height:0!important;max-height:none!important;flex:0 0 auto!important;display:flex!important;flex-direction:row!important;flex-wrap:nowrap!important;overflow-x:auto!important;overflow-y:hidden!important}
+ #appView .sidebar-brand,#appView .sidebar-label{display:none!important}
+ #appView>.tabs .tab{width:auto!important;min-width:max-content!important;flex:0 0 auto!important}
+ #appView>main{order:2!important;grid-area:auto!important;width:100%!important;max-width:100%!important;min-width:0!important;margin:0!important;padding:14px 12px 28px!important}
+ #appView #resellerDashboard.reseller-home{width:100%!important;max-width:100%!important;min-width:0!important}
+ #appView #resellerDashboard .reseller-main-grid{
+   display:grid!important;grid-template-columns:minmax(0,1fr)!important;
+   grid-template-rows:none!important;grid-auto-rows:auto!important;
+   width:100%!important;max-width:100%!important;min-width:0!important;
+   gap:12px!important;
+ }
+ #appView #resellerDashboard .reseller-main-grid>.rd-panel,
+ #appView #resellerDashboard .reseller-main-grid>.rd-panel:nth-child(n),
+ #appView #resellerDashboard .reseller-main-grid>.rd-panel.rd-proof-panel,
+ #appView #resellerDashboard .reseller-main-grid>.rd-panel.rd-submitted-proof-panel{
+   grid-column:1 / -1!important;grid-row:auto!important;
+   width:100%!important;max-width:100%!important;min-width:0!important;
+   justify-self:stretch!important;align-self:stretch!important;
+ }
+ #appView #resellerDashboard .rd-stockout-history-panel{grid-column:1/-1!important}
+ #appView #resellerDashboard .reseller-kpis{grid-template-columns:repeat(2,minmax(0,1fr))!important;width:100%!important}
+ #appView #resellerDashboard #dashboardPayments,
+ #appView #resellerDashboard #dashboardPayments .proof-card,
+ #appView #resellerDashboard #dashboardPayments form{width:100%!important;max-width:100%!important;min-width:0!important}
+ #appView #resellerDashboard #dashboardPayments .proof-card{display:block!important}
+ #appView #resellerDashboard #dashboardPayments .proof-card .field{display:flex!important;width:100%!important;grid-column:auto!important;grid-row:auto!important}
+ #appView #resellerDashboard #dashboardPayments .proof-card input,
+ #appView #resellerDashboard #dashboardPayments .proof-card select{width:100%!important;max-width:100%!important}
+}
 </style>
 </head>
 <body>
