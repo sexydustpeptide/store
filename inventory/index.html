@@ -1795,6 +1795,47 @@ html,body{width:100%;max-width:100%;overflow-x:hidden}
  .sd-full-dashboard-preview>header{top:-12px!important;flex-wrap:wrap!important}
  .sd-full-dashboard-preview>header h2{font-size:20px!important}
 }
+
+/* Reseller Dashboard directory — clearer visual hierarchy */
+#page-reseller-dashboard{max-width:1280px;margin:0 auto}
+#page-reseller-dashboard>.dashboard-welcome{padding:26px 28px!important;border:1px solid #efcbd9!important;background:linear-gradient(115deg,#fff 0%,#fff1f6 58%,#fbe3ed 100%)!important;position:relative;overflow:hidden}
+#page-reseller-dashboard>.dashboard-welcome:after{content:"♡";position:absolute;right:28px;top:8px;font:100px Georgia;color:#f2c9d9;opacity:.55;pointer-events:none}
+#page-reseller-dashboard>.dashboard-welcome .user-report-kicker{font-size:10px;letter-spacing:2px;color:#ad6684;font-weight:800}
+#page-reseller-dashboard>.dashboard-welcome h2{font-size:clamp(25px,3vw,34px)!important;position:relative;z-index:1}
+#page-reseller-dashboard>.dashboard-welcome p{max-width:650px;line-height:1.7;margin:8px 0 0}
+#page-reseller-dashboard>.card:not(.dashboard-welcome){padding:22px!important;margin-top:18px!important}
+#page-reseller-dashboard>.card:not(.dashboard-welcome) .toolbar{align-items:center;padding-bottom:16px;border-bottom:1px solid #f1dce5}
+#page-reseller-dashboard>.card:not(.dashboard-welcome) .toolbar h3{font: bold 21px Georgia,serif!important;margin-bottom:4px!important}
+#page-reseller-dashboard #resellerDashboardSearch{max-width:300px!important;width:100%;border:1px solid #e9c8d7;border-radius:13px;padding:12px 15px;background:#fffafd;outline:none}
+#page-reseller-dashboard #resellerDashboardSearch:focus{border-color:#c77b9b;box-shadow:0 0 0 4px #f8e5ed}
+#page-reseller-dashboard #resellerDashboardDirectory.user-report-list{grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:15px;margin-top:18px!important}
+#page-reseller-dashboard .user-report-card{padding:20px!important;border:1px solid #efd5e0!important;border-radius:19px!important;background:linear-gradient(145deg,#fff 0%,#fff8fb 100%)!important;box-shadow:0 7px 20px rgba(113,59,85,.055)!important;transition:transform .18s,box-shadow .18s}
+#page-reseller-dashboard .user-report-card:hover{transform:translateY(-2px);box-shadow:0 12px 26px rgba(113,59,85,.10)!important}
+#page-reseller-dashboard .user-report-head{align-items:center;min-height:66px}
+#page-reseller-dashboard .user-report-head h3{font-size:20px!important;line-height:1.2!important;margin-top:7px!important}
+#page-reseller-dashboard .user-report-total{background:#fff0f5;border:1px solid #f2d2df;border-radius:13px;padding:8px 12px;min-width:72px}
+#page-reseller-dashboard .user-report-total strong{font:26px Georgia,serif;color:#8f1747}
+#page-reseller-dashboard .user-report-total small{font-size:9px;white-space:nowrap}
+#page-reseller-dashboard .user-report-card>[data-view-reseller-dashboard]{border-radius:12px!important;padding:12px 14px!important;letter-spacing:.35px;font-size:11px;margin-top:17px!important;box-shadow:0 5px 12px rgba(185,110,145,.15)}
+#page-reseller-dashboard .empty{padding:42px 20px;background:#fff8fb;border:1px dashed #e8c6d5;border-radius:16px}
+.sd-full-dashboard-preview{border:1px solid #edcbd9!important;border-radius:22px!important;padding:24px!important;background:#fffafd!important;box-shadow:0 25px 90px rgba(69,29,48,.28)!important}
+.sd-full-dashboard-preview>header{position:sticky;top:-24px;z-index:3;background:rgba(255,250,253,.96);backdrop-filter:blur(10px);padding:8px 0 16px;border-bottom:1px solid #f0dce6}
+.sd-full-dashboard-preview>header h2{font: bold 27px Georgia,serif!important;color:#8f1747!important;margin:6px 0 0!important}
+.sd-full-dashboard-preview .reseller-page-heading{padding:18px 20px;background:linear-gradient(110deg,#fff0f6,#fffafd);border:1px solid #f1d5e1;border-radius:17px}
+.sd-full-dashboard-preview .reseller-page-heading p{color:#947b8a}
+.sd-full-dashboard-preview .rd-panel{border-radius:17px!important;box-shadow:0 6px 18px rgba(113,59,85,.045)!important}
+@media(max-width:650px){
+ #page-reseller-dashboard>.dashboard-welcome{padding:21px 18px!important}
+ #page-reseller-dashboard>.dashboard-welcome:after{right:8px;font-size:72px}
+ #page-reseller-dashboard>.card:not(.dashboard-welcome){padding:15px!important}
+ #page-reseller-dashboard>.card:not(.dashboard-welcome) .toolbar{align-items:stretch}
+ #page-reseller-dashboard #resellerDashboardSearch{max-width:none!important}
+ #page-reseller-dashboard #resellerDashboardDirectory.user-report-list{grid-template-columns:1fr}
+ .sd-full-dashboard-preview{padding:14px!important}
+ .sd-full-dashboard-preview>header{top:-14px}
+ .sd-full-dashboard-preview .reseller-page-heading{align-items:flex-start;flex-direction:column;padding:15px}
+}
+
 </style>
 </head>
 <body>
