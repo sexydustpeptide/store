@@ -2020,6 +2020,29 @@ body{
  #appView .stats{gap:8px}
 }
 
+
+/* Login must fully cover the app whenever the login view is active */
+#loginView:not(.hidden){
+ position:fixed!important;
+ inset:0!important;
+ z-index:99999!important;
+ width:100vw!important;
+ height:100vh!important;
+ min-height:100vh!important;
+ max-width:none!important;
+ margin:0!important;
+ padding:24px!important;
+ box-sizing:border-box!important;
+ display:grid!important;
+ place-items:center!important;
+ overflow:auto!important;
+ isolation:isolate!important;
+ background:radial-gradient(ellipse at 20% 20%,#f8d5e3,transparent 40%),linear-gradient(135deg,#fff8fb,#f9e2ec)!important;
+}
+#loginView.hidden{display:none!important}
+#appView.hidden{display:none!important}
+#loginView:not(.hidden)~#appView{visibility:hidden!important;pointer-events:none!important}
+
 </style>
 </head>
 <body>
