@@ -2212,6 +2212,66 @@ body{
  #appView #resellerDashboard .rd-stockout-history-panel{grid-column:1!important}
 }
 
+
+/* FINAL RESELLER DASHBOARD COMPOSITION — correct card placement and compact history */
+#appView #resellerDashboard .reseller-main-grid{
+ display:grid!important;
+ grid-template-columns:minmax(0,1.12fr) minmax(340px,.88fr)!important;
+ grid-template-rows:auto auto auto!important;
+ grid-auto-flow:row!important;
+ align-items:start!important;
+ align-content:start!important;
+ gap:16px!important;
+}
+#appView #resellerDashboard .reseller-main-grid>.rd-panel:nth-child(1){
+ grid-column:1!important;grid-row:1!important;align-self:start!important;
+}
+#appView #resellerDashboard .reseller-main-grid>.rd-stockout-history-panel{
+ grid-column:2!important;grid-row:1!important;
+ width:100%!important;height:auto!important;min-height:0!important;
+ align-self:start!important;justify-self:stretch!important;
+ padding:14px!important;
+}
+#appView #resellerDashboard .reseller-main-grid>.rd-panel:nth-child(3){
+ grid-column:1!important;grid-row:2!important;align-self:start!important;
+}
+#appView #resellerDashboard .reseller-main-grid>.rd-submitted-proof-panel{
+ grid-column:1/-1!important;grid-row:3!important;align-self:start!important;
+}
+#appView #resellerDashboard .rd-stockout-history-toggle{
+ display:block!important;height:auto!important;min-height:0!important;
+}
+#appView #resellerDashboard .rd-stockout-history-toggle>summary{
+ min-height:58px!important;padding:13px 15px!important;
+}
+#appView #resellerDashboard .rd-stockout-history-toggle:not([open])>#rdStockOutHistory{
+ display:none!important;
+}
+#appView #resellerDashboard .rd-panel{
+ min-height:0!important;height:auto!important;
+}
+#appView #resellerDashboard .rd-panel-head h3{font-size:19px!important}
+#appView #resellerDashboard .rd-panel-head p{font-size:12px!important}
+#appView #resellerDashboard .rd-stock-table{font-size:13px!important}
+#appView #resellerDashboard .rd-stock-table th{font-size:11px!important;padding:13px 12px!important}
+#appView #resellerDashboard .rd-stock-table td{font-size:12px!important;padding:14px 12px!important}
+#appView #resellerDashboard .rd-summary-lines>div{font-size:13px!important;padding:13px 2px!important}
+#appView #resellerDashboard .rd-progress-label{font-size:12px!important}
+#appView #resellerDashboard .reseller-page-heading h2{font-size:clamp(27px,2vw,36px)!important}
+#appView #resellerDashboard .reseller-page-heading p{font-size:13px!important}
+#appView #resellerDashboard .reseller-kpis .stat{min-height:94px!important;padding-top:19px!important;padding-bottom:17px!important}
+#appView #resellerDashboard .reseller-kpis .stat small{font-size:10px!important}
+#appView #resellerDashboard .reseller-kpis .stat strong{font-size:clamp(23px,1.7vw,30px)!important}
+@media(max-width:1050px){
+ #appView #resellerDashboard .reseller-main-grid{
+  grid-template-columns:minmax(0,1fr)!important;
+  grid-template-rows:auto!important;
+ }
+ #appView #resellerDashboard .reseller-main-grid>.rd-panel:nth-child(n){
+  grid-column:1!important;grid-row:auto!important;
+ }
+}
+
 </style>
 </head>
 <body>
