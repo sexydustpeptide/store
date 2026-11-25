@@ -2163,6 +2163,55 @@ body{
  #loginView .login{padding:27px!important}
 }
 
+
+/* RESELLER DASHBOARD — layout correction from live screenshot */
+#appView #resellerDashboard .reseller-main-grid{
+ display:grid!important;
+ align-items:start!important;
+ align-content:start!important;
+ grid-auto-rows:min-content!important;
+ row-gap:14px!important;
+}
+#appView #resellerDashboard .rd-stockout-history-panel{
+ grid-column:1/-1!important;
+ grid-row:auto!important;
+ align-self:start!important;
+ height:fit-content!important;
+ min-height:0!important;
+ padding:12px 14px!important;
+}
+#appView #resellerDashboard .rd-stockout-history-toggle{
+ display:block!important;
+ height:auto!important;
+ min-height:0!important;
+}
+#appView #resellerDashboard .rd-stockout-history-toggle>summary{
+ min-height:54px!important;
+ padding:12px 17px!important;
+}
+#appView #resellerDashboard .rd-stockout-history-toggle:not([open])>#rdStockOutHistory{
+ display:none!important;
+}
+#appView #resellerDashboard .rd-panel:not(.rd-stockout-history-panel){
+ height:auto!important;
+ min-height:0!important;
+ align-self:start!important;
+}
+#appView #resellerDashboard .rd-panel-head h3{font-size:18px!important}
+#appView #resellerDashboard .rd-panel-head p{font-size:12px!important}
+#appView #resellerDashboard .rd-summary-lines>div{font-size:13px!important;padding:11px 0!important}
+#appView #resellerDashboard .rd-progress-label{font-size:12px!important}
+#appView #resellerDashboard #dashboardPayments .proof-card{min-height:0!important}
+#appView #resellerDashboard #dashboardPayments label{font-size:11px!important}
+#appView #resellerDashboard #dashboardPayments input,
+#appView #resellerDashboard #dashboardPayments select{min-height:40px!important;font-size:12px!important}
+#appView .portal-logo{width:225px!important;height:58px!important;max-width:30vw!important}
+#appView .sidebar-logo{max-width:145px!important;height:65px!important}
+@media(max-width:1100px){
+ #appView #resellerDashboard .reseller-main-grid{grid-template-columns:minmax(0,1fr)!important}
+ #appView #resellerDashboard .rd-stockout-history-panel{grid-column:1!important}
+}
+
 </style>
 </head>
 <body>
