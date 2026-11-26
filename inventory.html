@@ -355,23 +355,22 @@ async function loadUserReport(){
   reportMovements=data||[];
   const names=[...new Set(reportMovements.map(m=>(m.assigned_user_email||m.created_by_email||'').trim()).filter(Boolean))].sort((a,b)=>a.localeCompare(b));
   const sel=$('reportUserFilter'), old=sel.value;
-  if(member.role==='super_admin'){sel.innerHTML='<option value="__all__">All Resellers</option>'+names.map(n=>'<option value="'+esc(n)+'">'+esc(n)+'</option>').join('');sel.value=names.includes(old)?old:'__all__';sel.disabled=false}
-  else{sel.innerHTML='<option value="'+esc(member.email)+'">'+esc(member.email)+'</option>';sel.value=member.email;sel.disabled=true}
+  sel.innerHTML='<option value="__all__">All Resellers</option>'+names.map(n=>'<option value="'+esc(n)+'">'+esc(n)+'</option>').join('');
+  sel.value=names.includes(old)?old:'__all__';sel.disabled=false;
   renderUserReport();
 }
 function renderUserReport(){
-  const isAdmin=member.role==='super_admin', selected=$('reportUserFilter').value, term=$('reportSearch').value.toLowerCase(), from=$('reportFrom').value, to=$('reportTo').value;
+  const selected=$('reportUserFilter').value, term=$('reportSearch').value.toLowerCase(), from=$('reportFrom').value, to=$('reportTo').value;
   let rows=reportMovements.filter(m=>{
     const owner=(m.assigned_user_email||m.created_by_email||'').trim();
-    const mine=m.created_by===user.id||m.assigned_user_id===user.id||m.assigned_user_email===member.email||m.created_by_email===member.email;
-    if(!isAdmin&&!mine)return false;if(isAdmin&&selected!=='__all__'&&owner!==selected)return false;
+    if(selected!=='__all__'&&owner!==selected)return false;
     const date=(m.movement_date||m.created_at||'').slice(0,10);if(from&&date<from)return false;if(to&&date>to)return false;
     const p=products.find(x=>x.id===m.product_id);
     return ((p?.name||'')+' '+owner+' '+(m.reason||'')+' '+(m.notes||'')).toLowerCase().includes(term);
   });
   const qty=m=>Math.abs(Number(m.quantity)||0), paidQty=m=>Math.min(qty(m),Math.max(0,Number(m.paid_quantity)||0)), total=m=>Math.max(0,Number(m.payment_total)||0), paid=m=>Math.max(0,Number(m.amount_paid)||0), balance=m=>Math.max(0,total(m)-paid(m));
   $('rQty').textContent=rows.reduce((s,m)=>s+qty(m),0).toLocaleString();$('rPaidQty').textContent=rows.reduce((s,m)=>s+paidQty(m),0).toLocaleString();$('rPaid').textContent=money(rows.reduce((s,m)=>s+paid(m),0));$('rBalance').textContent=money(rows.reduce((s,m)=>s+balance(m),0));
-  $('reportHeading').textContent=isAdmin?(selected==='__all__'?'All reseller transactions':selected):'My released items';$('reportSub').textContent=rows.length+' transaction(s) · '+(isAdmin?'Super Admin consolidated view':'Only your own transactions are shown');
+  $('reportHeading').textContent=selected==='__all__'?'All reseller transactions':selected;$('reportSub').textContent=rows.length+' transaction(s) · View-only reseller activity report';
   $('userReportRows').innerHTML=rows.length?rows.map(m=>{const p=products.find(x=>x.id===m.product_id),owner=m.assigned_user_email||m.created_by_email||'Unassigned',st=balance(m)<=0?'Paid':paid(m)>0?'Partial':'Unpaid';return '<tr><td>'+esc((m.movement_date||m.created_at||'').slice(0,10))+'</td><td>'+esc(owner)+'</td><td><b>'+esc(p?.name||'Deleted product')+'</b></td><td>'+qty(m)+'</td><td>'+paidQty(m)+'</td><td>'+money(total(m))+'</td><td>'+money(paid(m))+'</td><td><b>'+money(balance(m))+'</b></td><td><span class="pill '+(st==='Paid'?'':'low')+'">'+st+'</span></td><td>'+esc(m.reason||'')+(m.notes?' · '+esc(m.notes):'')+'</td></tr>'}).join(''):'<tr><td colspan="10" class="empty">No matching reseller transactions found.</td></tr>';
 }
 $('refreshUserReport').onclick=loadUserReport;$('reportUserFilter').onchange=renderUserReport;$('reportSearch').oninput=renderUserReport;$('reportFrom').onchange=renderUserReport;$('reportTo').onchange=renderUserReport;
