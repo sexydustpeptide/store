@@ -1575,6 +1575,61 @@ body{background:#fff8fb}
     grid-row:auto !important;
   }
 }
+
+/* Dashboard layout: Submitted Payment Proofs LEFT, Received Stocks RIGHT */
+#resellerDashboard .reseller-main-grid{
+ display:grid!important;
+ grid-template-columns:minmax(0,.95fr) minmax(0,1.35fr)!important;
+ grid-auto-flow:row;
+ align-items:start!important;
+}
+#resellerDashboard .reseller-main-grid>.rd-panel:first-child{
+ grid-column:2!important;grid-row:1!important;
+}
+#resellerDashboard .reseller-main-grid>.rd-panel.rd-submitted-proof-panel{
+ grid-column:1!important;grid-row:1!important;
+}
+#resellerDashboard .reseller-main-grid>.rd-panel.rd-proof-panel{
+ grid-column:1!important;grid-row:2!important;
+}
+#resellerDashboard .rd-stockout-history-panel{margin-top:14px!important}
+#resellerDashboard .rd-stockout-history-toggle>summary{
+ min-height:78px!important;padding:16px 18px!important;
+ border:2px solid #df4b91!important;border-radius:17px!important;
+ background:linear-gradient(120deg,#f9c5dc 0%,#ffe5f0 48%,#f8c6df 100%)!important;
+ color:#861344!important;box-shadow:0 8px 22px rgba(190,40,112,.16)!important;
+}
+#resellerDashboard .rd-stockout-toggle-label{
+ display:flex;align-items:center;gap:9px;flex-wrap:wrap;
+ font:900 clamp(15px,1.35vw,20px) Arial,sans-serif!important;
+ letter-spacing:.65px!important;
+}
+#resellerDashboard .rd-stockout-toggle-label:before{
+ content:"▤";display:grid;place-items:center;width:34px;height:34px;
+ border-radius:11px;background:#fff7fb;border:1px solid #e88bb6;
+ color:#b51c68;font-size:20px;
+}
+#resellerDashboard .rd-stockout-toggle-label:after{
+ content:"CLICK TO VIEW  ↗"!important;
+ display:inline-flex;align-items:center;margin-left:3px;padding:7px 10px;
+ border-radius:20px;background:#a91c5b;color:white;
+ font:900 9px Arial,sans-serif;letter-spacing:.8px;
+}
+#resellerDashboard .rd-stockout-history-toggle[open] .rd-stockout-toggle-label:after{
+ content:"CLICK TO HIDE  ↘"!important;background:#7e1747;
+}
+#resellerDashboard .rd-stockout-history-toggle>summary:hover{
+ transform:translateY(-1px);filter:saturate(1.08);
+}
+@media(max-width:900px){
+ #resellerDashboard .reseller-main-grid{grid-template-columns:1fr!important}
+ #resellerDashboard .reseller-main-grid>.rd-panel:first-child,
+ #resellerDashboard .reseller-main-grid>.rd-panel.rd-submitted-proof-panel,
+ #resellerDashboard .reseller-main-grid>.rd-panel.rd-proof-panel{
+  grid-column:1!important;grid-row:auto!important;
+ }
+}
+
 /* Collapsed stock-out history: keep dashboard compact until opened */
 #resellerDashboard .rd-stockout-history-panel{grid-column:1/-1!important;padding:13px 15px!important}
 #resellerDashboard .rd-stockout-history-toggle>summary{list-style:none;display:flex;align-items:center;justify-content:space-between;gap:14px;min-height:64px;padding:13px 18px;border:2px solid #e85b98;border-radius:16px;background:linear-gradient(100deg,#ffe0ed 0%,#fff0f6 55%,#ffd5e6 100%);color:#8f1747;cursor:pointer;box-shadow:0 7px 18px rgba(191,30,104,.10);user-select:none}
@@ -2881,7 +2936,7 @@ body{background:#fff8fc!important;color:var(--sd-text)!important}
      <div class="card stat"><span class="rd-icon">!</span><small>Remaining balance</small><strong id="rdDue">₱0</strong><p>Outstanding amount</p></div>
     </div>
     <div class="reseller-main-grid">
-     <article class="card rd-panel"><div class="rd-panel-head"><div><h3>♡ My Received Stocks</h3><p>Products assigned to your account</p></div><span class="rd-count" id="rdProductCount">0 product types</span></div><div class="tablewrap"><table class="rd-stock-table"><thead><tr><th>PRODUCT</th><th>QTY RECEIVED</th><th>AMOUNT</th><th>PAYMENT</th></tr></thead><tbody id="rdReceivedRows"><tr><td colspan="4" class="empty">Loading…</td></tr></tbody></table></div><div class="rd-stockout-history-panel"><details class="rd-stockout-history-toggle"><summary><span class="rd-stockout-toggle-label">STOCK OUT HISTORY</span><span class="rd-count" id="rdStockOutCount">0 releases</span></summary><div id="rdStockOutHistory"><div class="empty">Loading stock-out history…</div></div></details></div></article>
+     <article class="card rd-panel"><div class="rd-panel-head"><div><h3>♡ My Received Stocks</h3><p>Products assigned to your account</p></div><span class="rd-count" id="rdProductCount">0 product types</span></div><div class="tablewrap"><table class="rd-stock-table"><thead><tr><th>PRODUCT</th><th>QTY RECEIVED</th><th>AMOUNT</th><th>PAYMENT</th></tr></thead><tbody id="rdReceivedRows"><tr><td colspan="4" class="empty">Loading…</td></tr></tbody></table></div><div class="rd-stockout-history-panel"><details class="rd-stockout-history-toggle"><summary><span class="rd-stockout-toggle-label">CLICK TO VIEW STOCK OUT HISTORY</span><span class="rd-count" id="rdStockOutCount">0 releases</span></summary><div id="rdStockOutHistory"><div class="empty">Loading stock-out history…</div></div></details></div></article>
      <article class="card rd-panel rd-submitted-proof-panel"><div class="rd-submitted-heading"><h2><span>▤</span> Submitted Payment Proofs</h2><p>Your order totals and every submitted payment receipt</p></div><div id="rdProofCustomerSummary" class="rd-proof-customer-summary"></div><div id="rdRecentPaymentRows" class="rd-payment-cards"><div class="empty">No payment records yet.</div></div></article>
      
      <article class="card rd-panel rd-proof-panel"><div class="rd-panel-head"><div><h3>♡ Submit Payment Proof</h3><p>Upload your payment receipt for verification</p></div><span class="rd-count">SECURE UPLOAD</span></div><div id="dashboardPayments"><div class="empty">Loading payment form…</div></div></article>
