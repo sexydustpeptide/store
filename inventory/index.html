@@ -2958,6 +2958,62 @@ body{background:#fff8fc!important;color:var(--sd-text)!important}
     grid-column:1!important;grid-row:3!important;
   }
 }
+
+/* FINAL FIX 2026-11-26: enforce the requested reseller dashboard order and restore visible stock history */
+@media screen and (min-width:1101px){
+  #appView #resellerDashboard .reseller-main-grid{
+    display:grid!important;
+    grid-template-columns:minmax(0,1fr) minmax(0,1fr)!important;
+    grid-template-rows:auto auto!important;
+    grid-auto-flow:row!important;
+    align-items:start!important;
+    align-content:start!important;
+    gap:16px!important;
+  }
+  #appView #resellerDashboard .reseller-main-grid > article.rd-panel:nth-child(1){
+    grid-column:2!important;grid-row:1!important;
+    display:block!important;visibility:visible!important;opacity:1!important;
+  }
+  #appView #resellerDashboard .reseller-main-grid > article.rd-panel:nth-child(2){
+    grid-column:1!important;grid-row:1!important;
+    display:block!important;visibility:visible!important;opacity:1!important;
+  }
+  #appView #resellerDashboard .reseller-main-grid > article.rd-panel:nth-child(3){
+    grid-column:1 / -1!important;grid-row:2!important;
+    display:block!important;visibility:visible!important;opacity:1!important;
+  }
+}
+#appView #resellerDashboard .rd-stockout-history-panel{
+  display:block!important;visibility:visible!important;opacity:1!important;
+  position:static!important;grid-column:auto!important;
+  width:100%!important;max-width:none!important;
+  margin:14px 0 0!important;padding:0!important;
+}
+#appView #resellerDashboard .rd-stockout-history-toggle{
+  display:block!important;width:100%!important;
+}
+#appView #resellerDashboard .rd-stockout-history-toggle > summary{
+  display:flex!important;align-items:center!important;justify-content:space-between!important;
+  min-height:54px!important;padding:12px 15px!important;
+  border:1.5px solid #e85b98!important;border-radius:14px!important;
+  background:linear-gradient(100deg,#ffe0ed,#fff2f7 55%,#ffd8e9)!important;
+  color:#8f1747!important;cursor:pointer!important;
+}
+#appView #resellerDashboard #rdStockOutHistory{
+  display:block!important;width:100%!important;
+}
+@media screen and (max-width:1100px){
+  #appView #resellerDashboard .reseller-main-grid{
+    grid-template-columns:minmax(0,1fr)!important;
+    grid-template-rows:auto auto auto!important;
+  }
+  #appView #resellerDashboard .reseller-main-grid > article.rd-panel:nth-child(1),
+  #appView #resellerDashboard .reseller-main-grid > article.rd-panel:nth-child(2),
+  #appView #resellerDashboard .reseller-main-grid > article.rd-panel:nth-child(3){
+    grid-column:1!important;grid-row:auto!important;
+  }
+}
+
 </style>
 </head>
 <body>
