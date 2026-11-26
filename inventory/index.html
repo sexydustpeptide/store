@@ -2771,6 +2771,64 @@ body{background:#fff8fc!important;color:var(--sd-text)!important}
  #appView #resellerDashboard .rd-product-proof-totals>.rd-vial-progress .rd-vial-progress-label b{font-size:12px!important}
 }
 
+
+/* Reseller report layout cleanup: prevent cramped cards and overflowing names */
+#page-user-report #userReportList.user-report-list{
+ display:grid!important;
+ grid-template-columns:repeat(2,minmax(0,1fr))!important;
+ align-items:start;
+ gap:18px!important;
+}
+#page-user-report .user-report-card{
+ min-width:0!important;
+ width:100%;
+ box-sizing:border-box;
+ padding:18px!important;
+}
+#page-user-report .user-report-head{
+ display:flex!important;
+ align-items:flex-start!important;
+ justify-content:space-between!important;
+ gap:12px!important;
+ min-width:0;
+}
+#page-user-report .user-report-head>div:first-child{
+ flex:1 1 auto;
+ min-width:0!important;
+}
+#page-user-report .user-report-head h3{
+ display:inline-block!important;
+ max-width:100%!important;
+ min-width:0;
+ white-space:normal!important;
+ overflow-wrap:anywhere!important;
+ word-break:break-word!important;
+ box-sizing:border-box;
+}
+#page-user-report .user-report-total{flex:0 0 auto;min-width:64px}
+#page-user-report .user-report-payment-summary{grid-template-columns:repeat(3,minmax(0,1fr));}
+#page-user-report .user-report-products{grid-template-columns:repeat(2,minmax(0,1fr));}
+#page-user-report .ur-payment-row{
+ grid-template-columns:minmax(0,1fr) auto auto auto!important;
+ gap:9px!important;
+ min-width:0;
+}
+#page-user-report .ur-payment-product{min-width:0}
+#page-user-report .ur-payment-product b,
+#page-user-report .ur-payment-product small{overflow-wrap:anywhere;word-break:break-word}
+#page-user-report .ur-payment-amount{min-width:92px}
+#page-user-report .ur-payment-row [data-paid-qty]{white-space:nowrap}
+@media(max-width:1050px){
+ #page-user-report #userReportList.user-report-list{grid-template-columns:minmax(0,1fr)!important}
+}
+@media(max-width:700px){
+ #page-user-report .user-report-card{padding:13px!important}
+ #page-user-report .user-report-products{grid-template-columns:minmax(0,1fr)!important}
+ #page-user-report .ur-payment-row{grid-template-columns:minmax(0,1fr) auto!important}
+ #page-user-report .ur-payment-badge,
+ #page-user-report .ur-payment-row [data-paid-qty]{grid-column:1/-1;justify-self:start}
+ #page-user-report .ur-payment-amount{min-width:0}
+}
 </style>
 </head>
 <body>
