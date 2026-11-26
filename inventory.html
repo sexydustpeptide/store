@@ -54,6 +54,135 @@
 @supports (-webkit-touch-callout: none) {
   @media screen and (max-width: 560px) { #appView header.top #logout { display:-webkit-inline-flex!important; } }
 }
+/* Per User Report: readable transaction cards on phones */
+@media screen and (max-width: 650px) {
+  #page-userreport { min-width:0; }
+  #page-userreport .pagehead {
+    align-items:flex-start;
+    gap:10px;
+    flex-wrap:wrap;
+    margin-bottom:14px;
+  }
+  #page-userreport .pagehead h1 { font-size:24px; line-height:1.2; }
+  #page-userreport .pagehead p { font-size:12px; }
+  #page-userreport #refreshUserReport {
+    min-height:38px;
+    padding:8px 13px;
+    font-size:12px;
+  }
+  #page-userreport .toolbar {
+    display:grid;
+    grid-template-columns:minmax(0,1fr);
+    gap:9px;
+    margin:12px 0;
+  }
+  #page-userreport .toolbar > * {
+    width:100%!important;
+    max-width:none!important;
+    min-width:0;
+  }
+  #page-userreport .cards {
+    grid-template-columns:repeat(2,minmax(0,1fr));
+    gap:9px;
+    margin-bottom:12px;
+  }
+  #page-userreport .cards .card {
+    min-width:0;
+    padding:12px 11px;
+    border-radius:13px;
+  }
+  #page-userreport .metric-label {
+    font-size:10px;
+    line-height:1.3;
+  }
+  #page-userreport .metric {
+    font-size:clamp(18px,5vw,23px);
+    line-height:1.2;
+    overflow-wrap:anywhere;
+  }
+  #page-userreport > .panel {
+    padding:13px;
+    border-radius:14px;
+  }
+  #page-userreport .tablewrap {
+    overflow:visible;
+    border:0;
+    background:transparent;
+  }
+  #page-userreport .tablewrap table {
+    display:block;
+    width:100%;
+    min-width:0!important;
+    border-collapse:separate;
+  }
+  #page-userreport .tablewrap thead { display:none; }
+  #page-userreport .tablewrap tbody {
+    display:grid;
+    gap:11px;
+    width:100%;
+  }
+  #page-userreport .tablewrap tbody tr {
+    display:grid;
+    grid-template-columns:repeat(2,minmax(0,1fr));
+    gap:0 12px;
+    width:100%;
+    padding:7px 12px;
+    border:1px solid #edcfdb;
+    border-left:4px solid #d98aaa;
+    border-radius:14px;
+    background:linear-gradient(145deg,#fffafd,#fff1f6);
+    box-shadow:0 4px 13px #74384f0b;
+  }
+  #page-userreport .tablewrap tbody td {
+    display:flex;
+    flex-direction:column;
+    justify-content:flex-start;
+    gap:3px;
+    min-width:0;
+    padding:9px 0;
+    border-bottom:1px solid #f2e1e8;
+    font-size:12px;
+    line-height:1.35;
+    overflow-wrap:anywhere;
+    word-break:break-word;
+  }
+  #page-userreport .tablewrap tbody td::before {
+    display:block;
+    color:#967887;
+    font-size:9px;
+    line-height:1.2;
+    font-weight:800;
+    letter-spacing:.45px;
+    text-transform:uppercase;
+  }
+  #page-userreport .tablewrap tbody td:nth-child(1)::before { content:"Date"; }
+  #page-userreport .tablewrap tbody td:nth-child(2)::before { content:"Reseller"; }
+  #page-userreport .tablewrap tbody td:nth-child(3)::before { content:"Product"; }
+  #page-userreport .tablewrap tbody td:nth-child(4)::before { content:"Qty Released"; }
+  #page-userreport .tablewrap tbody td:nth-child(5)::before { content:"Paid Qty"; }
+  #page-userreport .tablewrap tbody td:nth-child(6)::before { content:"Amount"; }
+  #page-userreport .tablewrap tbody td:nth-child(7)::before { content:"Paid"; }
+  #page-userreport .tablewrap tbody td:nth-child(8)::before { content:"Balance"; }
+  #page-userreport .tablewrap tbody td:nth-child(9)::before { content:"Status"; }
+  #page-userreport .tablewrap tbody td:nth-child(10)::before { content:"Reference / Notes"; }
+  #page-userreport .tablewrap tbody td:nth-child(3),
+  #page-userreport .tablewrap tbody td:nth-child(10) { grid-column:1/-1; }
+  #page-userreport .tablewrap tbody td:nth-child(3) { color:#8d3156; font-size:14px; font-weight:800; }
+  #page-userreport .tablewrap tbody td:nth-child(8) { color:#b83258; font-weight:800; }
+  #page-userreport .tablewrap tbody td:nth-child(10) { border-bottom:0; }
+  #page-userreport .tablewrap tbody td[colspan] {
+    display:block;
+    grid-column:1/-1;
+    text-align:center;
+    padding:20px 10px;
+    border:0;
+  }
+  #page-userreport .tablewrap tbody td[colspan]::before { content:none; }
+}
+@media screen and (max-width: 360px) {
+  #page-userreport .cards { grid-template-columns:1fr; }
+  #page-userreport .tablewrap tbody tr { gap:0 8px; padding:6px 10px; }
+}
 @media print{body{background:#fff!important}.side,.top button,.pagehead button{display:none!important}.wrap{max-width:none!important;padding:0!important}.layout{display:block!important}.main{padding:0!important}.panel{break-inside:avoid;box-shadow:none!important;border:1px solid #ddd!important}#page-pricelist{display:block!important}#page-pricelist.hidden{display:block!important}#priceListContent table{min-width:0!important;width:100%!important}#priceListContent th,#priceListContent td{padding:8px!important}}
 </style>
 </head>
