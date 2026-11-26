@@ -8,6 +8,42 @@
 :root{--pink:#f5dce5;--rose:#c77d96;--wine:#74384f;--ivory:#fffaf7;--ink:#382a31;--muted:#806e76;--line:#ead7df;--green:#287a58;--red:#a94d62}
 *{box-sizing:border-box}body{margin:0;background:var(--ivory);color:var(--ink);font:14px/1.5 Arial,sans-serif}button,input,select,textarea{font:inherit}button{cursor:pointer}.hidden{display:none!important}.wrap{max-width:1280px;margin:auto;padding:22px}.brand{font:italic 27px Georgia;color:var(--wine);letter-spacing:1px}.brand small{display:block;font:9px Arial;letter-spacing:4px}.muted{color:var(--muted)}.btn{border:0;border-radius:999px;padding:10px 16px;font-weight:700;background:var(--rose);color:white}.btn.outline{background:white;border:1px solid var(--rose);color:var(--wine)}.btn.danger{background:#f8e8ed;color:var(--red)}input,select,textarea{width:100%;border:1px solid var(--line);border-radius:11px;padding:11px;background:white;color:var(--ink)}label{font-size:12px;color:var(--muted);display:block;margin:10px 0 5px}.login{max-width:420px;margin:8vh auto;background:white;border:1px solid var(--line);border-radius:24px;padding:28px;box-shadow:0 15px 45px #74384f10}.login h1{font:30px Georgia;color:var(--wine);margin:8px 0}.top{display:flex;justify-content:space-between;align-items:center;gap:15px;flex-wrap:wrap;padding-bottom:18px;border-bottom:1px solid var(--line)}.layout{display:grid;grid-template-columns:220px minmax(0,1fr);gap:22px;margin-top:22px}.side{display:flex;flex-direction:column;gap:7px}.nav{padding:12px 14px;border:1px solid transparent;border-radius:13px;text-align:left;background:transparent;color:var(--wine);font-weight:700}.nav.active,.nav:hover{background:var(--pink);border-color:var(--line)}.main{min-width:0}.pagehead{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;margin-bottom:17px}.pagehead h1{font:30px Georgia;color:var(--wine);margin:0}.cards{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:13px;margin-bottom:18px}.card,.panel{background:white;border:1px solid var(--line);border-radius:17px;padding:17px}.metric{font:29px Georgia;color:var(--wine);margin-top:5px}.metric-label{font-size:12px;color:var(--muted)}.toolbar{display:flex;gap:9px;flex-wrap:wrap;margin:12px 0}.toolbar input{max-width:300px}.tablewrap{overflow:auto;border:1px solid var(--line);border-radius:14px;background:white}table{width:100%;border-collapse:collapse;min-width:700px}th,td{text-align:left;padding:12px;border-bottom:1px solid var(--line);vertical-align:top}th{font-size:11px;letter-spacing:.5px;color:var(--muted);background:#fff8fa}tr:last-child td{border-bottom:0}.pill{display:inline-block;padding:4px 9px;border-radius:99px;background:#f8eaf0;color:var(--wine);font-size:11px;font-weight:700}.pill.low{background:#fae8e8;color:var(--red)}.grid2{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:15px}.formgrid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:0 12px}.wide{grid-column:1/-1}.modal{position:fixed;inset:0;background:#28151fb0;display:none;align-items:center;justify-content:center;padding:16px;z-index:10}.modal.open{display:flex}.modalbox{width:min(560px,100%);max-height:90vh;overflow:auto;background:var(--ivory);border-radius:20px;padding:22px}.modalhead{display:flex;justify-content:space-between;align-items:center}.modalhead h2{font:24px Georgia;color:var(--wine);margin:0}.actions{display:flex;gap:8px;justify-content:flex-end;margin-top:16px}.notice{padding:10px 13px;background:#f9edf2;border-radius:12px;color:var(--wine);margin:12px 0}.right{text-align:right}.empty{padding:28px;text-align:center;color:var(--muted)}.mobileonly{display:none}
 @media(max-width:850px){.layout{grid-template-columns:1fr}.side{flex-direction:row;overflow:auto;padding-bottom:5px}.nav{white-space:nowrap}.cards{grid-template-columns:repeat(2,minmax(0,1fr))}}@media(max-width:560px){.wrap{padding:14px}.cards{grid-template-columns:repeat(2,minmax(0,1fr))}.grid2,.formgrid{grid-template-columns:1fr}.wide{grid-column:auto}.pagehead h1{font-size:25px}.login{margin:5vh auto}.metric{font-size:24px}}
+/* Keep account controls reachable on narrow screens */
+@media(max-width:560px){
+  #appView>.top{
+    display:flex;
+    flex-direction:column;
+    align-items:stretch;
+    gap:10px;
+    position:relative;
+  }
+  #appView>.top>div:last-child{
+    display:flex!important;
+    width:100%;
+    align-items:center;
+    justify-content:space-between;
+    flex-wrap:nowrap;
+    gap:10px;
+  }
+  #who{
+    display:block!important;
+    min-width:0;
+    flex:1 1 auto;
+    overflow-wrap:anywhere;
+    font-size:11px;
+  }
+  #logout{
+    display:inline-flex!important;
+    flex:0 0 auto;
+    align-items:center;
+    justify-content:center;
+    white-space:nowrap;
+    min-height:38px;
+    padding:8px 14px;
+    visibility:visible!important;
+    opacity:1!important;
+  }
+}
 @media print{body{background:#fff!important}.side,.top button,.pagehead button{display:none!important}.wrap{max-width:none!important;padding:0!important}.layout{display:block!important}.main{padding:0!important}.panel{break-inside:avoid;box-shadow:none!important;border:1px solid #ddd!important}#page-pricelist{display:block!important}#page-pricelist.hidden{display:block!important}#priceListContent table{min-width:0!important;width:100%!important}#priceListContent th,#priceListContent td{padding:8px!important}}
 </style>
 </head>
