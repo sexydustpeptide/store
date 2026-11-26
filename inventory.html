@@ -44,6 +44,16 @@
     opacity:1!important;
   }
 }
+/* Safari/iPhone: force account row and logout control to remain visible */
+@media screen and (max-width: 560px) {
+  #appView header.top { display:flex!important; flex-direction:column!important; align-items:stretch!important; flex-wrap:nowrap!important; gap:10px!important; }
+  #appView header.top > div:last-child { display:flex!important; flex-direction:row!important; flex-wrap:nowrap!important; align-items:center!important; justify-content:space-between!important; width:100%!important; min-width:0!important; gap:8px!important; }
+  #appView header.top #who { display:block!important; flex:1 1 auto!important; min-width:0!important; white-space:normal!important; overflow-wrap:anywhere!important; }
+  #appView header.top #logout { display:inline-flex!important; flex:0 0 auto!important; position:static!important; visibility:visible!important; opacity:1!important; min-width:76px!important; min-height:40px!important; white-space:nowrap!important; z-index:5!important; }
+}
+@supports (-webkit-touch-callout: none) {
+  @media screen and (max-width: 560px) { #appView header.top #logout { display:-webkit-inline-flex!important; } }
+}
 @media print{body{background:#fff!important}.side,.top button,.pagehead button{display:none!important}.wrap{max-width:none!important;padding:0!important}.layout{display:block!important}.main{padding:0!important}.panel{break-inside:avoid;box-shadow:none!important;border:1px solid #ddd!important}#page-pricelist{display:block!important}#page-pricelist.hidden{display:block!important}#priceListContent table{min-width:0!important;width:100%!important}#priceListContent th,#priceListContent td{padding:8px!important}}
 </style>
 </head>
