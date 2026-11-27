@@ -3112,6 +3112,65 @@ body{background:linear-gradient(135deg,#fff9fa,#fce9ef);color:var(--ink);font-fa
 }
 @media(max-width:390px){#appView .stats{grid-template-columns:1fr 1fr}#appView .stat strong{font-size:27px}}
 
+ 
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@500;600;700&display=swap');
+:root{--wine:#650d2b;--wine2:#8f1642;--pink:#f7cbd8;--pale:#fff5f7;--ink:#3a1724;--muted:#8a6874;--line:#f1d4dd;--shadow:0 8px 22px #7c16301a}
+body{background:linear-gradient(135deg,#fff9fa,#fce9ef);color:var(--ink);font-family:'DM Sans',sans-serif}
+#appView.shell{max-width:none;width:100%;min-height:100vh;margin:0;padding:0 25px 30px 333px;display:block}
+#appView>.tabs{position:fixed;z-index:30;left:0;top:0;bottom:0;width:308px;margin:0;padding:24px 13px;display:flex;flex-direction:column;align-items:stretch;gap:7px;overflow-y:auto;border:0;border-radius:0;background:radial-gradient(ellipse at 0 0,#a83d60 0,transparent 30%),radial-gradient(ellipse at 100% 100%,#a83d60 0,transparent 25%),linear-gradient(160deg,#650d2b,#390819 80%);box-shadow:none}
+#appView>.tabs:after{content:"";position:absolute;bottom:-45px;left:-30px;width:370px;height:180px;border:2px solid #f6a9c5;border-radius:50%;transform:rotate(-15deg);opacity:.45;box-shadow:0 -12px 0 -10px #f6a9c5,0 -24px 0 -21px #f6a9c5;pointer-events:none}
+#appView .sidebar-brand{display:block!important;height:170px;flex:0 0 170px;text-align:center;padding:5px 0 20px;position:relative;z-index:1;border-bottom:1px solid #ffffff35;margin:0 18px 18px}
+#appView .atelier-butterfly{font-size:40px;line-height:1.1;color:white}
+#appView .atelier-brand-name{font:38px 'Playfair Display',serif;letter-spacing:-1.8px;margin-top:2px;color:white}
+#appView .atelier-brand-sub{font-size:11px;letter-spacing:5px;margin-top:6px;color:#fff}
+#appView .sidebar-label{color:#f5c6d5;font-size:10px;letter-spacing:4px;padding:0 22px 8px}
+#appView>.tabs .tab{width:100%;min-height:48px;flex:0 0 auto;display:flex;align-items:center;gap:15px;padding:13px 20px;border:0;border-radius:15px;background:transparent;color:#fff;text-align:left;font:500 16px 'Playfair Display',Georgia,serif;box-shadow:none;white-space:normal}
+#appView>.tabs .tab:before{display:inline-grid;place-items:center;width:23px;min-width:23px;font:20px 'DM Sans';opacity:.95;margin:0}
+#appView>.tabs .tab[data-page="overview"]:before{content:"⌂"}#appView>.tabs .tab[data-page="movements"]:before{content:"⇧"}#appView>.tabs .tab[data-page="inventory"]:before{content:"▤"}#appView>.tabs .tab[data-page="users"]:before{content:"♙"}#appView>.tabs .tab[data-page="payments"]:before{content:"₱"}#appView>.tabs .tab[data-page="user-report"]:before{content:"▥"}#appView>.tabs .tab[data-page="activity"]:before{content:"◷"}#appView>.tabs .tab[data-page="pricelist"]:before{content:"▧"}#appView>.tabs .tab[data-page="costing"]:before{content:"◈"}#appView>.tabs .tab[data-page="reseller-dashboard"]:before{content:"♧"}
+#appView>.tabs .tab:hover,#appView>.tabs .tab.active{background:linear-gradient(110deg,#d84c7b,#9b1949);box-shadow:inset 0 0 0 1px #ffffff45,0 6px 18px #1d061133;color:white}
+#appView>.top{min-height:92px;display:flex;align-items:center;justify-content:space-between;gap:18px;margin:0 -25px 18px 0;padding:16px 25px 16px 0;background:transparent;border:0;border-bottom:1px solid #f1d4dd;border-radius:0;box-shadow:none}
+#appView>.top>div:first-of-type{display:none!important}#appView>.top .topright{margin-left:auto;display:flex;align-items:center;gap:12px}
+#appView #who{font-weight:700;color:#8a6874}
+#appView .portal-profile{border:0;background:#fff8fa;border-radius:30px;padding:6px 13px 6px 6px;box-shadow:0 3px 9px #7d18301a}
+#appView .portal-avatar{background:linear-gradient(140deg,#a51d4d,#4c0922);color:white}
+#appView .atelier-date{border:1px solid #e8b7c6;background:#fff8fa;border-radius:30px;padding:10px 18px;box-shadow:0 3px 9px #7d18301a;font-weight:600;font-size:14px;color:#4e1929}
+#appView>main{min-width:0;padding:0 0 28px}
+#appView .atelier-welcome{min-height:108px;border-radius:18px;padding:14px 35px;background:linear-gradient(105deg,#f9dce5,#fff1f5 43%,#ed9db7);border:1px solid #f3c8d5;box-shadow:var(--shadow);position:relative;overflow:hidden;margin-bottom:20px;display:flex;align-items:center;justify-content:space-between}
+#appView .atelier-welcome:after{content:'〰';position:absolute;right:7%;top:-46px;font-size:180px;color:#fff8;transform:rotate(-13deg);font-family:serif}
+#appView .atelier-welcome h2{font:italic 700 35px 'Playfair Display';color:#741431;margin:0 0 3px;position:relative;z-index:1}
+#appView .atelier-welcome p{margin:0;font-size:16px;position:relative;z-index:1;color:#3a1724}
+#appView .atelier-welcome-mark{position:relative;z-index:1;text-align:center;color:#791533;font:30px 'Playfair Display';min-width:150px}
+#appView .atelier-welcome-mark small{display:block;font:10px 'DM Sans';letter-spacing:3px}
+#appView .stats{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:17px;margin:0 0 19px}
+#appView .stat{min-height:139px;border-radius:17px;padding:17px 23px;color:white;background:radial-gradient(ellipse at 85% 100%,#d95b83 0,transparent 43%),linear-gradient(130deg,#a31b4e,#560b28 78%);box-shadow:0 7px 15px #73133325;border:0;position:relative;overflow:hidden}
+#appView .stat:after{content:'';position:absolute;bottom:18px;left:-15px;width:120%;height:35px;border-top:2px solid #ffafc9;border-radius:50%;transform:rotate(-7deg);opacity:.75}
+#appView .stat small{font:19px 'Playfair Display';color:#fff;letter-spacing:0;text-transform:none;position:relative;z-index:1}
+#appView .stat strong{display:block;margin-top:5px;color:white;font:700 38px 'Playfair Display';position:relative;z-index:1}
+#appView .grid{display:grid;grid-template-columns:.95fr 1.25fr;gap:17px;margin-bottom:19px}
+#appView .grid>.card{background:#fff9fae8;border:1px solid #f1d1dc;border-radius:18px;box-shadow:var(--shadow);padding:15px 18px;min-width:0}
+#appView .grid>.card h3{font:700 25px 'Playfair Display';margin:0 0 12px;color:#64112c}
+#appView .log{display:flex;flex-direction:column;gap:4px;padding:8px 10px;border-radius:11px;background:linear-gradient(90deg,#fff0f4,#fce8ee);margin:4px 0}
+#appView .atelier-bottom-grid{display:grid;grid-template-columns:1fr 1.05fr;gap:17px}
+#appView .atelier-bottom-grid>.card{background:#fff9fae8;border:1px solid #f1d1dc;border-radius:18px;box-shadow:var(--shadow);padding:15px 18px}
+#appView .atelier-panel-title{display:flex;align-items:center;justify-content:space-between;margin-bottom:12px;gap:10px}
+#appView .atelier-panel-title h3{font:700 25px 'Playfair Display';margin:0;color:#64112c}
+#appView .atelier-link{border:0;background:transparent;color:#7b1735;font-weight:700;font-size:13px;cursor:pointer}
+#appView .atelier-quick-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
+#appView .atelier-quick{border:1px solid #f2c8d5;border-radius:15px;min-height:145px;padding:13px 8px;background:linear-gradient(145deg,#fff0f4,#f8c9d8);color:#57112a;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;cursor:pointer;box-shadow:0 4px 9px #7d17301a;transition:.2s}
+#appView .atelier-quick:first-child{background:linear-gradient(145deg,#bd3a68,#650d2b);color:white}
+#appView .atelier-quick:hover{transform:translateY(-3px);box-shadow:0 8px 16px #7d17302b}
+#appView .atelier-quick span{font-size:34px}#appView .atelier-quick strong{text-align:center;font-size:13px;line-height:1.35;color:inherit}
+#appView .atelier-quick i{width:27px;height:27px;border-radius:50%;background:#7b1939;color:white;display:grid;place-items:center;font-style:normal;font-size:18px}
+#appView #atelierSnapshotRows .atelier-inventory-row{display:grid;grid-template-columns:130px minmax(60px,1fr) 42px 95px;gap:9px;align-items:center;padding:10px 4px;border-bottom:1px solid #f4e0e6;font-size:12px}
+#appView .atelier-inventory-row:last-child{border:0}#appView .atelier-inventory-row .bar{height:13px;border-radius:20px;background:#f7d9e2;overflow:hidden}#appView .atelier-inventory-row .bar i{display:block;height:100%;border-radius:20px;background:linear-gradient(90deg,#b71b55,#620d2d)}#appView .atelier-inventory-row .amount{text-align:right;font-weight:600}
+#appView .card{background:#fff9fae8;border:1px solid #f1d1dc;border-radius:18px;box-shadow:var(--shadow)}
+#appView h1,#appView h2,#appView h3,#appView h4{font-family:'Playfair Display',Georgia,serif}
+#appView .btn.primary{background:linear-gradient(110deg,#d84c7b,#8f1642);color:white}#appView .btn.soft{background:#f7cbd8;color:#650d2b}#appView .btn.outline{border-color:#dba8b9;color:#650d2b;background:#fff8fa}
+#appView table th{background:#fce0e8;color:#4e1929}#appView table td{border-bottom:1px solid #f3dce3}
+.sd-mobile-menu{display:none;border:0;border-radius:10px;background:#650d2b;color:white;padding:9px 12px;font-size:20px}
+@media(max-width:1150px){#appView .stats{grid-template-columns:repeat(2,minmax(0,1fr))}#appView .grid,#appView .atelier-bottom-grid{grid-template-columns:1fr}}
+@media(max-width:760px){#appView.shell{padding:0 12px 24px}#appView>.tabs{left:-320px;width:290px;transition:left .25s;padding-top:20px}#appView>.tabs.mobile-open{left:0}#appView>.top{margin:0 -12px 14px;padding:12px;align-items:center;flex-wrap:wrap}#appView .sd-mobile-menu{display:inline-block}#appView>.top .topright{gap:6px}#appView #who,#appView #changePassword{display:none}#appView .atelier-date{display:none}#appView .atelier-welcome{min-height:105px;padding:16px 18px}#appView .atelier-welcome h2{font-size:26px}#appView .atelier-welcome p{font-size:13px;max-width:75%}#appView .atelier-welcome-mark{min-width:85px;font-size:20px}#appView .atelier-welcome-mark small{font-size:7px}#appView .stats{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}#appView .stat{padding:13px;min-height:116px}#appView .stat small{font-size:14px}#appView .stat strong{font-size:30px}#appView .grid{gap:12px}#appView .grid>.card,#appView .atelier-bottom-grid>.card{padding:13px 11px}#appView .grid>.card h3,#appView .atelier-panel-title h3{font-size:20px}#appView .atelier-quick-grid{grid-template-columns:repeat(2,1fr)}#appView .atelier-quick{min-height:125px}#appView #atelierSnapshotRows .atelier-inventory-row{grid-template-columns:105px minmax(40px,1fr) 32px 75px;gap:5px;font-size:10px}}
+
 </style>
 </head>
 <body>
@@ -3126,17 +3185,27 @@ body{background:linear-gradient(135deg,#fff9fa,#fce9ef);color:var(--ink);font-fa
  </div>
 </div>
 <div id="appView" class="shell hidden">
- <header class="top"><button class="sd-mobile-menu" id="sdMenuBtn" type="button" aria-label="Open menu">☰</button><div class="portal-brand"><img class="sd-logo portal-logo" src="https://raw.githubusercontent.com/sexydustpeptide/store/main/sexy-dust-logo.png" alt="Sexy Dust logo"><span class="portal-role">RESELLER ACCOUNT</span></div><div class="topright"><span id="who" class="muted"></span><button class="portal-profile" id="portalProfile" type="button"><span class="portal-avatar" id="portalAvatar">R</span><span><b id="portalName">Reseller</b><small>Reseller</small></span></button><button id="changePassword" class="btn soft">Change password</button><button id="logout" class="btn outline">Log out</button></div></header>
- <nav class="tabs">
-  <div class="sidebar-brand"><img class="sd-logo sidebar-logo" src="https://raw.githubusercontent.com/sexydustpeptide/store/main/sexy-dust-logo.png" alt="Sexy Dust logo"></div><div class="sidebar-label">WORKSPACE</div>
-  <button class="tab active" data-page="overview">Dashboard</button><button class="tab" data-page="inventory">Inventory / Stocks</button><button class="tab" data-page="movements">Stock Out / Release</button><button class="tab" data-page="payments" id="paymentsTab">Payment Center</button><button class="tab" data-page="user-report" id="userReportTab">Per User Report</button><button class="tab" data-page="reseller-dashboard" id="resellerDashboardTab">Reseller Dashboard</button><button class="tab" data-page="pricelist" id="pricelistTab">Printable Pricelist</button><button class="tab hidden" data-page="costing" id="costingTab">Costing & Profit</button><button class="tab" data-page="activity">Activity Log</button><button class="tab" data-page="users" id="usersTab">Reseller Accounts / Settings</button>
+ <header class="top"><button class="sd-mobile-menu" id="sdMenuBtn" type="button" aria-label="Open menu">☰</button><div class="portal-brand"><img class="sd-logo portal-logo" src="https://raw.githubusercontent.com/sexydustpeptide/store/main/sexy-dust-logo.png" alt="Sexy Dust logo"><span class="portal-role">RESELLER ACCOUNT</span></div><div class="topright"><span class="atelier-date" id="atelierDate"></span><span id="who" class="muted"></span><button class="portal-profile" id="portalProfile" type="button"><span class="portal-avatar" id="portalAvatar">R</span><span><b id="portalName">Reseller</b><small>Reseller</small></span></button><button id="changePassword" class="btn soft">Change password</button><button id="logout" class="btn outline">Log out</button></div></header>
+ <nav class="tabs" id="sidebar">
+  <div class="sidebar-brand"><div class="atelier-butterfly">♧</div><div class="atelier-brand-name">SEXY DUST</div><div class="atelier-brand-sub">INVENTORY SYSTEM</div></div><div class="sidebar-label">WORKSPACE</div>
+  <button class="tab active" data-page="overview">Dashboard</button><button class="tab" data-page="movements">Stock Out / Release</button><button class="tab" data-page="inventory">Inventory / Stocks</button><button class="tab" data-page="users" id="usersTab">Reseller Accounts</button><button class="tab" data-page="payments" id="paymentsTab">Payment Center</button><button class="tab" data-page="user-report" id="userReportTab">Per User Report</button><button class="tab" data-page="activity">Activity Log</button><button class="tab" data-page="pricelist" id="pricelistTab">Printable Pricelist</button><button class="tab hidden" data-page="costing" id="costingTab">Costing & Profit</button><button class="tab" data-page="reseller-dashboard" id="resellerDashboardTab">Reseller Dashboards</button>
  </nav>
  <main>
   <section id="page-overview">
+   <div class="atelier-welcome"><div><h2 id="atelierGreeting">Welcome Back! ♡</h2><p>Here’s an overview of your inventory, releases and payments today.</p></div><div class="atelier-welcome-mark">♧<br>SEXY DUST<small>INVENTORY ATELIER</small></div></div>
    <div id="inventoryOverview">
     <div class="stats"><div class="card stat"><small>Active products</small><strong id="sProducts">0</strong></div><div class="card stat"><small>Total units on hand</small><strong id="sUnits">0</strong></div><div class="card stat"><small>Low stock items</small><strong id="sLow">0</strong></div><div class="card stat"><small>Inventory cost value</small><strong id="sValue">₱0</strong></div></div>
     <div class="grid"><div class="card"><h3>Low stock alerts</h3><div id="lowList" class="muted">No low stock items.</div></div><div class="card"><h3>Recent stock activity</h3><div id="recentList" class="muted">No stock movements yet.</div></div></div>
    </div>
+    <div class="atelier-bottom-grid">
+     <section class="card atelier-quick-panel"><div class="atelier-panel-title"><h3>ϟ &nbsp; Quick Actions</h3></div><div class="atelier-quick-grid">
+      <button class="atelier-quick" data-atelier-go="movements"><span>⇧</span><strong>Stock Out /<br>Release</strong><i>→</i></button>
+      <button class="atelier-quick" data-atelier-go="inventory"><span>▤</span><strong>Add Stock /<br>Inventory</strong><i>→</i></button>
+      <button class="atelier-quick" data-atelier-go="users"><span>♙</span><strong>Reseller<br>Accounts</strong><i>→</i></button>
+      <button class="atelier-quick" data-atelier-go="payments"><span>₱</span><strong>Payment<br>Center</strong><i>→</i></button>
+     </div></section>
+     <section class="card atelier-snapshot"><div class="atelier-panel-title"><h3>▱ &nbsp; Inventory Snapshot</h3><button class="atelier-link" data-atelier-go="inventory">View Inventory →</button></div><div id="atelierSnapshotRows"><div class="empty">Loading live inventory…</div></div></section>
+    </div>
    <div id="resellerDashboard" class="hidden reseller-home">
     <div class="reseller-page-heading"><div><h2>Welcome, <em id="rdWelcomeName">Reseller</em>! ♡</h2><p>Here’s your stocks, payments and account summary.</p></div><div class="rd-heading-actions"><select id="rdDateFilter" aria-label="Dashboard date range"><option value="all" selected>All Time</option><option value="week">This Week</option><option value="month">This Month</option></select><button class="btn soft" id="rdRefresh" type="button">↻ Refresh</button></div></div>
     <div class="stats dashboard-stats reseller-kpis">
@@ -3662,6 +3731,13 @@ function renderUsers(){$('usersList').innerHTML='<div class="tablewrap"><table><
 
 const sdMenuBtn=$('sdMenuBtn');if(sdMenuBtn)sdMenuBtn.addEventListener('click',()=>document.querySelector('#appView>.tabs')?.classList.toggle('mobile-open'));
 document.querySelectorAll('#appView>.tabs .tab').forEach(b=>b.addEventListener('click',()=>document.querySelector('#appView>.tabs')?.classList.remove('mobile-open')));
+
+function renderAtelierSnapshot(){const rows=$('atelierSnapshotRows');if(!rows)return;const active=products.filter(p=>p.active);const top=active.slice().sort((a,b)=>Number(b.stock||0)-Number(a.stock||0)).slice(0,4);const max=Math.max(1,...top.map(p=>Number(p.stock||0)));rows.innerHTML=top.map(p=>{const q=Number(p.stock||0),pct=Math.round(q/max*100);return '<div class="atelier-inventory-row"><span class="product">'+esc(p.name)+'</span><div class="bar"><i style="width:'+pct+'%"></i></div><span class="percent">'+pct+'%</span><span class="amount">'+q.toLocaleString()+' '+esc(p.unit||'pcs')+'</span></div>'}).join('')||'<div class="empty">No active inventory products.</div>'}
+const _renderOverviewAtelier=renderOverview;renderOverview=function(){_renderOverviewAtelier();renderAtelierSnapshot();const g=$('atelierGreeting');if(g)g.textContent='Welcome Back, '+(currentMember?.username||'Admin')+'! ♡'};
+const sdMenuBtn=$('sdMenuBtn');if(sdMenuBtn)sdMenuBtn.addEventListener('click',()=>document.querySelector('#appView>.tabs')?.classList.toggle('mobile-open'));
+document.querySelectorAll('#appView>.tabs .tab').forEach(b=>b.addEventListener('click',()=>document.querySelector('#appView>.tabs')?.classList.remove('mobile-open')));
+document.querySelectorAll('[data-atelier-go]').forEach(b=>b.addEventListener('click',()=>document.querySelector('#appView>.tabs .tab[data-page="'+b.dataset.atelierGo+'"]')?.click()));
+const dateEl=$('atelierDate');if(dateEl)dateEl.textContent=new Intl.DateTimeFormat('en-PH',{dateStyle:'medium',timeZone:'Asia/Manila'}).format(new Date());
 db.auth.onAuthStateChange((event,session)=>{if(event==='SIGNED_OUT'){currentUser=null}});
 checkAccess();
 </script>
