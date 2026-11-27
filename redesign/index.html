@@ -3315,6 +3315,14 @@ body{background:linear-gradient(135deg,#fff9fa,#fce9ef);color:var(--ink);font-fa
  #page-users #userMsg{grid-column:auto!important}
  #page-users>.grid>.card,#page-users>.card{padding:17px!important;border-radius:18px!important}
 }
+
+/* Reseller dashboard cleanup: one welcome banner, no admin quick actions or inventory snapshot */
+#appView.reseller-mode #page-overview .atelier-bottom-grid{display:none!important}
+#appView.reseller-mode #page-overview .reseller-page-heading{display:none!important}
+#appView.reseller-mode .atelier-welcome .rd-welcome-actions{display:flex;align-items:center;gap:9px;margin-top:12px;flex-wrap:wrap}
+#appView.reseller-mode .atelier-welcome .rd-welcome-actions select{border:1px solid #e9b8c9;border-radius:12px;padding:8px 12px;background:#fff8fb;color:#74384f;font-weight:600;min-height:36px}
+#appView.reseller-mode .atelier-welcome .rd-welcome-actions .btn{padding:8px 13px;min-height:36px}
+@media(max-width:760px){#appView.reseller-mode .atelier-welcome .rd-welcome-actions{gap:7px;margin-top:10px}#appView.reseller-mode .atelier-welcome .rd-welcome-actions select{max-width:145px}}
 </style>
 </head>
 <body>
@@ -3471,6 +3479,7 @@ function showApp(){
  $('inventoryOverview').classList.toggle('hidden',isStaff);
  $('resellerDashboard').classList.toggle('hidden',!isStaff);
  $('resellerDashboard').style.setProperty('display',isStaff?'block':'none','important');
+ const rdActions=$('resellerDashboard').querySelector('.rd-heading-actions');const welcomeCopy=document.querySelector('#page-overview .atelier-welcome>div:first-child');if(isStaff&&rdActions&&welcomeCopy&&!welcomeCopy.contains(rdActions)){rdActions.classList.add('rd-welcome-actions');welcomeCopy.appendChild(rdActions)}
  $('inventoryOverview').style.setProperty('display',isStaff?'none':'block','important');
  $('adminDashboard').classList.toggle('hidden',!isSuper);
  $('adminDashboard').style.setProperty('display',isSuper?'block':'none','important');
