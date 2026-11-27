@@ -3835,5 +3835,55 @@ checkAccess();
   #page-reseller-dashboard #resellerDashboardDirectory .user-report-card{min-height:0!important}
 }
 
+
+/* Reseller Accounts page — polished account management layout */
+#page-users{min-width:0}
+#page-users>.grid{
+ display:grid!important;
+ grid-template-columns:minmax(0,1.45fr) minmax(260px,.8fr)!important;
+ gap:18px!important;
+ align-items:stretch!important;
+}
+#page-users>.grid>.card,
+#page-users>.card{
+ min-width:0!important;
+ padding:clamp(18px,2.2vw,26px)!important;
+ border:1px solid #efd4e0!important;
+ border-radius:22px!important;
+ background:linear-gradient(145deg,#fff 30%,#fff7fa 100%)!important;
+ box-shadow:0 12px 30px rgba(113,54,79,.065)!important;
+}
+#page-users h2{font-size:clamp(23px,2vw,29px)!important;line-height:1.2!important;margin-bottom:8px!important}
+#page-users h3{font:700 21px Georgia,serif!important;color:#71364f!important;margin-top:0!important}
+#page-users .muted{line-height:1.6}
+#page-users #userForm{display:grid!important;grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:15px!important;margin-top:20px!important}
+#page-users #userForm>.field{display:flex!important;flex-direction:column!important;gap:7px!important;min-width:0!important;margin:0!important}
+#page-users #userForm>.field:nth-child(3){grid-column:1/-1!important}
+#page-users #userForm>.field label{font-size:10px!important;font-weight:850!important;letter-spacing:1px!important;color:#95677e!important}
+#page-users #userForm input,#page-users #userForm select{
+ width:100%!important;min-height:45px!important;padding:11px 13px!important;border-radius:12px!important;background:#fffafd!important
+}
+#page-users #userForm small{font-size:11px!important;line-height:1.5!important}
+#page-users #userForm>div[style*="display:flex"]{grid-column:1/-1!important;display:flex!important;gap:10px!important;flex-wrap:wrap!important;margin-top:3px!important}
+#page-users #userForm button{min-height:42px!important;padding:10px 18px!important}
+#page-users #userMsg{grid-column:1/-1!important;min-height:18px!important}
+#page-users .notice{padding:14px 16px!important;line-height:1.6!important}
+#page-users>.card:last-child{margin-top:18px!important}
+#page-users>.card:last-child h3{margin-bottom:15px!important}
+#page-users .tablewrap{overflow-x:auto!important;border:1px solid #efdce5!important;border-radius:15px!important}
+#page-users table{min-width:650px!important;width:100%!important}
+#page-users th{padding:13px 14px!important;font-size:10px!important;white-space:nowrap!important}
+#page-users td{padding:13px 14px!important;vertical-align:middle!important;font-size:12px!important}
+#page-users td:first-child b{font-size:13px!important;color:#71364f!important}
+#page-users td .btn{min-height:34px!important;padding:7px 12px!important;font-size:11px!important}
+@media(max-width:760px){
+ #page-users>.grid{grid-template-columns:minmax(0,1fr)!important}
+ #page-users #userForm{grid-template-columns:minmax(0,1fr)!important;gap:12px!important}
+ #page-users #userForm>.field:nth-child(3){grid-column:auto!important}
+ #page-users #userForm>div[style*="display:flex"]{grid-column:auto!important}
+ #page-users #userMsg{grid-column:auto!important}
+ #page-users>.grid>.card,#page-users>.card{padding:17px!important;border-radius:18px!important}
+}
+
 <!-- dashboard restore deployment -->
 </body></html>
