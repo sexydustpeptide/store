@@ -3047,6 +3047,71 @@ body{font-family:'DM Sans',sans-serif;background:radial-gradient(ellipse at 76% 
  #appView>.tabs .tab{border-radius:12px}
 }
 
+
+/* Inventory Atelier — prototype-matched layout */
+:root{--pink:#f7cbd8;--rose:#d84c7b;--wine:#650d2b;--ivory:#fff5f7;--ink:#3a1724;--muted:#8a6874;--line:#f1d4dd;--green:#477b63;--red:#a64f66;--shadow:0 8px 22px #7c16301a}
+body{background:linear-gradient(135deg,#fff9fa,#fce9ef);color:var(--ink);font-family:'DM Sans',sans-serif}
+#appView.shell{max-width:none;width:100%;min-height:100vh;margin:0;padding:0 24px 30px 332px;display:grid;grid-template-columns:minmax(0,1fr);grid-template-rows:auto 1fr;gap:0}
+#appView>.tabs{position:fixed;z-index:30;left:0;top:0;bottom:0;width:308px;margin:0;padding:24px 13px;display:flex;flex-direction:column;align-items:stretch;gap:7px;overflow-y:auto;border:0;border-radius:0;background:radial-gradient(ellipse at 0 0,#a83d60 0,transparent 30%),radial-gradient(ellipse at 100% 100%,#a83d60 0,transparent 25%),linear-gradient(160deg,#650d2b,#390819 80%);box-shadow:none}
+#appView>.tabs:after{content:"";position:absolute;bottom:-45px;left:-30px;width:370px;height:180px;border:2px solid #f6a9c5;border-radius:50%;transform:rotate(-15deg);opacity:.35;pointer-events:none}
+.sidebar-brand{display:block!important;height:170px;flex:0 0 170px;text-align:center;padding:5px 0 20px;position:relative;z-index:1;border-bottom:1px solid #ffffff35;margin:0 18px 18px}
+.sidebar-logo{max-width:190px;max-height:92px;object-fit:contain;filter:brightness(0) invert(1)}
+.sidebar-label{color:#f5c6d5;font-size:10px;letter-spacing:4px;padding:0 22px 8px}
+#appView>.tabs .tab{width:100%;min-height:48px;flex:0 0 auto;display:flex;align-items:center;gap:15px;padding:13px 20px;border:0;border-radius:15px;background:transparent;color:#fff;text-align:left;font:500 16px 'Playfair Display',Georgia,serif;box-shadow:none;white-space:normal}
+#appView>.tabs .tab:before{display:inline-grid;place-items:center;width:23px;min-width:23px;font:20px 'DM Sans';opacity:.95}
+#appView>.tabs .tab[data-page="overview"]:before{content:"⌂"}
+#appView>.tabs .tab[data-page="inventory"]:before{content:"▤"}
+#appView>.tabs .tab[data-page="movements"]:before{content:"⇧"}
+#appView>.tabs .tab[data-page="payments"]:before{content:"₱"}
+#appView>.tabs .tab[data-page="user-report"]:before{content:"▥"}
+#appView>.tabs .tab[data-page="reseller-dashboard"]:before{content:"♙"}
+#appView>.tabs .tab[data-page="pricelist"]:before{content:"▧"}
+#appView>.tabs .tab[data-page="costing"]:before{content:"◈"}
+#appView>.tabs .tab[data-page="activity"]:before{content:"◷"}
+#appView>.tabs .tab[data-page="users"]:before{content:"♧"}
+#appView>.tabs .tab:hover,#appView>.tabs .tab.active{background:linear-gradient(110deg,#d84c7b,#9b1949);box-shadow:inset 0 0 0 1px #ffffff45,0 6px 18px #1d061133;color:white}
+#appView>.top{grid-column:1;grid-row:1;min-height:92px;display:flex;align-items:center;justify-content:space-between;gap:18px;margin:0 -24px 18px 0;padding:16px 4px 16px 0;background:transparent;border:0;border-bottom:1px solid #f1d4dd;border-radius:0}
+#appView main{grid-column:1;grid-row:2;min-width:0;padding:0 0 20px}
+#appView .portal-brand{display:flex;align-items:center;gap:12px}
+#appView .portal-logo{max-height:52px;max-width:145px;object-fit:contain}
+#appView .portal-role{font-size:10px;letter-spacing:2px;color:#8a6874}
+#appView .portal-profile{border:0;background:#fff8fa;border-radius:30px;padding:6px 13px 6px 6px;box-shadow:0 3px 9px #7d18301a}
+#appView .portal-avatar{background:linear-gradient(140deg,#a51d4d,#4c0922);color:white}
+#appView .card{background:#fff9fae8;border:1px solid #f1d1dc;border-radius:18px;box-shadow:var(--shadow);padding:18px}
+#appView h1,#appView h2,#appView h3,#loginView h1,#appView .stat strong{font-family:'Playfair Display',Georgia,serif}
+#appView .stat{background:radial-gradient(ellipse at 85% 100%,#d95b83 0,transparent 43%),linear-gradient(130deg,#a31b4e,#560b28 78%);color:white;border:0;box-shadow:0 7px 15px #73133325}
+#appView .stat small,#appView .stat p{color:#ffe8ef}
+#appView .stat strong{color:white;font-size:38px}
+#appView .btn.primary{background:linear-gradient(110deg,#d84c7b,#8f1642);color:white}
+#appView .btn.soft{background:#f7cbd8;color:#650d2b}
+#appView .btn.outline{border-color:#dba8b9;color:#650d2b;background:#fff8fa}
+#appView .tab.active{background:linear-gradient(110deg,#d84c7b,#9b1949)}
+#appView .dashboard-welcome,#appView .reseller-page-heading{background:linear-gradient(105deg,#f9dce5,#fff1f5 43%,#ed9db7);border:1px solid #f3c8d5;border-radius:18px;padding:20px 25px}
+#appView table th{background:#fce0e8;color:#4e1929}
+#appView table td{border-bottom:1px solid #f3dce3}
+#appView .notice{background:#fff0f4;border-color:#f1d4dd;color:#64112c}
+#loginView{min-height:100vh;display:grid;place-items:center;background:linear-gradient(135deg,#fff9fa,#fce9ef)}
+#loginView .card{background:#fff9fa;border:1px solid #f1d1dc;border-radius:24px;box-shadow:0 20px 55px #7c16301a}
+#loginView .btn.primary{background:linear-gradient(110deg,#d84c7b,#650d2b)}
+.sd-mobile-menu{display:none;border:0;border-radius:10px;background:#650d2b;color:white;padding:9px 12px;font-size:20px}
+@media(max-width:900px){#appView.shell{padding-left:286px}#appView>.tabs{width:270px}}
+@media(max-width:700px){
+ #appView.shell{display:block;padding:0 12px 24px}
+ #appView>.tabs{left:-290px;width:275px;transition:left .25s;padding-top:20px}
+ #appView>.tabs.mobile-open{left:0}
+ #appView>.top{margin:0 -12px 14px;padding:12px;align-items:center;flex-wrap:wrap}
+ #appView main{padding:0}
+ #appView .portal-logo{max-width:105px;max-height:42px}
+ #appView .portal-role{display:none}
+ #appView .topright{gap:6px}
+ #appView #who{display:none}
+ #appView #changePassword{display:none}
+ .sd-mobile-menu{display:inline-block}
+ #appView .stats{grid-template-columns:repeat(2,minmax(0,1fr))}
+ #appView .card{padding:14px}
+}
+@media(max-width:390px){#appView .stats{grid-template-columns:1fr 1fr}#appView .stat strong{font-size:27px}}
+
 </style>
 </head>
 <body>
@@ -3061,7 +3126,7 @@ body{font-family:'DM Sans',sans-serif;background:radial-gradient(ellipse at 76% 
  </div>
 </div>
 <div id="appView" class="shell hidden">
- <header class="top"><div class="portal-brand"><img class="sd-logo portal-logo" src="https://raw.githubusercontent.com/sexydustpeptide/store/main/sexy-dust-logo.png" alt="Sexy Dust logo"><span class="portal-role">RESELLER ACCOUNT</span></div><div class="topright"><span id="who" class="muted"></span><button class="portal-profile" id="portalProfile" type="button"><span class="portal-avatar" id="portalAvatar">R</span><span><b id="portalName">Reseller</b><small>Reseller</small></span></button><button id="changePassword" class="btn soft">Change password</button><button id="logout" class="btn outline">Log out</button></div></header>
+ <header class="top"><button class="sd-mobile-menu" id="sdMenuBtn" type="button" aria-label="Open menu">☰</button><div class="portal-brand"><img class="sd-logo portal-logo" src="https://raw.githubusercontent.com/sexydustpeptide/store/main/sexy-dust-logo.png" alt="Sexy Dust logo"><span class="portal-role">RESELLER ACCOUNT</span></div><div class="topright"><span id="who" class="muted"></span><button class="portal-profile" id="portalProfile" type="button"><span class="portal-avatar" id="portalAvatar">R</span><span><b id="portalName">Reseller</b><small>Reseller</small></span></button><button id="changePassword" class="btn soft">Change password</button><button id="logout" class="btn outline">Log out</button></div></header>
  <nav class="tabs">
   <div class="sidebar-brand"><img class="sd-logo sidebar-logo" src="https://raw.githubusercontent.com/sexydustpeptide/store/main/sexy-dust-logo.png" alt="Sexy Dust logo"></div><div class="sidebar-label">WORKSPACE</div>
   <button class="tab active" data-page="overview">Dashboard</button><button class="tab" data-page="inventory">Inventory / Stocks</button><button class="tab" data-page="movements">Stock Out / Release</button><button class="tab" data-page="payments" id="paymentsTab">Payment Center</button><button class="tab" data-page="user-report" id="userReportTab">Per User Report</button><button class="tab" data-page="reseller-dashboard" id="resellerDashboardTab">Reseller Dashboard</button><button class="tab" data-page="pricelist" id="pricelistTab">Printable Pricelist</button><button class="tab hidden" data-page="costing" id="costingTab">Costing & Profit</button><button class="tab" data-page="activity">Activity Log</button><button class="tab" data-page="users" id="usersTab">Reseller Accounts / Settings</button>
@@ -3594,6 +3659,9 @@ function clearUserForm(){$('accountId').value='';$('accountUsername').value='';$
 $('clearUserForm').onclick=clearUserForm;
 $('userForm').onsubmit=async e=>{e.preventDefault();const accountId=$('accountId').value||null,username=$('accountUsername').value.trim(),password=$('invitePassword').value,role=$('inviteRole').value,active=$('accountActive').value==='true';if(!/^[a-zA-Z0-9][a-zA-Z0-9._-]{2,29}$/.test(username)){msg('userMsg','Username must be 3–30 characters and use letters, numbers, dot, underscore, or hyphen.',true);return}if((!accountId&&!password)||(password&&password.length<8)){msg('userMsg','Set a password with at least 8 characters.',true);return}msg('userMsg','Saving account…');const {data,error}=await db.functions.invoke('inventory-manage-user',{body:{action:'save_account',account_id:accountId,username,password,role,active}});if(error||data?.error){msg('userMsg',data?.error||error.message,true);return}msg('userMsg',data?.message||'Account saved.');if(accountId===currentMember?.id){currentMember={...currentMember,username,email:authEmail(username),role,active};currentRole=role;showApp()}clearUserForm();await loadUsers();await loadActivities()};
 function renderUsers(){$('usersList').innerHTML='<div class="tablewrap"><table><thead><tr><th>Username</th><th>Role</th><th>Status</th><th>Added</th><th>Actions</th></tr></thead><tbody>'+users.map(u=>'<tr><td><b>'+esc(u.username||'—')+'</b>'+(u.user_id===currentUser.id?' <span class="pill">You</span>':'')+'</td><td>'+esc(u.role==='staff'?'Reseller':u.role.replace('_',' '))+'</td><td><span class="pill '+(!u.active?'low':'')+'">'+(u.active?'Active':'Disabled')+'</span></td><td>'+fmtDate(u.created_at)+'</td><td><button class="btn outline" data-edit-user="'+u.id+'">Edit</button> '+(u.user_id===currentUser.id?'<span class="muted">Your account</span>':'<button class="btn outline" data-toggle-user="'+u.id+'">'+(u.active?'Disable':'Reactivate')+'</button>')+'</td></tr>').join('')+'</tbody></table></div>';$('usersList').querySelectorAll('[data-edit-user]').forEach(b=>b.onclick=()=>{const u=users.find(x=>x.id===b.dataset.editUser);$('accountId').value=u.id;$('accountUsername').value=u.username||'';$('invitePassword').value='';$('invitePassword').placeholder='Leave blank to keep current password';$('inviteRole').value=u.role;$('accountActive').value=String(u.active);msg('userMsg','Editing '+(u.username||'account')+'. Existing password stays the same unless you enter a new one.');$('accountUsername').focus()});$('usersList').querySelectorAll('[data-toggle-user]').forEach(b=>b.onclick=async()=>{const u=users.find(x=>x.id===b.dataset.toggleUser);const {error}=await db.from('inv_users').update({active:!u.active,updated_at:new Date().toISOString()}).eq('id',u.id);if(error){msg('userMsg',error.message,true);return}await loadUsers()})}
+
+const sdMenuBtn=$('sdMenuBtn');if(sdMenuBtn)sdMenuBtn.addEventListener('click',()=>document.querySelector('#appView>.tabs')?.classList.toggle('mobile-open'));
+document.querySelectorAll('#appView>.tabs .tab').forEach(b=>b.addEventListener('click',()=>document.querySelector('#appView>.tabs')?.classList.remove('mobile-open')));
 db.auth.onAuthStateChange((event,session)=>{if(event==='SIGNED_OUT'){currentUser=null}});
 checkAccess();
 </script>
