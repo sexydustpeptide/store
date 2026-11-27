@@ -3734,8 +3734,6 @@ document.querySelectorAll('#appView>.tabs .tab').forEach(b=>b.addEventListener('
 
 function renderAtelierSnapshot(){const rows=$('atelierSnapshotRows');if(!rows)return;const active=products.filter(p=>p.active);const top=active.slice().sort((a,b)=>Number(b.stock||0)-Number(a.stock||0)).slice(0,4);const max=Math.max(1,...top.map(p=>Number(p.stock||0)));rows.innerHTML=top.map(p=>{const q=Number(p.stock||0),pct=Math.round(q/max*100);return '<div class="atelier-inventory-row"><span class="product">'+esc(p.name)+'</span><div class="bar"><i style="width:'+pct+'%"></i></div><span class="percent">'+pct+'%</span><span class="amount">'+q.toLocaleString()+' '+esc(p.unit||'pcs')+'</span></div>'}).join('')||'<div class="empty">No active inventory products.</div>'}
 const _renderOverviewAtelier=renderOverview;renderOverview=function(){_renderOverviewAtelier();renderAtelierSnapshot();const g=$('atelierGreeting');if(g)g.textContent='Welcome Back, '+(currentMember?.username||'Admin')+'! ♡'};
-const sdMenuBtn=$('sdMenuBtn');if(sdMenuBtn)sdMenuBtn.addEventListener('click',()=>document.querySelector('#appView>.tabs')?.classList.toggle('mobile-open'));
-document.querySelectorAll('#appView>.tabs .tab').forEach(b=>b.addEventListener('click',()=>document.querySelector('#appView>.tabs')?.classList.remove('mobile-open')));
 document.querySelectorAll('[data-atelier-go]').forEach(b=>b.addEventListener('click',()=>document.querySelector('#appView>.tabs .tab[data-page="'+b.dataset.atelierGo+'"]')?.click()));
 const dateEl=$('atelierDate');if(dateEl)dateEl.textContent=new Intl.DateTimeFormat('en-PH',{dateStyle:'medium',timeZone:'Asia/Manila'}).format(new Date());
 db.auth.onAuthStateChange((event,session)=>{if(event==='SIGNED_OUT'){currentUser=null}});
