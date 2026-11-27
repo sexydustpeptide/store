@@ -3316,15 +3316,24 @@ body{background:linear-gradient(135deg,#fff9fa,#fce9ef);color:var(--ink);font-fa
  #page-users>.grid>.card,#page-users>.card{padding:17px!important;border-radius:18px!important}
 }
 
-/* Reseller dashboard: remove the large welcome banner and keep controls in a compact toolbar */
-#appView.reseller-mode #page-overview .atelier-welcome{display:none!important}
+/* Reseller dashboard: replace greeting with an elegant brand banner */
+#appView.reseller-mode #page-overview>.atelier-welcome{display:none!important}
 #appView.reseller-mode #page-overview .atelier-bottom-grid{display:none!important}
+#appView.reseller-mode #page-overview #resellerDashboard{display:block!important}
+#appView.reseller-mode #page-overview .rd-brand-banner{position:relative;isolation:isolate;overflow:hidden;display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:142px;margin:0 0 18px;padding:22px 18px;border:1px solid #f1bfd0;border-radius:22px;background:linear-gradient(112deg,#f8dce7 0%,#fff8fb 48%,#efb0c6 100%);box-shadow:0 10px 28px rgba(127,32,72,.09);color:#741431;text-align:center}
+#appView.reseller-mode #page-overview .rd-brand-banner:before,#appView.reseller-mode #page-overview .rd-brand-banner:after{content:"";position:absolute;z-index:-1;width:42%;height:150%;top:-25%;border:1px solid rgba(190,71,119,.18);border-radius:50%;transform:rotate(-18deg)}
+#appView.reseller-mode #page-overview .rd-brand-banner:before{left:-17%;box-shadow:8px 0 0 rgba(255,255,255,.24),16px 0 0 rgba(190,71,119,.09)}
+#appView.reseller-mode #page-overview .rd-brand-banner:after{right:-17%;transform:rotate(18deg);box-shadow:-8px 0 0 rgba(255,255,255,.24),-16px 0 0 rgba(190,71,119,.09)}
+#appView.reseller-mode #page-overview .rd-brand-symbol{font:30px 'Playfair Display',serif;line-height:1;margin-bottom:5px}
+#appView.reseller-mode #page-overview .rd-brand-name{font:500 clamp(30px,5vw,42px) 'Playfair Display',serif;letter-spacing:1.5px;line-height:1.1}
+#appView.reseller-mode #page-overview .rd-brand-subtitle{margin-top:7px;font:600 10px 'DM Sans',sans-serif;letter-spacing:3px}
+#appView.reseller-mode #page-overview .rd-brand-sparkle{position:absolute;right:13%;top:22%;font-size:23px;color:#c35d87}
 #appView.reseller-mode #page-overview .reseller-page-heading{display:flex!important;justify-content:flex-end;align-items:center;margin:0 0 12px;padding:0;background:transparent;border:0;box-shadow:none;min-height:0}
 #appView.reseller-mode #page-overview .reseller-page-heading>div:first-child{display:none!important}
 #appView.reseller-mode #page-overview .rd-heading-actions{display:flex;align-items:center;justify-content:flex-end;gap:9px;flex-wrap:wrap}
 #appView.reseller-mode #page-overview .rd-heading-actions select{border:1px solid #e9b8c9;border-radius:12px;padding:8px 12px;background:#fff8fb;color:#74384f;font-weight:600;min-height:36px}
 #appView.reseller-mode #page-overview .rd-heading-actions .btn{padding:8px 13px;min-height:36px}
-@media(max-width:760px){#appView.reseller-mode #page-overview .reseller-page-heading{margin:0 0 10px}#appView.reseller-mode #page-overview .rd-heading-actions{gap:7px}#appView.reseller-mode #page-overview .rd-heading-actions select{max-width:145px}}
+@media(max-width:760px){#appView.reseller-mode #page-overview .rd-brand-banner{min-height:120px;margin-bottom:13px;padding:18px 14px;border-radius:18px}#appView.reseller-mode #page-overview .rd-brand-name{font-size:32px}#appView.reseller-mode #page-overview .rd-brand-subtitle{font-size:9px;letter-spacing:2.4px}#appView.reseller-mode #page-overview .reseller-page-heading{margin:0 0 10px}#appView.reseller-mode #page-overview .rd-heading-actions{gap:7px}}
 </style>
 </head>
 <body>
@@ -3361,6 +3370,7 @@ body{background:linear-gradient(135deg,#fff9fa,#fce9ef);color:var(--ink);font-fa
      <section class="card atelier-snapshot"><div class="atelier-panel-title"><h3>▱ &nbsp; Inventory Snapshot</h3><button class="atelier-link" data-atelier-go="inventory">View Inventory →</button></div><div id="atelierSnapshotRows"><div class="empty">Loading live inventory…</div></div></section>
     </div>
    <div id="resellerDashboard" class="hidden reseller-home">
+    <div class="rd-brand-banner"><span class="rd-brand-symbol">♧</span><div class="rd-brand-name">SEXY DUST</div><div class="rd-brand-subtitle">I N V E N T O R Y&nbsp;&nbsp; A T E L I E R</div><span class="rd-brand-sparkle">✦</span></div>
     <div class="reseller-page-heading"><div><h2>Welcome, <em id="rdWelcomeName">Reseller</em>! ♡</h2><p>Here’s your stocks, payments and account summary.</p></div><div class="rd-heading-actions"><select id="rdDateFilter" aria-label="Dashboard date range"><option value="all" selected>All Time</option><option value="week">This Week</option><option value="month">This Month</option></select><button class="btn soft" id="rdRefresh" type="button">↻ Refresh</button></div></div>
     <div class="stats dashboard-stats reseller-kpis">
      <div class="card stat"><span class="rd-icon">♧</span><small>Stocks received</small><strong id="rdStocks">0</strong><p>Total units released to you</p></div>
